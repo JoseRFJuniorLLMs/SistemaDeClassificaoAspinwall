@@ -1,0 +1,8 @@
+#Mude o caminho para o a pasta do treino de acordo com seus projeto
+server:
+  port: 8080
+
+loja:
+  savedModel:
+    path: /home/jr/IdeaProjects/Loja-MongoDB/src/main/java/com/booksgames/loja/training/stored_model/1530093489
+    tags: serve

@@ -1,0 +1,46 @@
+<form class="needs-validation" novalidate [formGroup]="form" style="padding-top: 10px">
+  <div class="form-row">
+ <!-- Nome do Produto -->
+    <div class="col-sm-6">
+      <label for="descricao">Nome do Produto</label>
+      <input
+        type="text"
+        class="form-control"
+        id="descricao"
+        placeholder="Nome do Produto"
+        formControlName="descricao"
+        [ngClass]="{ 'is-invalid': submitted && hasError('descricao')}"
+      />
+
+      <div class="invalid-feedback" *ngIf="hasError('descricao') && hasError('descricao')['required']" >
+        Por favor informe um nome para o produto.
+      </div>
+      <div class="invalid-feedback" *ngIf="hasError('descricao') && hasError('descricao')['minlength']" >
+        Nome precisa ter no mínimo {{ hasError('descricao')['minlength'].requiredLength }} caracteres.
+      </div>
+      <div class="invalid-feedback" *ngIf="hasError('descricao') && hasError('descricao')['maxlength']" >
+        Nome precisa ter no máximo {{ hasError('descricao')['maxlength'].requiredLength }} caracteres.
+      </div>
+    </div>
+
+  <div class="col-sm-6">
+   <!-- inicio do combo -->
+   <label for="cor">Cores</label>
+   <table class="form-control" *ngIf="cors$ | async as cors; else loading">
+            <select name="cor" id="cor" formControlName="cor">
+              <!--  <option *ngFor="let cor of cors | async as cors">{{ cor }}</option>-->
+               <option *ngFor="let cor of cors" [ngValue]="cor">{{ cor.nome }}</option>
+            </select> 
+      </table>
+   <ng-template #loading>
+     <span>Carregando Cores...</span>
+   </ng-template>
+<!-- fim do combo -->
+ </div>
+
+  </div>
+  <div style="margin-top: 10px">
+    <button type="sumit" class="btn btn-primary" (click)="onSubmit()">Salvar</button>
+    <button type="button" class="btn btn-default" (click)="onCancel()">Cancelar</button>
+  </div>
+</form>

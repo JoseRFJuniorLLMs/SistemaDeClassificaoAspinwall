@@ -1,0 +1,55 @@
+<div class="card mt-3">
+  <div class="card-header">
+    <div class="float-left">
+      <h4>Cors</h4>
+    </div>
+    <div class="float-right">
+      <button type="button" class="btn btn-primary" [routerLink]="['novo']">Novo Cor</button>
+      <button type="button" class="btn btn-secondary" (click)="onRefresh()">Atualizar</button>
+    </div>
+  </div>
+  <div class="card-body">
+    <table class="table table-hover" *ngIf="cors$ | async as cors; else loading">
+      <thead>
+        <tr>
+          <th>Cod</th>
+          <th>Cor</th>
+          <th></th>
+        </tr>
+      </thead>
+
+        <!-- _id -->
+        <div class="table table-hover">
+          <label for="_id">Cor</label>
+          <select name="_id" id="_id">
+            <option *ngFor="let cor of cors">{{ cor.nome }}</option>
+          </select>
+        </div>
+
+      <tbody>
+        <tr *ngFor="let cor of cors">
+          <td>{{ cor._id }}</td>
+          <strong>{{cor.nome }}</strong><br>
+          <small class="text-success">{{cor.hex}}</small><br>
+          
+          <td>
+            <span class="float-right">
+              <button class="btn btn-outline-warning mb-1 btn-sm">
+                Atualizar
+              </button>
+
+              <button class="btn btn-outline-danger mb-1 btn-sm">
+                Remover
+              </button>
+            </span>
+          </td>
+          
+        </tr>
+      </tbody>
+    </table>
+
+    <ng-template #loading>
+      <span>Carregando Cors...</span>
+    </ng-template>
+  </div>
+</div>
