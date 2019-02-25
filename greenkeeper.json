@@ -1,0 +1,9 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "Sistema-Cliente-Angular/package.json"
+      ]
+    }
+  }
+}
