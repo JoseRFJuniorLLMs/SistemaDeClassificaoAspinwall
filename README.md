@@ -1,13 +1,13 @@
-# :: Spring Boot ::  (v2.2.0.BUILD-SNAPSHOT)
-![](./src/doc/java.png)
-#RESPOSTAS DO SISTEMA
-Sistema de Classificação Aspinwall. Ele classifica e atribui nota ao produtos baseado em cinco variáveis:
-
+# :: Sistema de Classificação Aspinwall. ::
+Ele classifica e atribui nota ao produtos baseado em cinco variáveis:
 1) taxa de reposição - qual a frequência com que o produto é recomprado.
 2) margem bruta - quanto lucro é obtido de cada produto (preço médio de venda menos custo unitário médio).
 3) ajuste de objetivo do comprador - qual a flexibilidade dos hábitos de consumo dos compradores em relação a esse produto.
 4) duração da satisfação do produto - por quanto tempo o produto irá produzir benefícios ao usuário.
 5) duração do comportamento de busca do comprador - quanto tempo eles demorarão para comprar o produto.
+
+![](./src/doc/java.png)
+
 
 ![](./src/doc/cor1.png)
 ![](./src/doc/cor2.png)
