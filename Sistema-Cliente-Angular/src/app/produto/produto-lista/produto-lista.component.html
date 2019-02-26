@@ -1,30 +1,22 @@
+
 <div class="card mt-3">
   <div class="card-header">
     <div class="float-left">
       <h4>Produtos</h4>
+<!--       <input class="form-control mr-sm-6" type="search" 
+placeholder="Digite o nome " aria-label="Pesquisar">
+<button class="btn btn-outline-success my-2 my-sm-0"
+ type="submit">Pesquisar</button> -->
+ 
     </div>
     <div class="float-right">
       <button type="button" class="btn btn-primary" [routerLink]="['novo']">Novo Produto</button>
       <button type="button" class="btn btn-secondary" (click)="onRefresh()">Atualizar</button>
+    
     </div>
   </div>
- 
-  <div class="card-body">
-     <!-- inicio do combo -->
-              <table class="table table-hover" *ngIf="cors$ | async as cors; else loading">
-               <tbody>
-                  <!-- _id -->
-                   <label for="_id">Cor</label>
-                     <select name="_id" id="_id">
-                       <option *ngFor="let cor of cors">{{ cor.nome }}</option>
-                     </select>
-                </tbody>
-              </table>
-            <ng-template #loading>
-              <span>Carregando Cors...</span>
-            </ng-template>
-     <!-- fim do combo -->
 
+  <div class="card-body">
     <table class="table table-hover" *ngIf="produtos$ | async as produtos; else loading">
       <thead>
         <tr>

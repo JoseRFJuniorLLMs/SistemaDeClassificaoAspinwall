@@ -56,7 +56,7 @@ public class ProdutoController {
     produto.set_id(_id);
     produtoRepository.save(produto);
   }
-
+  @CrossOrigin(origins = "http://localhost:4200")
   @PostMapping(value = "/")
   public ResponseEntity<Void> createProduto(@Valid @RequestBody Produto objDto) {
     Produto obj = produtoServiceImpl.fromDTO(objDto);
