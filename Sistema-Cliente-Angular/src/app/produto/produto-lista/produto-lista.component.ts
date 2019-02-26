@@ -5,6 +5,7 @@ import { Observable, empty, of, Subject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AlertModalService } from '../../shared/alert-modal.service';
 import { Cor } from 'src/app/cor/cor';
+import { CorService } from 'src/app/cor/cor.service';
 
 @Component({
   selector: 'app-produto-lista',
@@ -20,6 +21,7 @@ export class ProdutoListaComponent implements OnInit {
 
   constructor(
     private produtoService: ProdutoService,
+    private corService: CorService,
     private alertService: AlertModalService
     ) { }
 
@@ -40,7 +42,8 @@ export class ProdutoListaComponent implements OnInit {
   }
 
   onRefreshCor() {
-    this.cors$ = this.produtoService.listCor()
+    this.handleSucesso()
+    this.cors$ = this.corService.list()
     .pipe(
       catchError(error => {
         console.error(error);
@@ -49,8 +52,12 @@ export class ProdutoListaComponent implements OnInit {
       })
     );
   }
+  
+  handleSucesso() {
+    this.alertService.showAlertSuccess('Conectando ao Servidor....');
+   }
 
   handleError() {
-    this.alertService.showAlertDanger('Erro ao carregar produtos. Tente novamente mais tarde.');
+    this.alertService.showAlertDanger('Erro ao carregar produtos. Servidor off line Tente novamente mais tarde.');
    }
 }

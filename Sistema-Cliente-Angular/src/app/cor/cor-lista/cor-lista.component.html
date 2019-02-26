@@ -8,9 +8,12 @@
       <button type="button" class="btn btn-secondary" (click)="onRefresh()">Atualizar</button>
     </div>
   </div>
+
+
   <div class="card-body">
     <table class="table table-hover" *ngIf="cors$ | async as cors; else loading">
       <thead>
+
         <tr>
           <th>Cod</th>
           <th>Cor</th>
@@ -18,16 +21,20 @@
         </tr>
       </thead>
 
-        <!-- _id -->
-        <div class="table table-hover">
-          <label for="_id">Cor</label>
-          <select name="_id" id="_id">
-            <option *ngFor="let cor of cors">{{ cor.nome }}</option>
-          </select>
-        </div>
-
       <tbody>
+          <div class="col-sm-6">
+              <label for="cor">Cores</label>
+              <table class="form-control" *ngIf="cors$ | async as cors; else loading">
+                       <select name="cor" id="cor" formControlName="cor">
+                           <option *ngFor="let cor of cors" [ngValue]="cor">{{ cor.nome }}</option>
+                       </select> 
+                 </table>
+              <ng-template #loading>
+                <span>Carregando Cores...</span>
+              </ng-template>
+          </div> 
         <tr *ngFor="let cor of cors">
+
           <td>{{ cor._id }}</td>
           <strong>{{cor.nome }}</strong><br>
           <small class="text-success">{{cor.hex}}</small><br>
@@ -45,6 +52,8 @@
           </td>
           
         </tr>
+
+        
       </tbody>
     </table>
 

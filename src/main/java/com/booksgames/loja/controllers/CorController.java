@@ -26,7 +26,7 @@ import reactor.core.publisher.Mono;
  * web2ajax@gmail.com
  * Santiago Chile 15 02 2019
  */
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 @RequestMapping("/cores/v1/cor")
 public class CorController {

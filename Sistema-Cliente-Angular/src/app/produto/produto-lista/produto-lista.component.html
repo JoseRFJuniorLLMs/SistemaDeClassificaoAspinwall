@@ -2,17 +2,19 @@
 <div class="card mt-3">
   <div class="card-header">
     <div class="float-left">
-      <h4>Produtos</h4>
-<!--       <input class="form-control mr-sm-6" type="search" 
-placeholder="Digite o nome " aria-label="Pesquisar">
-<button class="btn btn-outline-success my-2 my-sm-0"
- type="submit">Pesquisar</button> -->
+
+       <input class="form-control" 
+       type="search" 
+       placeholder="Digite o nome do produto" 
+       aria-label="Pesquisar">
+       <button class="btn btn-outline-success" 
+       type="submit">Pesquisar</button> 
  
     </div>
     <div class="float-right">
       <button type="button" class="btn btn-primary" [routerLink]="['novo']">Novo Produto</button>
-      <button type="button" class="btn btn-secondary" (click)="onRefresh()">Atualizar</button>
-    
+      <button type="button" class="btn btn-secondary" (click)="onRefresh()">Atualizar Lista</button>
+  
     </div>
   </div>
 
@@ -20,28 +22,55 @@ placeholder="Digite o nome " aria-label="Pesquisar">
     <table class="table table-hover" *ngIf="produtos$ | async as produtos; else loading">
       <thead>
         <tr>
-          <th>Cod</th>
+         <!--  <th>Cod</th> -->
           <th>Produto</th>
-          <th>Durabilidade</th>
-          <th>Rotulagem</th>
+        <!--   <th>Durabilidade</th>
+          <th>Rotulagem</th> -->
           <th>Cor</th>
+          <th>Grupo</th>
+          <th>Marca</th>
+          <th>Embalagem</th>
           <th></th>
         </tr>
       </thead>
     
       <tbody>
         <tr *ngFor="let produto of produtos">
-          <td>{{ produto._id }}</td>
-
+          
           <strong>{{produto.descricao}}</strong><br>
-          <small class="text-success">R$ {{produto.preco}}</small><br>
-          <small class="text-success">Kg {{produto.peso}}</small><br>
+          <a href="#" class="badge badge-primary">Valor R$</a>
+          <a href="#" 
+          class="badge badge-info"
+          data-toggle="tooltip" 
+          data-placement="top"  
+          title="Preco do Produto"
+          >{{produto.preco}}</a>
+          
+          <a href="#" class="badge badge-primary">Peso Kg</a>
+          <a href="#" 
+          class="badge badge-info"
+          data-toggle="tooltip" 
+          data-placement="top" 
+          title="Valor do Produto"
+          >{{produto.peso}}</a><br>
 
-          <td>{{ produto.durabilidade }}</td>
-          <td>{{ produto.rotulagem }}</td>
+          <a href="#" class="badge badge-primary">Cod</a>
+          <a href="#" 
+          class="badge badge-info"
+          data-toggle="tooltip" 
+          data-placement="top" 
+          title="Codigo do Produto"
+          >{{produto._id}}</a>
 
-          <strong>{{produto.cor.nome }}</strong><br>
+        <!--   <td>{{ produto.durabilidade }}</td>
+          <td>{{ produto.rotulagem }}</td> -->
+
+          <strong>{{ produto.cor.nome }}</strong><br>
           <small class="text-success">{{produto.cor.hex}}</small><br>
+
+          <td>{{ produto.grupo.descricao }}</td>
+          <td>{{ produto.marca.descricao }}</td>
+          <td>{{ produto.embalagem.descricao }}</td>
           
           <td>
             <span class="float-right">
@@ -57,9 +86,11 @@ placeholder="Digite o nome " aria-label="Pesquisar">
         </tr>
       </tbody>
     </table>
-
     <ng-template #loading>
       <span>Carregando Produtos...</span>
+      <div class="spinner-border text-primary" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
     </ng-template>
   </div>
 </div>

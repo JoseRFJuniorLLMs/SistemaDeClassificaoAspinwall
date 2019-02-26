@@ -12,7 +12,6 @@ export class ProdutoService {
 
   private readonly API = `${environment.API}`;
   private readonly API2 = `${environment.API2}`;
-  private readonly API3 = `${environment.API3}`;
 
   constructor(private http: HttpClient) { }
 
@@ -20,14 +19,6 @@ export class ProdutoService {
     'Content-Type': 'application/json',
     'Accept': 'application/json'
   });
-
-  listCor() {
-    return this.http.get<Cor[]>(this.API2)
-      .pipe(
-        delay(1000),
-        tap(console.log)
-      );
-  }
 
   list() {
     return this.http.get<Produto[]>(this.API)
@@ -37,13 +28,10 @@ export class ProdutoService {
       );
   }
 
-/*   create(produto) {
-    return this.http.post(this.API3, produto).pipe(take(1));
-  } */
   create(produto: Produto) {
-    return this.http.post<Produto>(this.API3, produto, {
+    return this.http.post<Produto>(this.API2, produto, {
       headers: this.headers
     })
     .pipe(map(data => data));
-}
+  }
 }

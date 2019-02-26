@@ -26,6 +26,7 @@ export class CursosListaComponent implements OnInit {
   }
 
   onRefresh() {
+    this.handleSucesso()
     this.cursos$ = this.service.list()
     .pipe(
       catchError(error => {
@@ -36,7 +37,11 @@ export class CursosListaComponent implements OnInit {
     );
   }
 
+  handleSucesso() {
+    this.alertService.showAlertSuccess('Conectando ao Servidor... on line.');
+   }
+
   handleError() {
-    this.alertService.showAlertDanger('Erro ao carregar cursos. Tente novamente mais tarde.');
+    this.alertService.showAlertDanger('Erro ao carregar cursos. servidor off line Tente novamente mais tarde.');
    }
 }

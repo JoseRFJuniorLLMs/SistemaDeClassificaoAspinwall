@@ -2,8 +2,10 @@ package com.booksgames.loja.services.impl;
 
 import java.util.Optional;
 
+import com.booksgames.loja.documents.Cor;
 import com.booksgames.loja.dto.GrupoDTO;
 import com.booksgames.loja.repository.GrupoRepository;
+import com.booksgames.loja.repository.reactive.GrupoReactiveRepository;
 import com.booksgames.loja.services.GrupoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -16,6 +18,7 @@ import com.booksgames.loja.documents.Grupo;
 import com.booksgames.loja.services.exceptions.DataIntegrityException;
 import com.booksgames.loja.services.exceptions.ObjectNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
+import reactor.core.publisher.Flux;
 
 /**
  * @author Jose R F Junior
@@ -28,6 +31,15 @@ public class GrupoServiceImpl implements GrupoService {
 
     @Autowired
     private GrupoRepository grupoRepository;
+
+    @Autowired
+    private GrupoReactiveRepository grupoReactiveRepository;
+
+    // WEB FLUX METODOS
+    public Flux<Grupo> findAll( ) {
+        Flux<Grupo> obj = grupoReactiveRepository.findAll();
+        return grupoReactiveRepository.findAll();
+    }
 
     public Grupo findId(String _id) {
         Optional<Grupo> obj = grupoRepository.findById(_id);

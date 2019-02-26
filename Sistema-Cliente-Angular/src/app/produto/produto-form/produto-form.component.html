@@ -23,20 +23,70 @@
       </div>
     </div>
 
-  <div class="col-sm-6">
-   <!-- inicio do combo -->
-   <label for="cor">Cores</label>
-   <table class="form-control" *ngIf="cors$ | async as cors; else loading">
-            <select name="cor" id="cor" formControlName="cor">
-              <!--  <option *ngFor="let cor of cors | async as cors">{{ cor }}</option>-->
+    <!-- cor -->
+      <div class="form-row">
+        <div class="form-group col-md-20" *ngIf="cors$ | async as cors; else loading">
+          <label for="cor">Cor</label>
+          <select name="cor" id="cor" formControlName="cor" class="form-control">
                <option *ngFor="let cor of cors" [ngValue]="cor">{{ cor.nome }}</option>
-            </select> 
-      </table>
-   <ng-template #loading>
-     <span>Carregando Cores...</span>
-   </ng-template>
-<!-- fim do combo -->
- </div>
+          </select>
+        </div>
+        <ng-template #loading>
+          <span>Cores...</span>
+          <div class="spinner-border text-primary" role="status">
+              <span class="sr-only">Cores...</span>
+            </div>
+        </ng-template>
+      </div>
+
+   <!-- grupo -->
+   <div class="form-row">
+      <div class="form-group col-md-20" *ngIf="grupos$ | async as grupos; else loading">
+        <label for="grupo">Grupo</label>
+        <select name="grupo" id="grupo" formControlName="grupo" class="form-control">
+          <option *ngFor="let grupo of grupos" [ngValue]="grupo">{{ grupo.descricao }}</option>
+        </select>
+      </div>
+      <ng-template #loading>
+        <span>Grupo...</span>
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Grupo...</span>
+          </div>
+      </ng-template>
+    </div>
+
+       <!-- embalagem -->
+   <div class="form-row">
+      <div class="form-group col-md-20" *ngIf="embalagens$ | async as embalagens; else loading">
+        <label for="embalagem">Embalagem</label>
+        <select name="embalagem" id="embalagem" formControlName="embalagem" class="form-control">
+          <option *ngFor="let embalagem of embalagens" [ngValue]="embalagem">{{ embalagem.descricao }}</option>
+        </select>
+      </div>
+      <ng-template #loading>
+        <span>Embalagem...</span>
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Embalagem...</span>
+          </div>
+      </ng-template>
+    </div>
+
+       <!-- marca -->
+       <div class="form-row">
+          <div class="form-group col-md-20" *ngIf="marcas$ | async as marcas; else loading">
+            <label for="marca">Marca</label>
+            <select name="marca" id="marca" formControlName="marca" class="form-control">
+              <option *ngFor="let marca of marcas" [ngValue]="marca">{{ marca.descricao }}</option>
+            </select>
+          </div>
+          <ng-template #loading>
+            <span>Marca...</span>
+            <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">Marca...</span>
+              </div>
+          </ng-template>
+        </div>
+
 
   </div>
   <div style="margin-top: 10px">

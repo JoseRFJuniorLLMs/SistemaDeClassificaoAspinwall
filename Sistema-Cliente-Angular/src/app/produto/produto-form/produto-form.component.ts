@@ -7,6 +7,12 @@ import { CorService } from 'src/app/cor/cor.service';
 import { Observable, empty } from 'rxjs';
 import { Cor } from 'src/app/cor/cor';
 import { catchError } from 'rxjs/operators';
+import { MarcaService } from 'src/app/marca/marca.service';
+import { Marca } from 'src/app/marca/marca';
+import { Grupo } from 'src/app/grupo/grupo';
+import { Embalagem } from 'src/app/embalagem/embalagem';
+import { GrupoService } from 'src/app/grupo/grupo.service';
+import { EmbalagemService } from 'src/app/embalagem/embalagem.service';
 
 @Component({
   selector: 'app-produto-form',
@@ -14,9 +20,12 @@ import { catchError } from 'rxjs/operators';
   styleUrls: ['./produto-form.component.scss']
 })
 export class ProdutoFormComponent implements OnInit {
-  [x: string]: any;
 
+  [x: string]: any;
   cors$: Observable<Cor[]>;
+  marcas$: Observable<Marca[]>;
+  grupos$: Observable<Grupo[]>;
+  embalagens$: Observable<Embalagem[]>;
   form: FormGroup;
   submitted = false;
 
@@ -24,14 +33,30 @@ export class ProdutoFormComponent implements OnInit {
     private fb: FormBuilder,
     private produtoService: ProdutoService,
     private corService: CorService,
+    private marcaService: MarcaService,
+    private grupoService: GrupoService,
+    private embalagemService: EmbalagemService,
     private modal: AlertModalService,
     private location: Location) { }
 
   ngOnInit() {
+    this.onRefreshMarca();
+    this.onRefreshGrupo();
     this.onRefreshCor();
+    this.onRefreshEmbalagem();
+
     this.form = this.fb.group({
       descricao: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
-      cor: []
+      preco: [],
+      durabilidade: [],
+      peso: [],
+      rotulagem: [],
+      status: [],
+      cor: [],
+      grupo: [],
+      marca: [],
+      embalagem: [],
+      imagem: []
     });
 
   }
@@ -42,7 +67,37 @@ export class ProdutoFormComponent implements OnInit {
         console.error(error);
         this.handleError();
         return empty();
-      })
+        })
+    );
+  }
+  onRefreshMarca() {
+    this.marcas$ = this.marcaService.list()
+    .pipe(
+      catchError(error => {
+        console.error(error);
+        this.handleError();
+        return empty();
+        })
+    );
+  }
+  onRefreshGrupo() {
+    this.grupos$ = this.grupoService.list()
+    .pipe(
+      catchError(error => {
+        console.error(error);
+        this.handleError();
+        return empty();
+        })
+    );
+  }
+  onRefreshEmbalagem() {
+    this.embalagens$ = this.embalagemService.list()
+    .pipe(
+      catchError(error => {
+        console.error(error);
+        this.handleError();
+        return empty();
+        })
     );
   }
 
@@ -57,10 +112,10 @@ export class ProdutoFormComponent implements OnInit {
       console.log('submit');
       this.produtoService.create(this.form.value).subscribe(
         success => {
-          this.modal.showAlertSuccess('Curso criado com sucesso!');
+          this.modal.showAlertSuccess('Produto Cadastrado com Sucesso!');
           this.location.back();
         },
-        error => this.modal.showAlertDanger('Erro ao criar curso, tente novamente!'),
+        error => this.modal.showAlertDanger('Erro ao cadastrar o produto, tente novamente!'),
         () => console.log('request completo')
       );
     }

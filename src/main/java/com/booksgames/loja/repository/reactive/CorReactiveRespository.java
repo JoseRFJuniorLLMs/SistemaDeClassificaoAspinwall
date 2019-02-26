@@ -13,5 +13,4 @@ import reactor.core.publisher.Flux;
 public interface CorReactiveRespository extends ReactiveMongoRepository<Cor, String>{
 
     Flux<Cor> findByNome(String nome);
- /*   List<Cor> findByNomeGoogle();*/
 }

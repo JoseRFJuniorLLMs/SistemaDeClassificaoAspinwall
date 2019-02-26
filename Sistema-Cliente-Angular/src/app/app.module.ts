@@ -6,10 +6,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
+import { EmbalagemComponent } from './embalagem/embalagem.component';
+import { GrupoComponent } from './grupo/grupo.component';
+import { MarcaComponent } from './marca/marca.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    EmbalagemComponent,
+    GrupoComponent,
+    MarcaComponent
   ],
   imports: [
     BrowserModule,

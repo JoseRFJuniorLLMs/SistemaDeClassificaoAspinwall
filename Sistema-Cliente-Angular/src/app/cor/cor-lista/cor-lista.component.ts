@@ -28,6 +28,7 @@ export class CorListaComponent implements OnInit {
   }
 
   onRefreshCor() {
+    this.handleSucesso()
     this.cors$ = this.corService.list()
     .pipe(
       catchError(error => {
@@ -38,7 +39,11 @@ export class CorListaComponent implements OnInit {
     );
   }
 
+  handleSucesso() {
+    this.alertService.showAlertSuccess('Conectando ao Servidor....');
+   }
+
   handleError() {
-    this.alertService.showAlertDanger('Erro ao carregar cors. Tente novamente mais tarde.');
+    this.alertService.showAlertDanger('Erro ao carregar, Servidor off line - Tente novamente mais tarde.');
    }
 }
