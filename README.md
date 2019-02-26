@@ -7,8 +7,6 @@ Ele classifica e atribui nota ao produtos baseado em cinco variáveis:
 5) duração do comportamento de busca do comprador - quanto tempo eles demorarão para comprar o produto.
 
 ![](./src/doc/java.png)
-
-
 ![](./src/doc/cor1.png)
 ![](./src/doc/cor2.png)
 
