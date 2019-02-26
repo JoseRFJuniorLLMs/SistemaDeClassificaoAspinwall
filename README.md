@@ -9,7 +9,7 @@ Sistema de Classificação Aspinwall. Ele classifica e atribui nota ao produtos 
 4) duração da satisfação do produto - por quanto tempo o produto irá produzir benefícios ao usuário.
 5) duração do comportamento de busca do comprador - quanto tempo eles demorarão para comprar o produto.
 
-![](./src/doc/cor.png)
+![](./src/doc/cor1.png)
 ![](./src/doc/cor2.png)
 
 # LOJA
