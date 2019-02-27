@@ -11,7 +11,8 @@ export enum AlertTypes {
   providedIn: 'root'
 })
 export class AlertModalService {
-  constructor(private modalService: BsModalService) {}
+  constructor(
+    private modalService: BsModalService) {}
 
   private showAlert(message: string, type: AlertTypes, dismissTimeout?: number) {
     const bsModalRef: BsModalRef = this.modalService.show(AlertModalComponent);

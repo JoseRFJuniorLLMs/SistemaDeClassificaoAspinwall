@@ -44,7 +44,6 @@ export class ProdutoFormComponent implements OnInit {
     this.onRefreshGrupo();
     this.onRefreshCor();
     this.onRefreshEmbalagem();
-
     this.form = this.fb.group({
       descricao: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
       preco: [],
@@ -58,8 +57,8 @@ export class ProdutoFormComponent implements OnInit {
       embalagem: [],
       imagem: []
     });
-
   }
+
   onRefreshCor() {
     this.cors$ = this.corService.list()
     .pipe(
@@ -70,6 +69,7 @@ export class ProdutoFormComponent implements OnInit {
         })
     );
   }
+
   onRefreshMarca() {
     this.marcas$ = this.marcaService.list()
     .pipe(
@@ -80,6 +80,7 @@ export class ProdutoFormComponent implements OnInit {
         })
     );
   }
+
   onRefreshGrupo() {
     this.grupos$ = this.grupoService.list()
     .pipe(
@@ -90,6 +91,7 @@ export class ProdutoFormComponent implements OnInit {
         })
     );
   }
+
   onRefreshEmbalagem() {
     this.embalagens$ = this.embalagemService.list()
     .pipe(

@@ -1,69 +1,176 @@
-<div class="navbar">
-  <div class="card-header">
-    <div class="float-left">
-      <button type="button" class="btn btn-primary" (click)="open(content2)">Novo Produto</button>
-    </div>
-  </div>
   <!-- INICIO DO MODAL -->
-  <div class="col-md-6">
-    <div class="card">
-      <div class="card-body">
-        <input class="form-control" type="search" placeholder="Digite o nome do produto" aria-label="Pesquisar">
-        <button class="btn btn-outline-success" type="submit">Pesquisar</button>
-        <button type="button" class="btn btn-secondary" (click)="onRefresh()">Atualizar Lista</button>
-        <ng-template #content2 let-c="close" let-d="dismiss">
-          <div class="modal-header">
-            <h4 class="modal-title text-white">Cadastrar Novo Produto</h4>
-            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-              <span aria-hidden="true">&times;</span>
-            </button>
+  <button type="button" 
+  class="btn btn-primary" 
+  (click)="open(content2)">Novo Produto</button>
+
+<!-- Formulario do Produto -->
+<ng-template #content2 let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title text-white">Cadastrar Novo Produto</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="modal-body" [formGroup]="form" style="padding-top: 10px">
+        <div class="form-row">
+            <div class="col-sm-6">
+
+                <label for="descricao">Nome do Produto</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="descricao"
+                  placeholder="Nome do Produto"
+                  formControlName="descricao"
+                  [ngClass]="{ 'is-invalid': submitted && hasError('descricao')}"
+                />
+                <div class="invalid-feedback" *ngIf="hasError('descricao') && hasError('descricao')['required']" >
+                    Por favor informe um nome para o produto.
+                  </div>
+                  <div class="invalid-feedback" *ngIf="hasError('descricao') && hasError('descricao')['minlength']" >
+                    Nome precisa ter no mínimo {{ hasError('descricao')['minlength'].requiredLength }} caracteres.
+                  </div>
+                  <div class="invalid-feedback" *ngIf="hasError('descricao') && hasError('descricao')['maxlength']" >
+                    Nome precisa ter no máximo {{ hasError('descricao')['maxlength'].requiredLength }} caracteres.
+                  </div>
+            </div>
+
+    <!-- cor -->
+      <div class="form-row">
+          <div class="form-group col-md-20" *ngIf="cors$ | async as cors; else loading">
+            <label for="cor">Cor</label>
+            <select name="cor" id="cor" formControlName="cor" class="form-control">
+                 <option *ngFor="let cor of cors" [ngValue]="cor">{{ cor.nome }}</option>
+            </select>
           </div>
-          <div class="modal-body">
-            <p>One fine body&hellip;</p>
-            
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-inverse" (click)="c('Close click')">Fechar</button>
-          </div>
+          <ng-template #loading>
+            <span>Cores...</span>
+            <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">Cores...</span>
+              </div>
+          </ng-template>
+        </div>
+  
+     <!-- grupo -->
+     <div class="form-row">
+        <div class="form-group col-md-20" *ngIf="grupos$ | async as grupos; else loading">
+          <label for="grupo">Grupo</label>
+          <select name="grupo" id="grupo" formControlName="grupo" class="form-control">
+            <option *ngFor="let grupo of grupos" [ngValue]="grupo">{{ grupo.descricao }}</option>
+          </select>
+        </div>
+        <ng-template #loading>
+          <span>Grupo...</span>
+          <div class="spinner-border text-primary" role="status">
+              <span class="sr-only">Grupo...</span>
+            </div>
         </ng-template>
       </div>
+  
+         <!-- embalagem -->
+     <div class="form-row">
+        <div class="form-group col-md-20" *ngIf="embalagens$ | async as embalagens; else loading">
+          <label for="embalagem">Embalagem</label>
+          <select name="embalagem" id="embalagem" formControlName="embalagem" class="form-control">
+            <option *ngFor="let embalagem of embalagens" [ngValue]="embalagem">{{ embalagem.descricao }}</option>
+          </select>
+        </div>
+        <ng-template #loading>
+          <span>Embalagem...</span>
+          <div class="spinner-border text-primary" role="status">
+              <span class="sr-only">Embalagem...</span>
+            </div>
+        </ng-template>
+      </div>
+  
+         <!-- marca -->
+         <div class="form-row">
+            <div class="form-group col-md-20" *ngIf="marcas$ | async as marcas; else loading">
+              <label for="marca">Marca</label>
+              <select name="marca" id="marca" formControlName="marca" class="form-control">
+                <option *ngFor="let marca of marcas" [ngValue]="marca">{{ marca.descricao }}</option>
+              </select>
+            </div>
+            <ng-template #loading>
+              <span>Marca...</span>
+              <div class="spinner-border text-primary" role="status">
+                  <span class="sr-only">Marca...</span>
+                </div>
+            </ng-template>
+          </div>
+        </div>  
     </div>
-  </div>
+
+    <div class="modal-footer">
+ 
+            <button type="sumit" class="btn btn-primary" (click)="onSubmit()">Salvar</button>
+     
+      <button type="button" class="btn btn-inverse" (click)="c('Close click')">Fechar</button>
+    </div>
+  </ng-template>
+<!-- fim do Produto -->
+
+<!--   <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+
+        <input class="form-control" 
+        type="search" 
+        placeholder="Digite o nome do produto" 
+        aria-label="Pesquisar">
+
+        <button class="btn btn-outline-success" 
+        type="submit">Pesquisar</button>
+
+        <button type="button" 
+        class="btn btn-secondary" 
+        (click)="onRefresh()">Atualizar Lista</button>
+
+      </div>
+    </div>
+  </div> -->
   <!-- FIM DO MODAL -->
+ 
   <div class="card-body">
     <table class="table table-hover" *ngIf="produtos$ | async as produtos; else loading">
       <thead>
         <tr>
-          <!--  <th>Cod</th> -->
-          <th>Produto</th>
-          <th>Durabilidade</th>
-          <th>Rotulagem</th>
-          <th>Cor</th>
-          <th>Grupo</th>
-          <th>Marca</th>
-          <th>Embalagem</th>
+          <th>Produtos</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let produto of produtos">
           <strong>{{produto.descricao}}</strong><br>
-          <a href="#" class="badge badge-primary">Valor R$</a>
+          <a href="#" class="badge badge-primary">Valor R$:</a>
           <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
             title="Preco do Produto">{{produto.preco}}</a>
-          <a href="#" class="badge badge-primary">Peso Kg</a>
+          <a href="#" class="badge badge-primary">Peso Kg:</a>
           <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
             title="Valor do Produto">{{produto.peso}}</a><br>
-          <a href="#" class="badge badge-primary">Cod</a>
+          <a href="#" class="badge badge-primary">Co:</a>
           <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
-            title="Codigo do Produto">{{produto._id}}</a>
-          <td>{{ produto.durabilidade }}</td>
-          <td>{{ produto.rotulagem }}</td>
-          <strong>{{ produto.cor.nome }}</strong><br>
-          <small class="text-success">{{produto.cor.hex}}</small><br>
-          <td>{{ produto.grupo.descricao }}</td>
-          <td>{{ produto.marca.descricao }}</td>
-          <td>{{ produto.embalagem.descricao }}</td>
+            title="Codigo do Produto">{{ produto._id }}</a>
+          
+          <a href="#" class="badge badge-primary">Cor:</a>
+          <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
+            title="Codigo do Produto">{{ produto.cor.nome }}</a>
+          <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
+            title="Codigo do Produto">{{ produto.cor.hex }}</a>
+ 
+          <a href="#" class="badge badge-primary">Grupo:</a>
+          <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
+            title="Codigo do Produto">{{ produto.grupo.descricao }}</a>
+
+          <a href="#" class="badge badge-primary">Marca:</a>
+          <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
+              title="Codigo do Produto">{{ produto.marca.descricao }}</a>
+          
+         <a href="#" class="badge badge-primary">Embalagem:</a>
+         <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
+                  title="Codigo do Produto">{{ produto.embalagem.descricao }}</a>
+ 
           <td>
             <span class="float-right">
               <button class="btn btn-outline-warning mb-1 btn-sm">
@@ -84,4 +191,4 @@
       </div>
     </ng-template>
   </div>
-</div>
+ 

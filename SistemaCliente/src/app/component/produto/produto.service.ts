@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Produto } from './produto';
 import { tap, delay, take, map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import { Cor } from '../paginas/cor/cor';
 
 @Injectable({
   providedIn: 'root'

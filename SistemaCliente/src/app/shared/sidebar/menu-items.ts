@@ -1,7 +1,7 @@
 import { RouteInfo } from './sidebar.metadata';
 
 export const ROUTES: RouteInfo[] = [
-  {
+/*   {
     path: '',
     title: 'Personal',
     icon: '',
@@ -10,7 +10,7 @@ export const ROUTES: RouteInfo[] = [
     labelClass: '',
     extralink: true,
     submenu: []
-  },
+  }, */
   {
     path: '/component/produto/produto-lista/produto-lista',
     title: 'Produto',
@@ -30,7 +30,7 @@ export const ROUTES: RouteInfo[] = [
     labelClass: '',
     extralink: false,
     submenu: []
-  },
+  }/*,
   {
     path: '',
     title: 'UI Components',
@@ -170,5 +170,5 @@ export const ROUTES: RouteInfo[] = [
     labelClass: '',
     extralink: false,
     submenu: []
-  }  
+  } */
 ];
