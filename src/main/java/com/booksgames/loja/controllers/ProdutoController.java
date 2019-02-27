@@ -57,14 +57,6 @@ public class ProdutoController {
     return ResponseEntity.ok().body(listDto);
   }
 
- /* @RequestMapping(method=RequestMethod.GET)
-    public ResponseEntity<List<ProdutoDTO>> findAll() {
-    List<Produto> list = produtoServiceImpl.findAll();
-    List<ProdutoDTO> listDto = list.stream().map(ProdutoDTO::new)
-            .collect( Collectors.toList());
-    return ResponseEntity.ok().body(listDto);
-  }*/
-
   @RequestMapping(value = "/{_id}", method = RequestMethod.GET)
   public Produto getPetById(@PathVariable("_id") String _id) {
     return produtoRepository.findBy_id(_id);
