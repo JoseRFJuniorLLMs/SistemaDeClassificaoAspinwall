@@ -47,7 +47,7 @@ public class Instantiation  implements CommandLineRunner {
         Cor PRETO = new Cor(null, "PRETO", "XXXXX");
         Marca MARCA = new Marca(null, "MARCA X");
 
-        Produto COMPUTADOR = new Produto(null, UUID.randomUUID(), "COMPUTADOR", 4.1,
+       /* Produto COMPUTADOR = new Produto(null, UUID.randomUUID(), "COMPUTADOR", 4.1,
                 PLASTICA,"SIM", 82.0, "SIM", "Ativo", GRUPOA,
                 PRETO, MARCA, null,
                 sdf.parse("21/03/2018"));
@@ -55,7 +55,7 @@ public class Instantiation  implements CommandLineRunner {
         Produto CELULAR = new Produto(null, UUID.randomUUID(), "CELULAR", 4.1,
                 PLASTICA, "SIM", 82.0, "SIM", "Ativo", GRUPOA,
                 PRETO, MARCA, null,
-                sdf.parse("21/03/2018"));
+                sdf.parse("21/03/2018"));*/
 
         embalagemRepository.saveAll(Arrays.asList(PLASTICA));
         grupoRepository.saveAll(Arrays.asList(GRUPOA));
@@ -71,9 +71,9 @@ public class Instantiation  implements CommandLineRunner {
         grupoRepository.saveAll(Arrays.asList(GRUPOA));
         corRepository.saveAll(Arrays.asList(PRETO));
         marcaRepository.saveAll(Arrays.asList(MARCA));
-        produtoRepository.saveAll(Arrays.asList(COMPUTADOR, CELULAR));
+        //produtoRepository.saveAll(Arrays.asList(COMPUTADOR, CELULAR));
 
-        produtoRepository.save(COMPUTADOR);
+        //produtoRepository.save(COMPUTADOR);
 
        }
 }

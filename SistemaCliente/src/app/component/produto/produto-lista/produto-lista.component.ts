@@ -78,7 +78,10 @@ onForm() {
     grupo: [],
     marca: [],
     embalagem: [],
-    imagem: []
+    imagem: [],
+    altura: [],
+    largura: [],
+    formato: []
   });
 }
 

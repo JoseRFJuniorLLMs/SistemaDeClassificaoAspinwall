@@ -1,6 +1,8 @@
 package com.booksgames.loja.repository.reactive;
 
 import com.booksgames.loja.documents.Produto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import reactor.core.publisher.Flux;
 

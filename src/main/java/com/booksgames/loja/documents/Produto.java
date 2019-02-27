@@ -35,19 +35,26 @@ public class Produto implements Serializable {
   @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
   @Column(name = "uuid", columnDefinition = "VARCHAR(255)")
   private UUID uuid;
-
   public String descricao;
   public Double preco;
-  public Embalagem embalagem;
   public String durabilidade;
   public Double peso;
   public String rotulagem;
   public String status;
+  public Double altura;
+  public Double largura;
+  public String formato;
+  public String estilo;
+  public String qualidade;
+  public Tamanho tamanho;
+  public Devolucao devolucao;
+  public Tipo tipo;
+  public Garantia garantia;
+  public Embalagem embalagem;
   public Grupo grupo;
   public Cor cor;
   public Marca marca;
   public GridFS imagem;
-
   @JsonFormat(pattern="dd/MM/yyyy HH:mm")
   public Date datacadastro;
 
@@ -62,20 +69,67 @@ public class Produto implements Serializable {
 
   @DBRef(lazy = true)
   private List<Embalagem> embalagems = new ArrayList<>();
-  
+
+  @DBRef(lazy = true)
+  private List<Tamanho> tamanhos = new ArrayList<>();
+
+  @DBRef(lazy = true)
+  private List<Devolucao> devolucaos = new ArrayList<>();
+
+  @DBRef(lazy = true)
+  private List<Tipo> tipos = new ArrayList<>();
+
+  @DBRef(lazy = true)
+  private List<Garantia> garantias = new ArrayList<>();
+
+
+  public Produto() {
+  }
   // Constructors
-   public Produto(String _id, UUID uuid, String descricao, Double preco, Embalagem embalagem,
-                  String durabilidade, Double peso, String rotulagem, String status,
-                  Grupo grupo, Cor cor, Marca marca, GridFS imagem, Date datacadastro) {
+
+  public Produto(String _id,
+                 UUID uuid,
+                 String descricao,
+                 Double preco,
+                 String durabilidade,
+                 Double peso,
+                 String rotulagem,
+                 String status,
+                 Double altura,
+                 Double largura,
+                 String formato,
+                 String estilo,
+                 String qualidade,
+                 Tamanho tamanho,
+                 Devolucao devolucao,
+                 Tipo tipo,
+                 Garantia garantia,
+                 Embalagem embalagem,
+                 Grupo grupo,
+                 Cor cor,
+                 Marca marca,
+                 GridFS imagem,
+                 Date datacadastro, List<Grupo> grupos, List<Cor> cors, List<Marca> marcas,
+                 List<Embalagem> embalagems, List<Tamanho> tamanhos, List<Devolucao> devolucaos,
+                 List<Tipo> tipos, List<Garantia> garantias) {
     this._id = _id;
     this.uuid = uuid;
     this.descricao = descricao;
     this.preco = preco;
-    this.embalagem = embalagem;
     this.durabilidade = durabilidade;
     this.peso = peso;
     this.rotulagem = rotulagem;
-    this.status =  status;
+    this.status = status;
+    this.altura = altura;
+    this.largura = largura;
+    this.formato = formato;
+    this.estilo = estilo;
+    this.qualidade = qualidade;
+    this.tamanho = tamanho;
+    this.devolucao = devolucao;
+    this.tipo = tipo;
+    this.garantia = garantia;
+    this.embalagem = embalagem;
     this.grupo = grupo;
     this.cor = cor;
     this.marca = marca;
@@ -85,39 +139,69 @@ public class Produto implements Serializable {
     this.cors = cors;
     this.marcas = marcas;
     this.embalagems = embalagems;
+    this.tamanhos = tamanhos;
+    this.devolucaos = devolucaos;
+    this.tipos = tipos;
+    this.garantias = garantias;
   }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (!(o instanceof Produto)) return false;
-    Produto produto = (Produto) o;
-    return Objects.equals(get_id(), produto.get_id()) &&
-            Objects.equals(getUuid(), produto.getUuid()) &&
-            Objects.equals(getDescricao(), produto.getDescricao()) &&
-            Objects.equals(getPreco(), produto.getPreco()) &&
-            Objects.equals(getEmbalagem(), produto.getEmbalagem()) &&
-            Objects.equals(getDurabilidade(), produto.getDurabilidade()) &&
-            Objects.equals(getPeso(), produto.getPeso()) &&
-            Objects.equals(getRotulagem(), produto.getRotulagem()) &&
-            Objects.equals(getStatus(), produto.getStatus()) &&
-            Objects.equals(getGrupo(), produto.getGrupo()) &&
-            Objects.equals(getCor(), produto.getCor()) &&
-            Objects.equals(getMarca(), produto.getMarca()) &&
-            Objects.equals(getImagem(), produto.getImagem()) &&
-            Objects.equals(getDatacadastro(), produto.getDatacadastro()) &&
-            Objects.equals(getGrupos(), produto.getGrupos()) &&
-            Objects.equals(getCors(), produto.getCors()) &&
-            Objects.equals(getMarcas(), produto.getMarcas()) &&
-            Objects.equals(getEmbalagems(), produto.getEmbalagems());
-  }
+    public Produto(String id,
+                   UUID uuid,
+                   String descricao,
+                   Double preco,
+                   String durabilidade,
+                   Double peso,
+                   String rotulagem,
+                   String status,
+                   Double altura,
+                   Double largura,
+                   String formato,
+                   String estilo,
+                   String qualidade,
+                   Tamanho tamanho,
+                   Devolucao devolucao,
+                   Tipo tipo,
+                   Garantia garantia,
+                   Embalagem embalagem,
+                   Grupo grupo,
+                   Cor cor,
+                   Marca marca,
+                   GridFS imagem,
+                   Date datacadastro) {
+        this._id = _id;
+        this.uuid = uuid;
+        this.descricao = descricao;
+        this.preco = preco;
+        this.durabilidade = durabilidade;
+        this.peso = peso;
+        this.rotulagem = rotulagem;
+        this.status = status;
+        this.altura = altura;
+        this.largura = largura;
+        this.formato = formato;
+        this.estilo = estilo;
+        this.qualidade = qualidade;
+        this.tamanho = tamanho;
+        this.devolucao = devolucao;
+        this.tipo = tipo;
+        this.garantia = garantia;
+        this.embalagem = embalagem;
+        this.grupo = grupo;
+        this.cor = cor;
+        this.marca = marca;
+        this.imagem = imagem;
+        this.datacadastro = datacadastro;
+       /* this.grupos = grupos;
+        this.cors = cors;
+        this.marcas = marcas;
+        this.embalagems = embalagems;
+        this.tamanhos = tamanhos;
+        this.devolucaos = devolucaos;
+        this.tipos = tipos;
+        this.garantias = garantias;*/
+    }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(get_id(), getUuid(), getDescricao(), getPreco(), getEmbalagem(), getDurabilidade(), getPeso(), getRotulagem(), getStatus(), getGrupo(), getCor(), getMarca(), getImagem(), getDatacadastro(), getGrupos(), getCors(), getMarcas(), getEmbalagems());
-  }
-
-  public String get_id() {
+    public String get_id() {
     return _id;
   }
 
@@ -147,14 +231,6 @@ public class Produto implements Serializable {
 
   public void setPreco(Double preco) {
     this.preco = preco;
-  }
-
-  public Embalagem getEmbalagem() {
-    return embalagem;
-  }
-
-  public void setEmbalagem(Embalagem embalagem) {
-    this.embalagem = embalagem;
   }
 
   public String getDurabilidade() {
@@ -187,6 +263,86 @@ public class Produto implements Serializable {
 
   public void setStatus(String status) {
     this.status = status;
+  }
+
+  public Double getAltura() {
+    return altura;
+  }
+
+  public void setAltura(Double altura) {
+    this.altura = altura;
+  }
+
+  public Double getLargura() {
+    return largura;
+  }
+
+  public void setLargura(Double largura) {
+    this.largura = largura;
+  }
+
+  public String getFormato() {
+    return formato;
+  }
+
+  public void setFormato(String formato) {
+    this.formato = formato;
+  }
+
+  public String getEstilo() {
+    return estilo;
+  }
+
+  public void setEstilo(String estilo) {
+    this.estilo = estilo;
+  }
+
+  public String getQualidade() {
+    return qualidade;
+  }
+
+  public void setQualidade(String qualidade) {
+    this.qualidade = qualidade;
+  }
+
+  public Tamanho getTamanho() {
+    return tamanho;
+  }
+
+  public void setTamanho(Tamanho tamanho) {
+    this.tamanho = tamanho;
+  }
+
+  public Devolucao getDevolucao() {
+    return devolucao;
+  }
+
+  public void setDevolucao(Devolucao devolucao) {
+    this.devolucao = devolucao;
+  }
+
+  public Tipo getTipo() {
+    return tipo;
+  }
+
+  public void setTipo(Tipo tipo) {
+    this.tipo = tipo;
+  }
+
+  public Garantia getGarantia() {
+    return garantia;
+  }
+
+  public void setGarantia(Garantia garantia) {
+    this.garantia = garantia;
+  }
+
+  public Embalagem getEmbalagem() {
+    return embalagem;
+  }
+
+  public void setEmbalagem(Embalagem embalagem) {
+    this.embalagem = embalagem;
   }
 
   public Grupo getGrupo() {
@@ -259,6 +415,81 @@ public class Produto implements Serializable {
 
   public void setEmbalagems(List<Embalagem> embalagems) {
     this.embalagems = embalagems;
+  }
+
+  public List<Tamanho> getTamanhos() {
+    return tamanhos;
+  }
+
+  public void setTamanhos(List<Tamanho> tamanhos) {
+    this.tamanhos = tamanhos;
+  }
+
+  public List<Devolucao> getDevolucaos() {
+    return devolucaos;
+  }
+
+  public void setDevolucaos(List<Devolucao> devolucaos) {
+    this.devolucaos = devolucaos;
+  }
+
+  public List<Tipo> getTipos() {
+    return tipos;
+  }
+
+  public void setTipos(List<Tipo> tipos) {
+    this.tipos = tipos;
+  }
+
+  public List<Garantia> getGarantias() {
+    return garantias;
+  }
+
+  public void setGarantias(List<Garantia> garantias) {
+    this.garantias = garantias;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof Produto)) return false;
+    Produto produto = (Produto) o;
+    return Objects.equals(get_id(), produto.get_id()) &&
+            Objects.equals(getUuid(), produto.getUuid()) &&
+            Objects.equals(getDescricao(), produto.getDescricao()) &&
+            Objects.equals(getPreco(), produto.getPreco()) &&
+            Objects.equals(getDurabilidade(), produto.getDurabilidade()) &&
+            Objects.equals(getPeso(), produto.getPeso()) &&
+            Objects.equals(getRotulagem(), produto.getRotulagem()) &&
+            Objects.equals(getStatus(), produto.getStatus()) &&
+            Objects.equals(getAltura(), produto.getAltura()) &&
+            Objects.equals(getLargura(), produto.getLargura()) &&
+            Objects.equals(getFormato(), produto.getFormato()) &&
+            Objects.equals(getEstilo(), produto.getEstilo()) &&
+            Objects.equals(getQualidade(), produto.getQualidade()) &&
+            Objects.equals(getTamanho(), produto.getTamanho()) &&
+            Objects.equals(getDevolucao(), produto.getDevolucao()) &&
+            Objects.equals(getTipo(), produto.getTipo()) &&
+            Objects.equals(getGarantia(), produto.getGarantia()) &&
+            Objects.equals(getEmbalagem(), produto.getEmbalagem()) &&
+            Objects.equals(getGrupo(), produto.getGrupo()) &&
+            Objects.equals(getCor(), produto.getCor()) &&
+            Objects.equals(getMarca(), produto.getMarca()) &&
+            Objects.equals(getImagem(), produto.getImagem()) &&
+            Objects.equals(getDatacadastro(), produto.getDatacadastro()) &&
+            Objects.equals(getGrupos(), produto.getGrupos()) &&
+            Objects.equals(getCors(), produto.getCors()) &&
+            Objects.equals(getMarcas(), produto.getMarcas()) &&
+            Objects.equals(getEmbalagems(), produto.getEmbalagems()) &&
+            Objects.equals(getTamanhos(), produto.getTamanhos()) &&
+            Objects.equals(getDevolucaos(), produto.getDevolucaos()) &&
+            Objects.equals(getTipos(), produto.getTipos()) &&
+            Objects.equals(getGarantias(), produto.getGarantias());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(get_id(), getUuid(), getDescricao(), getPreco(), getDurabilidade(), getPeso(), getRotulagem(), getStatus(), getAltura(), getLargura(), getFormato(), getEstilo(), getQualidade(), getTamanho(), getDevolucao(), getTipo(), getGarantia(), getEmbalagem(), getGrupo(), getCor(), getMarca(), getImagem(), getDatacadastro(), getGrupos(), getCors(), getMarcas(), getEmbalagems(), getTamanhos(), getDevolucaos(), getTipos(), getGarantias());
   }
 
   @Override

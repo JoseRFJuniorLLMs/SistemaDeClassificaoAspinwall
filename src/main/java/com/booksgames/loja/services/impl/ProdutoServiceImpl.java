@@ -40,6 +40,10 @@ public class ProdutoServiceImpl implements ProdutoService {
         return produtoReactiveRespository.findAll();
     }
 
+    public Flux<Produto>  findByDescricao(String descricao) {
+        return produtoReactiveRespository.findByDescricao( descricao );
+    }
+
     private static ObjectNotFoundException get() {
         return new ObjectNotFoundException(
                 "Objeto não encontrado! Id: , Tipo: " + Produto.class.getName());
@@ -87,7 +91,10 @@ public class ProdutoServiceImpl implements ProdutoService {
         return produtoRepository.findAll(pageRequest);
     }
 
-    public String _id;
+/*    public Flux<Produto> findPageFlux(Integer page, Integer linesPerPage, String orderBy, String direction) {
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+        return produtoReactiveRespository.findAll(pageRequest);
+    }*/
 
     public Produto fromDTO(Produto objDto) {
         return new Produto(
@@ -95,18 +102,26 @@ public class ProdutoServiceImpl implements ProdutoService {
                 objDto.getUuid(),
                 objDto.getDescricao(),
                 objDto.getPreco(),
-                objDto.getEmbalagem(),
                 objDto.getDurabilidade(),
                 objDto.getPeso(),
                 objDto.getRotulagem(),
                 objDto.getStatus(),
+                objDto.getAltura(),
+                objDto.getLargura(),
+                objDto.getFormato(),
+                objDto.getEstilo(),
+                objDto.getQualidade(),
+                objDto.getTamanho(),
+                objDto.getDevolucao(),
+                objDto.getTipo(),
+                objDto.getGarantia(),
+                objDto.getEmbalagem(),
                 objDto.getGrupo(),
                 objDto.getCor(),
                 objDto.getMarca(),
                 objDto.getImagem(),
                 objDto.getDatacadastro());
-
-    }
+           }
 
     private void updateData(Produto newObj, Produto obj) {
         newObj.setCor(obj.getCor());

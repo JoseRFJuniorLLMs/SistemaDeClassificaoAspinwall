@@ -33,13 +33,32 @@ public class ProdutoController {
   @Autowired
   private ProdutoServiceImpl produtoServiceImpl;
 
+  @CrossOrigin(origins = "http://localhost:4200")
   @GetMapping(value="/flux")
   public Flux<Produto> getProduto(){
     return produtoServiceImpl.findAll();
   }
 
- /* @RequestMapping(method=RequestMethod.GET)
+  @CrossOrigin(origins = "http://localhost:4200")
+  @RequestMapping(value="/nome/{descricao}", method=RequestMethod.GET)
+  public Flux<Produto> getCorNome(@PathVariable String descricao){
+    return produtoServiceImpl.findByDescricao(descricao);
+  }
+
+  @CrossOrigin(origins = "http://localhost:4200")
+  @RequestMapping(value="/flux6", method=RequestMethod.GET)
   public ResponseEntity<List<ProdutoDTO>> findAll() {
+    Flux<Produto> listFlux = produtoServiceImpl.findAll();
+    List<ProdutoDTO> listDto = listFlux.toStream()
+            //.map(obj -> new ProdutoDTO(obj))
+            .map( ProdutoDTO::new)
+            .limit(6)
+            .collect( Collectors.toList());
+    return ResponseEntity.ok().body(listDto);
+  }
+
+ /* @RequestMapping(method=RequestMethod.GET)
+    public ResponseEntity<List<ProdutoDTO>> findAll() {
     List<Produto> list = produtoServiceImpl.findAll();
     List<ProdutoDTO> listDto = list.stream().map(ProdutoDTO::new)
             .collect( Collectors.toList());

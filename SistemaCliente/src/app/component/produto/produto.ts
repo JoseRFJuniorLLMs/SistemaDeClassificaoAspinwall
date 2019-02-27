@@ -16,4 +16,7 @@ export interface Produto {
      cor?: Cor[];
      marca?: Marca[];
      imagem?: string;
+     altura?: Number;
+     largura?: Number;
+     formato?: string;
 }
