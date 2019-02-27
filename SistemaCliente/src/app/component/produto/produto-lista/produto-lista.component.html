@@ -14,10 +14,13 @@
 
     <div class="modal-body" [formGroup]="form" style="padding-top: 10px">
         <div class="form-row">
-            <div class="col-sm-6">
 
+            <div class="col-sm-12">
+                <ng-template #popContentNome>Nome do Produto de forma clara e resumida</ng-template>
                 <label for="descricao">Nome do Produto</label>
                 <input
+                [ngbPopover]="popContentNome" 
+                popoverTitle="Campo Nome"
                   type="text"
                   class="form-control"
                   id="descricao"
@@ -36,77 +39,123 @@
                   </div>
             </div>
 
+            <div class="col-sm-4">
+                <ng-template #popContentValor>Valor do Produto em R$ 0.0</ng-template>
+                <label for="preco">Valor</label>
+                <input
+                [ngbPopover]="popContentValor" 
+                popoverTitle="Campo Valor"
+                  type="text"
+                  class="form-control col-md-12"
+                  id="preco"
+                  placeholder="Valor do Produto R$"
+                  formControlName="preco"
+                  [ngClass]="{ 'is-invalid': submitted && hasError('preco')}"
+                />
+            </div>
+
+            <div class="col-sm-4">
+                            <ng-template #popContentDurabilidade>Durabilidade do Produto em dias ou meses</ng-template>
+                <label for="durabilidade">Durabilidade</label>
+                <input 
+                  [ngbPopover]="popContentDurabilidade" 
+                  popoverTitle="Campo Durabilidade"
+                  type="text"
+                  class="form-control col-md-12"
+                  id="durabilidade"
+                  placeholder="Durabilidade do Produto"
+                  formControlName="durabilidade"
+                  [ngClass]="{ 'is-invalid': submitted && hasError('durabilidade')}"
+                />
+            </div>
+
+            <div class="col-sm-4">
+                <ng-template #popContentPeso>Peso do Produto em Kg ou Gramas</ng-template>
+                <label for="peso">Peso</label>
+                <input
+                [ngbPopover]="popContentPeso" 
+                popoverTitle="Campo Peso"
+                  type="text"
+                  class="form-control col-md-12"
+                  id="peso"
+                  placeholder="Peso do Produto Kg"
+                  formControlName="peso"
+                  [ngClass]="{ 'is-invalid': submitted && hasError('peso')}"
+                />
+            </div>
+   <div class="col-sm-6">
     <!-- cor -->
       <div class="form-row">
-          <div class="form-group col-md-20" *ngIf="cors$ | async as cors; else loading">
+          <div class="form-group col-md-12" *ngIf="cors$ | async as cors; else loading">
             <label for="cor">Cor</label>
             <select name="cor" id="cor" formControlName="cor" class="form-control">
                  <option *ngFor="let cor of cors" [ngValue]="cor">{{ cor.nome }}</option>
             </select>
           </div>
           <ng-template #loading>
-            <span>Cores...</span>
+            <span>Aguarde..</span>
             <div class="spinner-border text-primary" role="status">
-                <span class="sr-only">Cores...</span>
+                <span class="sr-only">Aguarde..</span>
               </div>
           </ng-template>
-        </div>
-  
-     <!-- grupo -->
+      </div>
+  </div> 
+  <div class="col-sm-6">
+<!-- grupo -->
      <div class="form-row">
-        <div class="form-group col-md-20" *ngIf="grupos$ | async as grupos; else loading">
+        <div class="form-group col-md-12" *ngIf="grupos$ | async as grupos; else loading">
           <label for="grupo">Grupo</label>
           <select name="grupo" id="grupo" formControlName="grupo" class="form-control">
             <option *ngFor="let grupo of grupos" [ngValue]="grupo">{{ grupo.descricao }}</option>
           </select>
         </div>
         <ng-template #loading>
-          <span>Grupo...</span>
+          <span>Aguarde..</span>
           <div class="spinner-border text-primary" role="status">
-              <span class="sr-only">Grupo...</span>
+              <span class="sr-only">Aguarde..</span>
             </div>
         </ng-template>
       </div>
-  
+</div> 
+<div class="col-sm-6">
          <!-- embalagem -->
      <div class="form-row">
-        <div class="form-group col-md-20" *ngIf="embalagens$ | async as embalagens; else loading">
+        <div class="form-group col-md-12" *ngIf="embalagens$ | async as embalagens; else loading">
           <label for="embalagem">Embalagem</label>
           <select name="embalagem" id="embalagem" formControlName="embalagem" class="form-control">
             <option *ngFor="let embalagem of embalagens" [ngValue]="embalagem">{{ embalagem.descricao }}</option>
           </select>
         </div>
         <ng-template #loading>
-          <span>Embalagem...</span>
+          <span>Aguarde..</span>
           <div class="spinner-border text-primary" role="status">
-              <span class="sr-only">Embalagem...</span>
+              <span class="sr-only">Aguarde..</span>
             </div>
         </ng-template>
       </div>
-  
+    </div> 
+  <div class="col-sm-6">
          <!-- marca -->
          <div class="form-row">
-            <div class="form-group col-md-20" *ngIf="marcas$ | async as marcas; else loading">
+            <div class="form-group col-md-12" *ngIf="marcas$ | async as marcas; else loading">
               <label for="marca">Marca</label>
               <select name="marca" id="marca" formControlName="marca" class="form-control">
                 <option *ngFor="let marca of marcas" [ngValue]="marca">{{ marca.descricao }}</option>
               </select>
             </div>
             <ng-template #loading>
-              <span>Marca...</span>
+              <span>Aguarde..</span>
               <div class="spinner-border text-primary" role="status">
-                  <span class="sr-only">Marca...</span>
+                  <span class="sr-only">Aguarde..</span>
                 </div>
             </ng-template>
           </div>
         </div>  
     </div>
-
+  </div>
     <div class="modal-footer">
- 
-            <button type="sumit" class="btn btn-primary" (click)="onSubmit()">Salvar</button>
-     
-      <button type="button" class="btn btn-inverse" (click)="c('Close click')">Fechar</button>
+             <button type="sumit" class="btn btn-primary" (click)="onSubmit()">Salvar</button>
+       <button type="button" class="btn btn-inverse" (click)="c('Close click')">Fechar</button>
     </div>
   </ng-template>
 <!-- fim do Produto -->
@@ -155,10 +204,10 @@
           
           <a href="#" class="badge badge-primary">Cor:</a>
           <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
-            title="Codigo do Produto">{{ produto.cor.nome }}</a>
+            title="Codigo do Produto">{{ produto.cor.nome }}</a> 
           <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
             title="Codigo do Produto">{{ produto.cor.hex }}</a>
- 
+
           <a href="#" class="badge badge-primary">Grupo:</a>
           <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
             title="Codigo do Produto">{{ produto.grupo.descricao }}</a>

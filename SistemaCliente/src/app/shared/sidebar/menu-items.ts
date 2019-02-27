@@ -30,7 +30,7 @@ export const ROUTES: RouteInfo[] = [
     labelClass: '',
     extralink: false,
     submenu: []
-  }/*,
+  },
   {
     path: '',
     title: 'UI Components',
@@ -160,7 +160,7 @@ export const ROUTES: RouteInfo[] = [
     labelClass: '',
     extralink: false,
     submenu: []
-  }, 
+  },
   {
     path: '/component/cards',
     title: 'Card',
@@ -170,5 +170,5 @@ export const ROUTES: RouteInfo[] = [
     labelClass: '',
     extralink: false,
     submenu: []
-  } */
+  } 
 ];

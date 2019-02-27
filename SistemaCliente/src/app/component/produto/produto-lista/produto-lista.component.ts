@@ -10,7 +10,7 @@ import { catchError } from 'rxjs/operators';
 import { Cor } from '../../../component/paginas/cor/cor';
 import { CorService } from '../../paginas/cor/cor.service';
 
-import { Location } from '@angular/common';
+//import { Location } from '@angular/common';
 import { MarcaService } from '../../paginas/marca/marca.service';
 import { GrupoService } from '../../paginas/grupo/grupo.service';
 import { EmbalagemService } from '../../paginas/embalagem/embalagem.service';
@@ -52,11 +52,10 @@ export class ProdutoListaComponent implements OnInit {
     private marcaService: MarcaService,
     private grupoService: GrupoService,
     private embalagemService: EmbalagemService,
-   // private alertService: AlertModalService,
+    //private alertService: AlertModalService,
     private modalService: NgbModal,
-    //private modal: AlertModalService,
-   /*  private modalService: BsModalService, */
-    private location: Location) { }
+   // private location: Location
+    ) { }
 
   ngOnInit() {
     this.onRefreshProduto();
@@ -138,7 +137,7 @@ onForm() {
     );
   }
   /* Abri o painel para cadastro de Produtos */
-  open(content) {
+  open(content: any) {
     this.modalService.open(content, {
        windowClass: 'dark-modal',
        size: 'lg'
@@ -166,12 +165,13 @@ onForm() {
       console.log('submit');
       this.produtoService.create(this.form.value).subscribe(
         success => {
-          //this.modal.showAlertSuccess('Produto Cadastrado com Sucesso!');
           this.onCancel();
           this.onRefreshProduto();
         },
-        error => this.modal.showAlertDanger('Erro ao cadastrar o produto, tente novamente!'),
-        () => console.log('request completo')
+         error =>
+         this.modal.showAlertDanger('Erro ao cadastrar o produto, tente novamente!'),
+        () =>
+        console.log('request completo')
       );
     }
   }
@@ -201,11 +201,11 @@ onForm() {
     this.modalService.open(content, { centered: true });
   } */ 
 
-/*   handleSucesso() {
+/*    handleSucesso() {
     this.alertService.showAlertSuccess('Conectando ao Servidor....');
    }
 
-  handleError() {
+   handleError() {
     this.alertService.showAlertDanger('Erro ao carregar produtos. Servidor off line Tente novamente mais tarde.');
    } */
 }

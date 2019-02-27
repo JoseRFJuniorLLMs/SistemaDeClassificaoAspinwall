@@ -35,7 +35,7 @@ export const ComponentsRoutes: Routes = [
           ]
         }
       },
-     /*  {
+      {
         path: 'pagination',
         component: NgbdpaginationBasicComponent,
         data: {
@@ -202,7 +202,7 @@ export const ComponentsRoutes: Routes = [
             { title: 'Card' }
           ]
         }
-      }, */
+      },
       {
         path: 'produto/produto-lista/produto-lista',
         component: ProdutoListaComponent,
