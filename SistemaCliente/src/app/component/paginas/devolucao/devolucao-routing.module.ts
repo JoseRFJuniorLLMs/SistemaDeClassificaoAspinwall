@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/devolucaoe';
+import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DevolucaoListaComponent } from './devolucao-lista/devolucao-lista.component';
+import { DevolucaoComponent } from './devolucao.component';
 
 const routes: Routes = [
-  { path: '', component: DevolucaoListaComponent}/*,
+  { path: '', component: DevolucaoComponent}/*,
   { path: 'novo', component: DevolucaoFormComponent},
   { path: 'editar/:id', component: DevolucaoFormComponent} */
 ];

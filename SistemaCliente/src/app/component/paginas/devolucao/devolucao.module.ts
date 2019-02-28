@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/devolucaoe';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { DevolucaoRoutingModule } from './devolucao-routing.module';
-import { DevolucaoListaComponent } from './devolucao-lista/devolucao-lista.component';
+import { DevolucaoComponent } from './devolucao.component';
 
 @NgModule({
   imports: [
@@ -11,6 +11,6 @@ import { DevolucaoListaComponent } from './devolucao-lista/devolucao-lista.compo
     DevolucaoRoutingModule,
     ReactiveFormsModule
   ],
-  declarations: [DevolucaoListaComponent]
+  declarations: [DevolucaoComponent]
 })
 export class DevolucaoModule { }

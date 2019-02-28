@@ -22,11 +22,6 @@ import { SpinnerComponent } from './shared/spinner.component';
 
 import { SharedModule } from './shared/alert-modal/shared.module';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { DevolucaoComponent } from './devolucao/devolucao.component';
-import { GarantiaComponent } from './garantia/garantia.component';
-import { TamanhoComponent } from './tamanho/tamanho.component';
-import { TipoComponent } from './tipo/tipo.component';
-import { UnidadeComponent } from './unidade/unidade.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -41,12 +36,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     FullComponent,
     NavigationComponent,
     BreadcrumbComponent,
-    SidebarComponent,
-    DevolucaoComponent,
-    GarantiaComponent,
-    TamanhoComponent,
-    TipoComponent,
-    UnidadeComponent
+    SidebarComponent
   ],
   imports: [
     CommonModule,

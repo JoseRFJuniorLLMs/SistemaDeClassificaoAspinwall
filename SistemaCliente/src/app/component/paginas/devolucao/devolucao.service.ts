@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/devolucaoe';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Devolucao } from './devolucao';
 import { tap, delay, take } from 'rxjs/operators';
@@ -9,13 +9,13 @@ import { environment } from '../../../../environments/environment';
 })
 export class DevolucaoService {
 
-  private readonly API3 = `${environment.API3}`;
-  private readonly API4 = `${environment.API4}`;
+  private readonly API11 = `${environment.API11}`;
+  private readonly API12 = `${environment.API12}`;
 
   constructor(private http: HttpClient) { }
 
   list() {
-    return this.http.get<Devolucao[]>(this.API3)
+    return this.http.get<Devolucao[]>(this.API11)
       .pipe(
         delay(1000),
         tap(console.log)
@@ -23,6 +23,6 @@ export class DevolucaoService {
   }
 
   create(devolucao) {
-    return this.http.post(this.API4, devolucao).pipe(take(1));
+    return this.http.post(this.API12, devolucao).pipe(take(1));
   }
 }

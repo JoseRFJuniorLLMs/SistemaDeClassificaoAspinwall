@@ -1,17 +1,5 @@
 <div class="alert alert-{{ type }} no-margin" role="alert">
   {{ message }}
-  <div class="spinner-border text-primary" role="status">
-      <ngb-alert *ngIf="!staticAlertClosed" 
-      (close)="staticAlertClosed = true"></ngb-alert>
-      <span class="sr-only"></span>
-    </div>
-  <button type="button" 
-  class="close" 
-  data-dismiss="alert" 
-  aria-label="Close" 
-  (click)="onClose()">
-    <span aria-hidden="true">&times;</span>
-  </button>
 </div>
 
   <!-- INICIO DO MODAL -->
@@ -167,6 +155,26 @@
             </ng-template>
           </div>
         </div>  
+
+      <!-- devolucao -->
+      <div class="col-sm-6">
+          <div class="form-row">
+             <div class="form-group col-md-12" *ngIf="devolucaos$ | async as devolucaos; else loading">
+               <label for="devolucao">Devolucao</label>
+               <select name="devolucao" id="devolucao" formControlName="devolucao" class="form-control">
+                 <option *ngFor="let devolucao of devolucaos" [ngValue]="devolucao">{{ devolucao.descricao }}</option>
+               </select>
+             </div>
+             <ng-template #loading>
+               <span>Aguarde..</span>
+               <div class="spinner-border text-primary" role="status">
+                   <span class="sr-only">Aguarde..</span>
+                 </div>
+             </ng-template>
+           </div>
+         </div> 
+
+
     </div>
   </div>
     <div class="modal-footer">
@@ -214,15 +222,15 @@
           <a href="#" class="badge badge-primary">Peso Kg:</a>
           <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
             title="Valor do Produto">{{produto.peso}}</a><br>
-          <a href="#" class="badge badge-primary">Co:</a>
+          <a href="#" class="badge badge-primary">Cod:</a>
           <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
             title="Codigo do Produto">{{ produto._id }}</a>
           
           <a href="#" class="badge badge-primary">Cor:</a>
-          <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
+           <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
             title="Codigo do Produto">{{ produto.cor.nome }}</a> 
           <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
-            title="Codigo do Produto">{{ produto.cor.hex }}</a>
+            title="Codigo do Produto">{{ produto.cor.hex }}</a> 
 
           <a href="#" class="badge badge-primary">Grupo:</a>
           <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
@@ -242,10 +250,11 @@
                 Atualizar
               </button>
               <button class="btn btn-outline-danger mb-1 btn-sm">
-                Remover
+                Desativar
               </button>
             </span>
           </td>
+
         </tr>
       </tbody>
     </table>

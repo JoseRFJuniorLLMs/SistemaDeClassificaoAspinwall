@@ -13,6 +13,11 @@ import { MarcaService } from '../../paginas/marca/marca.service';
 import { GrupoService } from '../../paginas/grupo/grupo.service';
 import { EmbalagemService } from '../../paginas/embalagem/embalagem.service';
 import { AlertModalService } from '../../../shared/alert-modal/alert-modal.service';
+import { DevolucaoService } from '../../paginas/devolucao/devolucao.service';
+import { Devolucao } from '../../paginas/devolucao/devolucao';
+import { Marca } from '../../paginas/marca/marca';
+import { Grupo } from '../../paginas/grupo/grupo';
+import { Embalagem } from '../../paginas/embalagem/embalagem';
 
 @Component({
   selector: 'app-produto-lista',
@@ -37,9 +42,17 @@ import { AlertModalService } from '../../../shared/alert-modal/alert-modal.servi
 
 export class ProdutoListaComponent implements OnInit {
 
-  [x: string]: any;
+  //[x: string]: any;
+ /*  modal: any;
+  bsModalRef: any; */
+
   produtos$: Observable<Produto[]>;
   cors$: Observable<Cor[]>;
+  marcas$: Observable<Marca[]>;
+  grupos$: Observable<Grupo[]>;
+  embalagens$: Observable<Embalagem[]>;
+  devolucaos$: Observable<Devolucao[]>;
+
   error$ = new Subject<boolean>();
   closeResult: string;
   form: FormGroup;
@@ -52,6 +65,7 @@ export class ProdutoListaComponent implements OnInit {
     private marcaService: MarcaService,
     private grupoService: GrupoService,
     private embalagemService: EmbalagemService,
+    private devolucaoService: DevolucaoService,
     private modalService: NgbModal,
     private alertService: AlertModalService
     ) { }
@@ -63,10 +77,12 @@ export class ProdutoListaComponent implements OnInit {
     this.onRefreshGrupo();
     this.onRefreshCor();
     this.onRefreshEmbalagem();
+    this.onRefreshDevolucao();
+    this.onRefreshDevolucao();
   }
 
   onClose() {
-    this.bsModalRef.hide();
+   // this.bsModalRef.hide();
   }
 
 onForm() {
@@ -81,6 +97,7 @@ onForm() {
     grupo: [],
     marca: [],
     embalagem: [],
+    devolucao: [],
     imagem: [],
     altura: [],
     largura: [],
@@ -142,6 +159,19 @@ onForm() {
         })
     );
   }
+
+  onRefreshDevolucao() {
+    this.devolucaos$ = this.devolucaoService.list()
+    .pipe(
+      catchError(error => {
+        console.error(error);
+        this.handleError();
+        return empty();
+      })
+    );
+  }
+
+
   /* Abri o painel para cadastro de Produtos */
   open(content: any) {
     this.modalService.open(content, {
@@ -175,7 +205,7 @@ onForm() {
           this.onRefreshProduto();
         },
          error =>
-         this.modal.showAlertDanger('Erro ao cadastrar o produto, tente novamente!'),
+         this.alertService.showAlertDanger('Erro ao cadastrar o produto, tente novamente!'),
         () =>
         console.log('request completo')
       );

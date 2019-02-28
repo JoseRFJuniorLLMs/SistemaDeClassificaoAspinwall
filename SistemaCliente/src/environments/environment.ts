@@ -15,6 +15,9 @@ export const environment = {
   API8: 'http://localhost:8080/embalagens/v1/embalagem/',
 
   API9: 'http://localhost:8080/marcas/v1/marca/flux',
-  API10: 'http://localhost:8080/marcas/v1/marca/'
+  API10: 'http://localhost:8080/marcas/v1/marca/',
+
+  API11: 'http://localhost:8080/devolucaos/v1/devolucao/flux',
+  API12: 'http://localhost:8080/devolucaos/v1/devolucao/'
 };
 
