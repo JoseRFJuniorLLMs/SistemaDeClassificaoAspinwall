@@ -14,6 +14,16 @@ public class Tipo implements Serializable {
     public String _id;
     public String descricao;
 
+    // Constructors
+    public Tipo() {}
+
+    public Tipo(String _id, String descricao) {
+        this._id = _id;
+        this.descricao = descricao;
+
+    }
+
+
     public String get_id() {
         return _id;
     }

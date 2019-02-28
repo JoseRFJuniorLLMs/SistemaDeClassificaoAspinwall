@@ -3,6 +3,7 @@ package com.booksgames.loja.documents;
 import java.io.Serializable;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 
 import com.mongodb.gridfs.GridFS;
@@ -35,7 +36,7 @@ public class Produto implements Serializable {
   @GeneratedValue(generator = "uuid")
   @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
   @Column(name = "uuid", columnDefinition = "VARCHAR(255)")
-  private UUID uuid;
+  public UUID uuid;
   public String descricao;
   public Double preco;
   public String durabilidade;
@@ -58,7 +59,7 @@ public class Produto implements Serializable {
   public GridFS imagem;
   public Unidade unidade;
   @JsonFormat(pattern="dd/MM/yyyy HH:mm")
-  public Date datacadastro;
+  public LocalDate datacadastro;
   @JsonFormat(pattern="dd/MM/yyyy HH:mm")
   public Date fabricacao;
   @JsonFormat(pattern="dd/MM/yyyy HH:mm")
@@ -109,7 +110,7 @@ public class Produto implements Serializable {
                  String estilo,
                  String qualidade,
                  GridFS imagem,
-                 Date datacadastro,
+                 LocalDate datacadastro,
                  Date fabricacao,
                  Date vencimento,
 
@@ -194,7 +195,7 @@ public class Produto implements Serializable {
           Cor cor,
           Marca marca,
           GridFS imagem,
-          Date datacadastro,
+          LocalDate datacadastro,
           Date fabricacao,
           Date vencimento,
           Unidade unidade
@@ -412,11 +413,11 @@ public class Produto implements Serializable {
     this.unidade = unidade;
   }
 
-  public Date getDatacadastro() {
+  public LocalDate getDatacadastro() {
     return datacadastro;
   }
 
-  public void setDatacadastro(Date datacadastro) {
+  public void setDatacadastro(LocalDate datacadastro) {
     this.datacadastro = datacadastro;
   }
 

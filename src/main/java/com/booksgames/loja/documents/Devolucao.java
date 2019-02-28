@@ -14,6 +14,15 @@ public class Devolucao implements Serializable {
     public String _id;
     public String descricao;
 
+    // Constructors
+    public Devolucao() {}
+
+    public Devolucao(String _id, String descricao) {
+        this._id = _id;
+        this.descricao = descricao;
+
+    }
+
     public String get_id() {
         return _id;
     }
