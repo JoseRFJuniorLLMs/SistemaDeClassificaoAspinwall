@@ -9,6 +9,7 @@ Ele classifica e atribui nota ao produtos baseado em cinco variáveis:
 ![](./src/doc/java.png)
 ![](./src/doc/cor1.png)
 ![](./src/doc/cor2.png)
+![](./src/doc/cor3.png)
 
 # LOJA
 ![](./src/doc/mongo-docker.png)
