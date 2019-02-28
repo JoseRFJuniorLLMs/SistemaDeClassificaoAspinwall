@@ -1,35 +1,39 @@
-package com.booksgames.loja.documents;
+package com.booksgames.loja.dto;
 
+import com.booksgames.loja.documents.Garantia;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-@Document(collection = "garantia")
-public class Garantia implements Serializable {
+/**
+ * @author Jose R F Junior
+ * web2ajax@gmail.com
+ * Santiago Chile 28 02 2019
+ */
+
+public class GarantiaDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Id
-    public String _id;
-    public String descricao;
+    private String _id;
+    private String descricao;
 
-    @JsonFormat(pattern="dd/MM/yyyy HH:mm")
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     public Date inicio;
 
-    @JsonFormat(pattern="dd/MM/yyyy HH:mm")
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     public Date fim;
 
-    // Constructors
-    public Garantia() {}
+    public GarantiaDTO() {
+    }
 
-    public Garantia(String _id, String descricao, Date inicio, Date fim) {
-        this._id = _id;
-        this.descricao = descricao;
-        this.inicio = inicio;
-        this.fim = fim;
+    public GarantiaDTO(Garantia obj) {
+        _id = obj.get_id();
+        descricao = obj.getDescricao();
+        inicio = obj.getInicio();
+        fim = obj.getFim();
+
     }
 
     public String get_id() {
@@ -67,12 +71,12 @@ public class Garantia implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Garantia)) return false;
-        Garantia garantia = (Garantia) o;
-        return Objects.equals(get_id(), garantia.get_id()) &&
-                Objects.equals(getDescricao(), garantia.getDescricao()) &&
-                Objects.equals(getInicio(), garantia.getInicio()) &&
-                Objects.equals(getFim(), garantia.getFim());
+        if (!(o instanceof GarantiaDTO)) return false;
+        GarantiaDTO that = (GarantiaDTO) o;
+        return Objects.equals(get_id(), that.get_id()) &&
+                Objects.equals(getDescricao(), that.getDescricao()) &&
+                Objects.equals(getInicio(), that.getInicio()) &&
+                Objects.equals(getFim(), that.getFim());
     }
 
     @Override
@@ -82,7 +86,7 @@ public class Garantia implements Serializable {
 
     @Override
     public String toString() {
-        return "Garantia{" +
+        return "GarantiaDTO{" +
                 "_id='" + _id + '\'' +
                 ", descricao='" + descricao + '\'' +
                 ", inicio=" + inicio +

@@ -1,7 +1,7 @@
 package com.booksgames.loja.controllers;
 
-import com.booksgames.loja.documents.Tipo;
-import com.booksgames.loja.services.impl.TipoServiceImpl;
+import com.booksgames.loja.documents.Garantia;
+import com.booksgames.loja.services.impl.GarantiaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -13,15 +13,15 @@ import reactor.core.publisher.Flux;
  */
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/tipos/v1/tipo")
-public class TipoController {
+@RequestMapping("/garantias/v1/garantia")
+public class GarantiaController {
 
     @Autowired
-    private TipoServiceImpl tipoServiceImpl;
+    private GarantiaServiceImpl garantiaServiceImpl;
 
     @GetMapping(value="/flux")
-    public Flux<Tipo> getTipo(){
-        return tipoServiceImpl.findAll();
+    public Flux<Garantia> getGarantia(){
+        return garantiaServiceImpl.findAll();
     }
 
 }
