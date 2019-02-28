@@ -12,7 +12,7 @@
 	<artifactId>loja</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>loja</name>
-	<description>loja</description>
+	<description>Aspinwall</description>
 	<properties>
 		<java.version>11</java.version>
 		<spring-cloud.version>Greenwich.BUILD-SNAPSHOT</spring-cloud.version>
