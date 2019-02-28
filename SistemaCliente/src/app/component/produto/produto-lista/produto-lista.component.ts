@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -6,14 +6,13 @@ import { ProdutoService } from '../produto.service';
 import { Produto } from '../produto';
 import { Observable, empty, of, Subject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-//import { AlertModalService } from '../../../shared/alert-modal/alert-modal.service';
 import { Cor } from '../../../component/paginas/cor/cor';
 import { CorService } from '../../paginas/cor/cor.service';
 
-//import { Location } from '@angular/common';
 import { MarcaService } from '../../paginas/marca/marca.service';
 import { GrupoService } from '../../paginas/grupo/grupo.service';
 import { EmbalagemService } from '../../paginas/embalagem/embalagem.service';
+import { AlertModalService } from '../../../shared/alert-modal/alert-modal.service';
 
 @Component({
   selector: 'app-produto-lista',
@@ -35,6 +34,7 @@ import { EmbalagemService } from '../../paginas/embalagem/embalagem.service';
   ],
   preserveWhitespaces: true
 })
+
 export class ProdutoListaComponent implements OnInit {
 
   [x: string]: any;
@@ -52,9 +52,8 @@ export class ProdutoListaComponent implements OnInit {
     private marcaService: MarcaService,
     private grupoService: GrupoService,
     private embalagemService: EmbalagemService,
-    //private alertService: AlertModalService,
     private modalService: NgbModal,
-   // private location: Location
+    private alertService: AlertModalService
     ) { }
 
   ngOnInit() {
@@ -64,6 +63,10 @@ export class ProdutoListaComponent implements OnInit {
     this.onRefreshGrupo();
     this.onRefreshCor();
     this.onRefreshEmbalagem();
+  }
+
+  onClose() {
+    this.bsModalRef.hide();
   }
 
 onForm() {
@@ -90,7 +93,7 @@ onForm() {
     .pipe(
       catchError(error => {
         console.error(error);
-        //this.handleError();
+        this.handleError();
         return empty();
       })
     );
@@ -101,7 +104,7 @@ onForm() {
     .pipe(
       catchError(error => {
         console.error(error);
-        //this.handleError();
+        this.handleError();
         return empty();
         })
     );
@@ -123,7 +126,7 @@ onForm() {
     .pipe(
       catchError(error => {
         console.error(error);
-        //this.handleError();
+         this.handleError();
         return empty();
         })
     );
@@ -134,7 +137,7 @@ onForm() {
     .pipe(
       catchError(error => {
         console.error(error);
-        //this.handleError();
+        this.handleError();
         return empty();
         })
     );
@@ -202,13 +205,13 @@ onForm() {
 
   openVerticallyCentered(content) {
     this.modalService.open(content, { centered: true });
-  } */ 
+  } */
 
-/*    handleSucesso() {
+    handleSucesso() {
     this.alertService.showAlertSuccess('Conectando ao Servidor....');
    }
 
    handleError() {
     this.alertService.showAlertDanger('Erro ao carregar produtos. Servidor off line Tente novamente mais tarde.');
-   } */
+   }
 }

@@ -14,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
+import javax.xml.crypto.Data;
 
 /**
  * @author Jose R F Junior
@@ -55,8 +56,13 @@ public class Produto implements Serializable {
   public Cor cor;
   public Marca marca;
   public GridFS imagem;
+  public Unidade unidade;
   @JsonFormat(pattern="dd/MM/yyyy HH:mm")
   public Date datacadastro;
+  @JsonFormat(pattern="dd/MM/yyyy HH:mm")
+  public Date fabricacao;
+  @JsonFormat(pattern="dd/MM/yyyy HH:mm")
+  public Date vencimento;
 
   @DBRef(lazy = true)
   private List<Grupo> grupos = new ArrayList<>();
@@ -82,12 +88,14 @@ public class Produto implements Serializable {
   @DBRef(lazy = true)
   private List<Garantia> garantias = new ArrayList<>();
 
+  @DBRef(lazy = true)
+  private List<Unidade> unidades = new ArrayList<>();
 
   public Produto() {
   }
   // Constructors
-
-  public Produto(String _id,
+  public Produto(
+                 String _id,
                  UUID uuid,
                  String descricao,
                  Double preco,
@@ -100,6 +108,11 @@ public class Produto implements Serializable {
                  String formato,
                  String estilo,
                  String qualidade,
+                 GridFS imagem,
+                 Date datacadastro,
+                 Date fabricacao,
+                 Date vencimento,
+
                  Tamanho tamanho,
                  Devolucao devolucao,
                  Tipo tipo,
@@ -108,10 +121,18 @@ public class Produto implements Serializable {
                  Grupo grupo,
                  Cor cor,
                  Marca marca,
-                 GridFS imagem,
-                 Date datacadastro, List<Grupo> grupos, List<Cor> cors, List<Marca> marcas,
-                 List<Embalagem> embalagems, List<Tamanho> tamanhos, List<Devolucao> devolucaos,
-                 List<Tipo> tipos, List<Garantia> garantias) {
+                 Unidade unidade,
+
+                 List<Tamanho> tamanhos,
+                 List<Devolucao> devolucaos,
+                 List<Tipo> tipos,
+                 List<Garantia> garantias,
+                 List<Embalagem> embalagems,
+                 List<Grupo> grupos,
+                 List<Cor> cors,
+                 List<Marca> marcas,
+                 List<Unidade> unidades
+  ) {
     this._id = _id;
     this.uuid = uuid;
     this.descricao = descricao;
@@ -135,6 +156,10 @@ public class Produto implements Serializable {
     this.marca = marca;
     this.imagem = imagem;
     this.datacadastro = datacadastro;
+    this.fabricacao = fabricacao;
+    this.vencimento = vencimento;
+    this.unidade = unidade;
+
     this.grupos = grupos;
     this.cors = cors;
     this.marcas = marcas;
@@ -143,65 +168,67 @@ public class Produto implements Serializable {
     this.devolucaos = devolucaos;
     this.tipos = tipos;
     this.garantias = garantias;
+    this.unidades = unidades;
   }
 
-    public Produto(String id,
-                   UUID uuid,
-                   String descricao,
-                   Double preco,
-                   String durabilidade,
-                   Double peso,
-                   String rotulagem,
-                   String status,
-                   Double altura,
-                   Double largura,
-                   String formato,
-                   String estilo,
-                   String qualidade,
-                   Tamanho tamanho,
-                   Devolucao devolucao,
-                   Tipo tipo,
-                   Garantia garantia,
-                   Embalagem embalagem,
-                   Grupo grupo,
-                   Cor cor,
-                   Marca marca,
-                   GridFS imagem,
-                   Date datacadastro) {
-        this._id = _id;
-        this.uuid = uuid;
-        this.descricao = descricao;
-        this.preco = preco;
-        this.durabilidade = durabilidade;
-        this.peso = peso;
-        this.rotulagem = rotulagem;
-        this.status = status;
-        this.altura = altura;
-        this.largura = largura;
-        this.formato = formato;
-        this.estilo = estilo;
-        this.qualidade = qualidade;
-        this.tamanho = tamanho;
-        this.devolucao = devolucao;
-        this.tipo = tipo;
-        this.garantia = garantia;
-        this.embalagem = embalagem;
-        this.grupo = grupo;
-        this.cor = cor;
-        this.marca = marca;
-        this.imagem = imagem;
-        this.datacadastro = datacadastro;
-       /* this.grupos = grupos;
-        this.cors = cors;
-        this.marcas = marcas;
-        this.embalagems = embalagems;
-        this.tamanhos = tamanhos;
-        this.devolucaos = devolucaos;
-        this.tipos = tipos;
-        this.garantias = garantias;*/
-    }
+  public Produto(
+          String _id,
+          UUID uuid,
+          String descricao,
+          Double preco,
+          String durabilidade,
+          Double peso,
+          String rotulagem,
+          String status,
+          Double altura,
+          Double largura,
+          String formato,
+          String estilo,
+          String qualidade,
+          Tamanho tamanho,
+          Devolucao devolucao,
+          Tipo tipo,
+          Garantia garantia,
+          Embalagem embalagem,
+          Grupo grupo,
+          Cor cor,
+          Marca marca,
+          GridFS imagem,
+          Date datacadastro,
+          Date fabricacao,
+          Date vencimento,
+          Unidade unidade
+  ) {
+    this._id = _id;
+    this.uuid = uuid;
+    this.descricao = descricao;
+    this.preco = preco;
+    this.durabilidade = durabilidade;
+    this.peso = peso;
+    this.rotulagem = rotulagem;
+    this.status = status;
+    this.altura = altura;
+    this.largura = largura;
+    this.formato = formato;
+    this.estilo = estilo;
+    this.qualidade = qualidade;
+    this.tamanho = tamanho;
+    this.devolucao = devolucao;
+    this.tipo = tipo;
+    this.garantia = garantia;
+    this.embalagem = embalagem;
+    this.grupo = grupo;
+    this.cor = cor;
+    this.marca = marca;
+    this.imagem = imagem;
+    this.datacadastro = datacadastro;
+    this.fabricacao = fabricacao;
+    this.vencimento = vencimento;
+    this.unidade = unidade;
+  }
 
-    public String get_id() {
+
+  public String get_id() {
     return _id;
   }
 
@@ -377,12 +404,36 @@ public class Produto implements Serializable {
     this.imagem = imagem;
   }
 
+  public Unidade getUnidade() {
+    return unidade;
+  }
+
+  public void setUnidade(Unidade unidade) {
+    this.unidade = unidade;
+  }
+
   public Date getDatacadastro() {
     return datacadastro;
   }
 
   public void setDatacadastro(Date datacadastro) {
     this.datacadastro = datacadastro;
+  }
+
+  public Date getFabricacao() {
+    return fabricacao;
+  }
+
+  public void setFabricacao(Date fabricacao) {
+    this.fabricacao = fabricacao;
+  }
+
+  public Date getVencimento() {
+    return vencimento;
+  }
+
+  public void setVencimento(Date vencimento) {
+    this.vencimento = vencimento;
   }
 
   public List<Grupo> getGrupos() {
@@ -449,6 +500,14 @@ public class Produto implements Serializable {
     this.garantias = garantias;
   }
 
+  public List<Unidade> getUnidades() {
+    return unidades;
+  }
+
+  public void setUnidades(List<Unidade> unidades) {
+    this.unidades = unidades;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -476,7 +535,10 @@ public class Produto implements Serializable {
             Objects.equals(getCor(), produto.getCor()) &&
             Objects.equals(getMarca(), produto.getMarca()) &&
             Objects.equals(getImagem(), produto.getImagem()) &&
+            Objects.equals(getUnidade(), produto.getUnidade()) &&
             Objects.equals(getDatacadastro(), produto.getDatacadastro()) &&
+            Objects.equals(getFabricacao(), produto.getFabricacao()) &&
+            Objects.equals(getVencimento(), produto.getVencimento()) &&
             Objects.equals(getGrupos(), produto.getGrupos()) &&
             Objects.equals(getCors(), produto.getCors()) &&
             Objects.equals(getMarcas(), produto.getMarcas()) &&
@@ -484,12 +546,13 @@ public class Produto implements Serializable {
             Objects.equals(getTamanhos(), produto.getTamanhos()) &&
             Objects.equals(getDevolucaos(), produto.getDevolucaos()) &&
             Objects.equals(getTipos(), produto.getTipos()) &&
-            Objects.equals(getGarantias(), produto.getGarantias());
+            Objects.equals(getGarantias(), produto.getGarantias()) &&
+            Objects.equals(getUnidades(), produto.getUnidades());
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(get_id(), getUuid(), getDescricao(), getPreco(), getDurabilidade(), getPeso(), getRotulagem(), getStatus(), getAltura(), getLargura(), getFormato(), getEstilo(), getQualidade(), getTamanho(), getDevolucao(), getTipo(), getGarantia(), getEmbalagem(), getGrupo(), getCor(), getMarca(), getImagem(), getDatacadastro(), getGrupos(), getCors(), getMarcas(), getEmbalagems(), getTamanhos(), getDevolucaos(), getTipos(), getGarantias());
+    return Objects.hash(get_id(), getUuid(), getDescricao(), getPreco(), getDurabilidade(), getPeso(), getRotulagem(), getStatus(), getAltura(), getLargura(), getFormato(), getEstilo(), getQualidade(), getTamanho(), getDevolucao(), getTipo(), getGarantia(), getEmbalagem(), getGrupo(), getCor(), getMarca(), getImagem(), getUnidade(), getDatacadastro(), getFabricacao(), getVencimento(), getGrupos(), getCors(), getMarcas(), getEmbalagems(), getTamanhos(), getDevolucaos(), getTipos(), getGarantias(), getUnidades());
   }
 
   @Override

@@ -120,7 +120,10 @@ public class ProdutoServiceImpl implements ProdutoService {
                 objDto.getCor(),
                 objDto.getMarca(),
                 objDto.getImagem(),
-                objDto.getDatacadastro());
+                objDto.getDatacadastro(),
+                objDto.getFabricacao(),
+                objDto.getVencimento(),
+                objDto.getUnidade());
            }
 
     private void updateData(Produto newObj, Produto obj) {

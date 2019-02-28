@@ -1,18 +1,22 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Produto } from './produto';
-import { tap, delay, take, map } from 'rxjs/operators';
+import { tap, delay, take, map, catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
+import { Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProdutoService {
 
-  private readonly API = `${environment.API}`;
+  [x: string]: any;
+  private readonly APIFLUX6 = `${environment.APIFLUX6}`;
   private readonly API2 = `${environment.API2}`;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient
+    ) { }
 
   headers: HttpHeaders = new HttpHeaders({
     'Content-Type': 'application/json',
@@ -20,17 +24,23 @@ export class ProdutoService {
   });
 
   list() {
-    return this.http.get<Produto[]>(this.API)
+    return this.http.get<Produto[]>(this.APIFLUX6)
       .pipe(
         delay(1000),
-        tap(console.log)
+        tap(console.log),
+        catchError(this.handleError)
       );
-  }
+    }
 
   create(produto: Produto) {
     return this.http.post<Produto>(this.API2, produto, {
       headers: this.headers
     })
     .pipe(map(data => data));
+  }
+
+  protected handleError(error: any): Observable<any> {
+    console.log('ERRO NA REQUISIÇÃO => ', error);
+    return throwError(error);
   }
 }

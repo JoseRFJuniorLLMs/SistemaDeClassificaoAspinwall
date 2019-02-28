@@ -20,7 +20,8 @@ import { Approutes } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SpinnerComponent } from './shared/spinner.component';
 
-import { AlertModalComponent } from './shared/alert-modal/alert-modal.component';
+import { SharedModule } from './shared/alert-modal/shared.module';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -35,8 +36,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     FullComponent,
     NavigationComponent,
     BreadcrumbComponent,
-    SidebarComponent,
-    AlertModalComponent
+    SidebarComponent
   ],
   imports: [
     CommonModule,
@@ -46,7 +46,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     HttpClientModule,
     NgbModule.forRoot(),
     RouterModule.forRoot(Approutes),
-    PerfectScrollbarModule
+    PerfectScrollbarModule,
+    ModalModule.forRoot(),
+    SharedModule
   ],
   providers: [
     {

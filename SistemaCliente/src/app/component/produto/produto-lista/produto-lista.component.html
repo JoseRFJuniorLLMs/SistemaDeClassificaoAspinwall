@@ -1,3 +1,19 @@
+<div class="alert alert-{{ type }} no-margin" role="alert">
+  {{ message }}
+  <div class="spinner-border text-primary" role="status">
+      <ngb-alert *ngIf="!staticAlertClosed" 
+      (close)="staticAlertClosed = true"></ngb-alert>
+      <span class="sr-only"></span>
+    </div>
+  <button type="button" 
+  class="close" 
+  data-dismiss="alert" 
+  aria-label="Close" 
+  (click)="onClose()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
   <!-- INICIO DO MODAL -->
   <button type="button" 
   class="btn btn-primary" 
