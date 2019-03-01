@@ -218,12 +218,11 @@
           <strong>{{produto.descricao}}</strong><br>
           <a href="#" class="badge badge-primary">Valor R$:</a>
 
-          <strong>{{produto.preco}}</strong><br>
           <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
             title="Preco do Produto">{{produto.preco}}</a>
           <a href="#" class="badge badge-primary">Peso Kg:</a>
           <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
-            title="Valor do Produto">{{produto.peso}}</a><br>
+            title="Valor do Produto">{{produto.peso}}</a>
           <a href="#" class="badge badge-primary">Cod:</a>
           <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
             title="Codigo do Produto">{{ produto._id }}</a>
@@ -245,6 +244,10 @@
          <a href="#" class="badge badge-primary">Embalagem:</a>
          <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
               title="Codigo do Produto">{{ produto.embalagem.descricao }}</a> 
+              
+        <a href="#" class="badge badge-primary">Devolucao:</a>
+        <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
+                   title="Codigo do Produto">{{ produto.devolucao.descricao }}</a> 
    
           <td>
             <span class="float-right">

@@ -9,13 +9,13 @@ File: scss
 $themecolor: #1e88e5;
 $themecolor-dark: #028ee1;
 $topbar: #1e88e5;
-$sidebar:#272c33;
-$sidebar-text: #798699;
+$sidebar:#6b91c5;
+$sidebar-text: #51b1b8;
 $sidebar-icons: #798699;
-$sidebar-dark: #181c22;
-$sidebar-alt: #181c22;
+$sidebar-dark: #82a6dd;
+$sidebar-alt: #638fd1;
 $themecolor-alt: #26c6da;
-$topbar-alt: #272c33;
+$topbar-alt: #5a82b9;
 
 .bluedark {
 /*******************
@@ -120,7 +120,7 @@ $topbar-alt: #272c33;
     .sidebar-nav ul li.nav-small-cap {
         color: $sidebar-text;
     }
-    @media (min-width: 768px) {
+    @media (min-width: 200px) {
     &.horizontal-nav .sidebar-nav #sidebarnav > li > ul {
         background: $sidebar-alt;
     }

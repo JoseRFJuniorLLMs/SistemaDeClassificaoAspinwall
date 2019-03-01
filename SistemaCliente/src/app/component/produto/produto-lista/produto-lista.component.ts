@@ -23,20 +23,7 @@ import { Embalagem } from '../../paginas/embalagem/embalagem';
   selector: 'app-produto-lista',
   templateUrl: 'produto-lista.component.html',
   encapsulation: ViewEncapsulation.None,
-  styles: [
-    `
-      .dark-modal .modal-content {
-        background-color: #009efb;
-        color: white;
-      }
-      .dark-modal .close {
-        color: white;
-      }
-      .light-blue-backdrop {
-        background-color: #5cb3fd;
-      }
-    `
-  ],
+  styleUrls: ['produto-lista.component.scss'],
   preserveWhitespaces: true
 })
 
@@ -79,8 +66,7 @@ export class ProdutoListaComponent implements OnInit {
   }
 
   onClose() {
-   // this.bsModalRef.hide();
-  }
+   }
 
 onForm() {
   this.form = this.fb.group({

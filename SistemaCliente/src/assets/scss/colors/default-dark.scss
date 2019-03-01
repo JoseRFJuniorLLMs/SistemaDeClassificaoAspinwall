@@ -81,7 +81,7 @@ $topbar-alt: #398bf7;
         &:hover {
             background: $themecolor;
             opacity: 0.7;
-            border: 1px solid $themecolor;
+            border: 10px solid $themecolor;
         }
         &.active,
         &:focus {
@@ -118,7 +118,7 @@ $topbar-alt: #398bf7;
     .sidebar-nav ul li.nav-small-cap {
         color: $sidebar-text;
     }
-    @media (min-width: 768px) {
+    @media (min-width: 200px) {
     &.horizontal-nav .sidebar-nav #sidebarnav > li > ul {
         background: $sidebar-alt;
     }
