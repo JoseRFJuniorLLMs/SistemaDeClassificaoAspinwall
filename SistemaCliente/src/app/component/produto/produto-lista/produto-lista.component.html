@@ -15,11 +15,11 @@
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-
-    <div class="modal-body" [formGroup]="form" style="padding-top: 10px">
+      
+    <div class="modal-body" [formGroup]="form" style="padding-top: 50px">
         <div class="form-row">
 
-            <div class="col-sm-12">
+            <div class="col-sm-10">
                 <ng-template #popContentNome>Nome do Produto de forma clara e resumida</ng-template>
                 <label for="descricao">Nome do Produto</label>
                 <input
@@ -43,7 +43,7 @@
                   </div>
             </div>
 
-            <div class="col-sm-4">
+            <div class="col-sm-2">
                 <ng-template #popContentValor>Valor do Produto em R$ 0.0</ng-template>
                 <label for="preco">Valor</label>
                 <input
@@ -58,22 +58,68 @@
                 />
             </div>
 
-            <div class="col-sm-4">
+            <div class="col-sm-2">
+                <ng-template #popContentAltura>Altura</ng-template>
+                <label for="altura">Altura</label>
+                <input
+                [ngbPopover]="popContentAltura" 
+                popoverTitle="Campo Altura"
+                  type="text"
+                  class="form-control col-md-12"
+                  id="altura"
+                  placeholder="Altura"
+                  formControlName="altura"
+                  [ngClass]="{ 'is-invalid': submitted && hasError('altura')}"
+                />
+            </div>
+
+            <div class="col-sm-2">
+                <ng-template #popContentLargura>Largura</ng-template>
+                <label for="largura">Largura</label>
+                <input
+                [ngbPopover]="popContentAltura" 
+                popoverTitle="Campo Largura"
+                  type="text"
+                  class="form-control col-md-12"
+                  id="largura"
+                  placeholder="Largura"
+                  formControlName="largura"
+                  [ngClass]="{ 'is-invalid': submitted && hasError('largura')}"
+                />
+            </div>
+
+
+            <div class="col-sm-2">
+                <ng-template #popContentFormato>Formato</ng-template>
+                <label for="formato">Formato</label>
+                <input
+                [ngbPopover]="popContentFormato" 
+                popoverTitle="Campo Formato"
+                  type="text"
+                  class="form-control col-md-12"
+                  id="formato"
+                  placeholder="Formato"
+                  formControlName="formato"
+                  [ngClass]="{ 'is-invalid': submitted && hasError('formato')}"
+                />
+            </div>
+
+            <div class="col-sm-2">
                             <ng-template #popContentDurabilidade>Durabilidade do Produto em dias ou meses</ng-template>
-                <label for="durabilidade">Durabilidade</label>
+                <label for="durabilidade">Dur.</label>
                 <input 
                   [ngbPopover]="popContentDurabilidade" 
                   popoverTitle="Campo Durabilidade"
                   type="text"
                   class="form-control col-md-12"
                   id="durabilidade"
-                  placeholder="Durabilidade do Produto"
+                  placeholder="Durabilidade"
                   formControlName="durabilidade"
                   [ngClass]="{ 'is-invalid': submitted && hasError('durabilidade')}"
                 />
             </div>
 
-            <div class="col-sm-4">
+            <div class="col-sm-2">
                 <ng-template #popContentPeso>Peso do Produto em Kg ou Gramas</ng-template>
                 <label for="peso">Peso</label>
                 <input
@@ -182,6 +228,8 @@
   </ng-template>
 <!-- fim do Produto -->
 
+
+
 <!--   <div class="col-md-12">
     <div class="card">
       <div class="card-body">
@@ -206,20 +254,39 @@
   <div class="card-body">
     <table class="table table-hover" *ngIf="produtos$ | async as produtos; else loading">
       <thead>
-        <tr>
-          <th>Produtos</th>
-          <th></th>
-        </tr>
+    
       </thead>
       <tbody>
 
         <tr *ngFor="let produto of produtos">
-        
-          <strong>{{produto.descricao}}</strong><br>
-          <a href="#" class="badge badge-primary">Valor R$:</a>
+          <ng-template #popContentProd>
+            Cod:{{produto._id}}
+            Peso:{{produto.peso}}
+            Nome:{{produto.descricao}}
+            Cor:{{produto.cor.nome}}
+            Grupo:{{produto.cor.grupo}}
+            Marca:{{produto.marca.descricao}}
+            Embalagem:{{produto.embalagem.descricao}}<br>
+            Devo:{{produto.devolucao.descricao}}<br>
+            Altura:{{produto.altura}}<br>
+            Largura:{{produto.largura}}<br>
+            Formato:{{produto.formato}}<br>
+          </ng-template>
+          <strong 
+          [ngbPopover]="popContentProd" 
+          popoverTitle="Informações do produto">
+          {{produto.descricao}}</strong><br>
 
-          <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
-            title="Preco do Produto">{{produto.preco}}</a>
+           <a href="#" 
+          class="badge badge-primary">Valor R$:</a>
+          <a href="#" 
+          [ngbPopover]="popContentPreco" 
+          popoverTitle="Campo Preco"
+          class="badge badge-info" 
+          data-toggle="tooltip" 
+          data-placement="top"
+          title="Preco do Produto">{{produto.preco}}</a>
+     
           <a href="#" class="badge badge-primary">Peso Kg:</a>
           <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
             title="Valor do Produto">{{produto.peso}}</a>
@@ -248,6 +315,18 @@
         <a href="#" class="badge badge-primary">Devolucao:</a>
         <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
                    title="Codigo do Produto">{{ produto.devolucao.descricao }}</a> 
+
+                   <a href="#" class="badge badge-primary">Altura:</a>
+        <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
+                   title="Altura do Produto">{{ produto.altura }}</a> 
+
+                   <a href="#" class="badge badge-primary">Largura:</a>
+        <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
+                   title="Largura do Produto">{{ produto.largura}}</a> 
+
+                   <a href="#" class="badge badge-primary">Formato:</a>
+        <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
+                   title="Formato do Produto">{{ produto.formato }}</a> 
    
           <td>
             <span class="float-right">
