@@ -33,7 +33,7 @@ export class ProdutoService {
       );
     }
 
-    searchPrdoutos(descricao: string) {
+  searchProdutos(descricao: string) {
       return this.http.get<Produto[]>(this.APINOME + descricao)
         .pipe(
           delay(1000),

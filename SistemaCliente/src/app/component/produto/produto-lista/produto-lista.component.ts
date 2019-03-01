@@ -42,7 +42,6 @@ export class ProdutoListaComponent implements OnInit {
   submitted = false;
 
   descricao: string;
-  produto: Produto[];
 
   constructor(
 
@@ -59,17 +58,17 @@ export class ProdutoListaComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.onRefreshProduto();
+    this.onIniciaProduto();
+  }
+
+ngAfterContentInit(): void {
     this.onForm();
     this.onRefreshCor();
     this.onRefreshMarca();
     this.onRefreshGrupo();
     this.onRefreshEmbalagem();
     this.onRefreshDevolucao();
-  }
-
-  onClose() {
-   }
+}
 
 onForm() {
   this.form = this.fb.group({
@@ -92,13 +91,23 @@ onForm() {
 }
 
   onRefreshProduto() {
-     this.produtos$ = this.produtoService.list()
-    .pipe(
+    this.produtos$ = this.produtoService.list();
+    if (this.produtos$ != null) {
+      this.handleSucesso();
+    } else {
+      this.handleError();
+      return empty();
+    }
+   }
+
+   onIniciaProduto() {
+    this.produtos$ = this.produtoService.list()
+      .pipe(
       catchError(error => {
         console.error(error);
         this.handleError();
         return empty();
-      })
+        })
     );
   }
 
@@ -118,7 +127,7 @@ onForm() {
     .pipe(
       catchError(error => {
         console.error(error);
-        // this.handleError();
+        this.handleError();
         return empty();
         })
     );
@@ -186,38 +195,50 @@ onForm() {
     console.log(this.form.value);
     if (this.form.valid) {
       console.log('submit');
-      this.produtoService.create(this.form.value).subscribe(
+       this.produtoService.create(this.form.value).subscribe(
         success => {
-          this.handleSucesso();
-          this.onCancel();
           this.onRefreshProduto();
+          this.form.reset();
         },
          error =>
          this.handleError(),
-         // this.alertService.showAlertDanger('Erro ao cadastrar o produto, tente novamente!'),
-        () =>
+         () =>
         console.log('request completo')
       );
     }
   }
 
+/* chamadada Async */
+/*   private searchPrdoutos(descricao: string) {
+    this.produtoService.searchPrdoutos(descricao)
+      .subscribe(
+        dados => this.produtos$ = dados
+        );
+        console.log('PRODUTOX: ' + this.produtos$);
+  } */
+
+  searchProdutos(descricao: string) {
+     this.produtos$ =  this.produtoService.searchProdutos(descricao),
+        console.log('PRODUTOX: ' + this.produtos$);
+  } 
+
   onCancel() {
     this.submitted = false;
     this.form.reset();
+    this.handleSucesso();
   }
 
-  private searchPrdoutos(descricao: string) {
-    this.produtoService.searchPrdoutos(descricao)
-      .subscribe(produto => this.produto = produto);
+  onReset() {
+    this.form.reset();
+    this.handleSucesso();
   }
   onSubmitShearch() {
-    this.searchPrdoutos(this.descricao);
+    this.searchProdutos(this.descricao);
     this.handleSucesso();
-   // this.onRefreshProduto();
-  }
+   }
 
     handleSucesso() {
-    this.alertService.showAlertSuccess('Conectando ao Servidor....');
+    this.alertService.showAlertSuccess('Calma PORRA estou indo ao servidor....');
    }
 
    handleError() {

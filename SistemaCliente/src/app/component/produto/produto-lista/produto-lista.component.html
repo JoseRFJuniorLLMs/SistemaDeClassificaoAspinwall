@@ -1,12 +1,7 @@
 <div class="alert alert-{{ type }} no-margin" role="alert">
   {{ message }}
 </div> 
-
-  <!-- INICIO DO MODAL -->
-  <button type="button" 
-  class="btn btn-primary" 
-  (click)="open(content2)">Novo Produto</button>
-
+<!-- INICIO DO MODAL -->
 <!-- Formulario do Produto -->
 <ng-template #content2 let-c="close" let-d="dismiss">
     <div class="modal-header">
@@ -17,6 +12,7 @@
     </div>
       
     <div class="modal-body" [formGroup]="form" style="padding-top: 50px">
+      
         <div class="form-row">
 
             <div class="col-sm-10">
@@ -228,13 +224,17 @@
   </ng-template>
 <!-- fim do Produto -->
 
-
-
-<!--   <div class="col-md-12">
+   <div class="col-md-12">
     <div class="card">
       <div class="card-body">
 
-        <input class="form-control" 
+    <form (ngSubmit)="onSubmitShearch()">
+        <label for="lastname">Nome</label>
+        <input 
+        id="descricao" 
+        required [(ngModel)]="descricao" 
+        name="descricao"
+        class="form-control" 
         type="search" 
         placeholder="Digite o nome do produto" 
         aria-label="Pesquisar">
@@ -243,26 +243,18 @@
         type="submit">Pesquisar</button>
 
         <button type="button" 
-        class="btn btn-secondary" 
-        (click)="onRefresh()">Atualizar Lista</button>
+        class="btn btn-outline-warning" 
+        (click)="open(content2)">Novo Produto</button>
+
+         <button type="button" 
+        class="btn btn-outline-info" 
+        (click)="onRefreshProduto()">Atualizar Lista</button> 
+      </form>
 
       </div>
     </div>
-  </div> -->
-  <form (ngSubmit)="onSubmitShearch()">
-      <div class="form-group">
-        <label for="lastname">Nome</label>
-        <input type="text" class="form-control" id="descricao" 
-        required [(ngModel)]="descricao" name="descricao">
-      </div>
-  
-      <div class="btn-group">
-        <button type="submit" class="btn btn-success">Submit</button>
-      </div>
-    </form>
+  </div> 
 
-  <!-- FIM DO MODAL -->
- 
   <div class="card-body">
     <table class="table table-hover" *ngIf="produtos$ | async as produtos; else loading">
       <thead>
@@ -353,12 +345,12 @@
 
         </tr>
       </tbody>
-    </table>
+ </table>
     <ng-template #loading>
       <span>Carregando Produtos...</span>
       <div class="spinner-border text-primary" role="status">
         <span class="sr-only">Loading...</span>
       </div>
     </ng-template>
-  </div>
+       </div>
  
