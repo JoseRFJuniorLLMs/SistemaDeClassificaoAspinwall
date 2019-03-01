@@ -42,10 +42,6 @@ import { Embalagem } from '../../paginas/embalagem/embalagem';
 
 export class ProdutoListaComponent implements OnInit {
 
-  //[x: string]: any;
- /*  modal: any;
-  bsModalRef: any; */
-
   produtos$: Observable<Produto[]>;
   cors$: Observable<Cor[]>;
   marcas$: Observable<Marca[]>;
@@ -59,13 +55,15 @@ export class ProdutoListaComponent implements OnInit {
   submitted = false;
 
   constructor(
-    private fb: FormBuilder,
+
     private produtoService: ProdutoService,
     private corService: CorService,
     private marcaService: MarcaService,
     private grupoService: GrupoService,
     private embalagemService: EmbalagemService,
     private devolucaoService: DevolucaoService,
+
+    private fb: FormBuilder,
     private modalService: NgbModal,
     private alertService: AlertModalService
     ) { }
@@ -73,11 +71,10 @@ export class ProdutoListaComponent implements OnInit {
   ngOnInit() {
     this.onRefreshProduto();
     this.onForm();
+    this.onRefreshCor();
     this.onRefreshMarca();
     this.onRefreshGrupo();
-    this.onRefreshCor();
     this.onRefreshEmbalagem();
-    this.onRefreshDevolucao();
     this.onRefreshDevolucao();
   }
 
@@ -106,7 +103,7 @@ onForm() {
 }
 
   onRefreshProduto() {
-    this.produtos$ = this.produtoService.list()
+     this.produtos$ = this.produtoService.list()
     .pipe(
       catchError(error => {
         console.error(error);
@@ -118,7 +115,7 @@ onForm() {
 
   onRefreshCor() {
     this.cors$ = this.corService.list()
-    .pipe(
+      .pipe(
       catchError(error => {
         console.error(error);
         this.handleError();
@@ -132,7 +129,7 @@ onForm() {
     .pipe(
       catchError(error => {
         console.error(error);
-        //this.handleError();
+        // this.handleError();
         return empty();
         })
     );
@@ -171,12 +168,13 @@ onForm() {
     );
   }
 
-
   /* Abri o painel para cadastro de Produtos */
   open(content: any) {
     this.modalService.open(content, {
        windowClass: 'dark-modal',
-       size: 'lg'
+       size: 'lg',
+       centered: true,
+       backdropClass: 'light-blue-backdrop'
        });
    }
 
@@ -201,11 +199,13 @@ onForm() {
       console.log('submit');
       this.produtoService.create(this.form.value).subscribe(
         success => {
+          this.handleSucesso();
           this.onCancel();
           this.onRefreshProduto();
         },
          error =>
-         this.alertService.showAlertDanger('Erro ao cadastrar o produto, tente novamente!'),
+         this.handleError(),
+         // this.alertService.showAlertDanger('Erro ao cadastrar o produto, tente novamente!'),
         () =>
         console.log('request completo')
       );
@@ -216,7 +216,7 @@ onForm() {
     this.submitted = false;
     this.form.reset();
   }
-/* 
+/*
   openBackDropCustomClass(content) {
     this.modalService.open(content, {backdropClass: 'light-blue-backdrop'});
   }

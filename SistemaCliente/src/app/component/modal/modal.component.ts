@@ -12,7 +12,7 @@ import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-
         color: white;
       }
       .dark-modal .close {
-        color: white;
+        color: white; 
       }
       .light-blue-backdrop {
         background-color: #5cb3fd;

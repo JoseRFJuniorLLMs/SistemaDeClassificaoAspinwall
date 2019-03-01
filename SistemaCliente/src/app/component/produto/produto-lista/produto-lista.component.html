@@ -1,6 +1,6 @@
 <div class="alert alert-{{ type }} no-margin" role="alert">
   {{ message }}
-</div>
+</div> 
 
   <!-- INICIO DO MODAL -->
   <button type="button" 
@@ -87,9 +87,9 @@
                   [ngClass]="{ 'is-invalid': submitted && hasError('peso')}"
                 />
             </div>
-   <div class="col-sm-6">
-    <!-- cor -->
-      <div class="form-row">
+
+   <div class="col-sm-4">
+     <div class="form-row">
           <div class="form-group col-md-12" *ngIf="cors$ | async as cors; else loading">
             <label for="cor">Cor</label>
             <select name="cor" id="cor" formControlName="cor" class="form-control">
@@ -104,8 +104,8 @@
           </ng-template>
       </div>
   </div> 
-  <div class="col-sm-6">
-<!-- grupo -->
+
+  <div class="col-sm-4">
      <div class="form-row">
         <div class="form-group col-md-12" *ngIf="grupos$ | async as grupos; else loading">
           <label for="grupo">Grupo</label>
@@ -121,8 +121,8 @@
         </ng-template>
       </div>
 </div> 
-<div class="col-sm-6">
-         <!-- embalagem -->
+
+<div class="col-sm-4">
      <div class="form-row">
         <div class="form-group col-md-12" *ngIf="embalagens$ | async as embalagens; else loading">
           <label for="embalagem">Embalagem</label>
@@ -138,9 +138,9 @@
         </ng-template>
       </div>
     </div> 
-  <div class="col-sm-6">
-         <!-- marca -->
-         <div class="form-row">
+
+<div class="col-sm-4">
+    <div class="form-row">
             <div class="form-group col-md-12" *ngIf="marcas$ | async as marcas; else loading">
               <label for="marca">Marca</label>
               <select name="marca" id="marca" formControlName="marca" class="form-control">
@@ -156,8 +156,7 @@
           </div>
         </div>  
 
-      <!-- devolucao -->
-      <div class="col-sm-6">
+      <div class="col-sm-4">
           <div class="form-row">
              <div class="form-group col-md-12" *ngIf="devolucaos$ | async as devolucaos; else loading">
                <label for="devolucao">Devolucao</label>
@@ -173,7 +172,6 @@
              </ng-template>
            </div>
          </div> 
-
 
     </div>
   </div>
@@ -214,9 +212,13 @@
         </tr>
       </thead>
       <tbody>
+
         <tr *ngFor="let produto of produtos">
+        
           <strong>{{produto.descricao}}</strong><br>
           <a href="#" class="badge badge-primary">Valor R$:</a>
+
+          <strong>{{produto.preco}}</strong><br>
           <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
             title="Preco do Produto">{{produto.preco}}</a>
           <a href="#" class="badge badge-primary">Peso Kg:</a>
@@ -225,7 +227,7 @@
           <a href="#" class="badge badge-primary">Cod:</a>
           <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
             title="Codigo do Produto">{{ produto._id }}</a>
-          
+    
           <a href="#" class="badge badge-primary">Cor:</a>
            <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
             title="Codigo do Produto">{{ produto.cor.nome }}</a> 
@@ -242,8 +244,8 @@
           
          <a href="#" class="badge badge-primary">Embalagem:</a>
          <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
-                  title="Codigo do Produto">{{ produto.embalagem.descricao }}</a>
- 
+              title="Codigo do Produto">{{ produto.embalagem.descricao }}</a> 
+   
           <td>
             <span class="float-right">
               <button class="btn btn-outline-warning mb-1 btn-sm">

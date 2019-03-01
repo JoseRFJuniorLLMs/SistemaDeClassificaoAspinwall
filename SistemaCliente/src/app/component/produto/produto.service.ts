@@ -10,7 +10,7 @@ import { Observable, throwError } from 'rxjs';
 })
 export class ProdutoService {
 
-  [x: string]: any;
+  //[x: string]: any;
   private readonly APIFLUX6 = `${environment.APIFLUX6}`;
   private readonly API2 = `${environment.API2}`;
 
