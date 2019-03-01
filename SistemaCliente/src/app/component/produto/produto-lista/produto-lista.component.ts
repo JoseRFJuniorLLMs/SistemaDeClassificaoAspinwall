@@ -41,6 +41,9 @@ export class ProdutoListaComponent implements OnInit {
   form: FormGroup;
   submitted = false;
 
+  descricao: string;
+  produto: Produto[];
+
   constructor(
 
     private produtoService: ProdutoService,
@@ -202,26 +205,16 @@ onForm() {
     this.submitted = false;
     this.form.reset();
   }
-/*
-  openBackDropCustomClass(content) {
-    this.modalService.open(content, {backdropClass: 'light-blue-backdrop'});
-  }
 
-  openWindowCustomClass(content) {
-    this.modalService.open(content, { windowClass: 'dark-modal' });
+  private searchPrdoutos(descricao: string) {
+    this.produtoService.searchPrdoutos(descricao)
+      .subscribe(produto => this.produto = produto);
   }
-
-  openSm(content) {
-    this.modalService.open(content, { size: 'sm' });
+  onSubmitShearch() {
+    this.searchPrdoutos(this.descricao);
+    this.handleSucesso();
+   // this.onRefreshProduto();
   }
-
-  openLg(content) {
-    this.modalService.open(content, { size: 'lg' });
-  }
-
-  openVerticallyCentered(content) {
-    this.modalService.open(content, { centered: true });
-  } */
 
     handleSucesso() {
     this.alertService.showAlertSuccess('Conectando ao Servidor....');

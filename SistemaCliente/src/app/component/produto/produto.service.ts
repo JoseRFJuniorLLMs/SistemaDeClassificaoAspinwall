@@ -13,6 +13,7 @@ export class ProdutoService {
   //[x: string]: any;
   private readonly APIFLUX6 = `${environment.APIFLUX6}`;
   private readonly API2 = `${environment.API2}`;
+  private readonly APINOME = `${environment.APINOME}`;
 
   constructor(
     private http: HttpClient
@@ -31,6 +32,15 @@ export class ProdutoService {
         catchError(this.handleError)
       );
     }
+
+    searchPrdoutos(descricao: string) {
+      return this.http.get<Produto[]>(this.APINOME + descricao)
+        .pipe(
+          delay(1000),
+          tap(console.log),
+          catchError(this.handleError)
+        );
+      }
 
   create(produto: Produto) {
     return this.http.post<Produto>(this.API2, produto, {

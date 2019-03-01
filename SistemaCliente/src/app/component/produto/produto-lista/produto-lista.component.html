@@ -249,6 +249,18 @@
       </div>
     </div>
   </div> -->
+  <form (ngSubmit)="onSubmitShearch()">
+      <div class="form-group">
+        <label for="lastname">Nome</label>
+        <input type="text" class="form-control" id="descricao" 
+        required [(ngModel)]="descricao" name="descricao">
+      </div>
+  
+      <div class="btn-group">
+        <button type="submit" class="btn btn-success">Submit</button>
+      </div>
+    </form>
+
   <!-- FIM DO MODAL -->
  
   <div class="card-body">
