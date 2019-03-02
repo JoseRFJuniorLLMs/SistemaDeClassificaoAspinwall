@@ -3,6 +3,7 @@ import { Embalagem } from '../paginas/embalagem/embalagem';
 import { Grupo } from '../paginas/grupo/grupo';
 import { Marca } from '../paginas/marca/marca';
 import { Devolucao } from '../paginas/devolucao/devolucao';
+import { Unidade } from '../paginas/unidade/unidade';
 export interface Produto {
 
      _id: any;
@@ -18,7 +19,8 @@ export interface Produto {
      largura?: Number;
      formato?: string;
      datacadastro?: string;
-
+     estilo?: string;
+     unidade?: Unidade[];
      cor: Cor[];
      embalagem: Embalagem[];
      grupo: Grupo[];

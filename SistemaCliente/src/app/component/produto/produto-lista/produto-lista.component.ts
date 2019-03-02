@@ -20,6 +20,7 @@ import { Grupo } from '../../paginas/grupo/grupo';
 import { Embalagem } from '../../paginas/embalagem/embalagem';
 
 import * as moment from 'moment';
+import { Unidade } from '../../paginas/unidade/unidade';
 
 @Component({
   selector: 'app-produto-lista',
@@ -37,14 +38,14 @@ export class ProdutoListaComponent implements OnInit {
   grupos$: Observable<Grupo[]>;
   embalagens$: Observable<Embalagem[]>;
   devolucaos$: Observable<Devolucao[]>;
-
+  unidades$: Observable<Unidade[]>;
   error$ = new Subject<boolean>();
   closeResult: string;
   form: FormGroup;
   submitted = false;
-
   descricao: string;
   datacadastro: string;
+  status: string;
 
   constructor(
 
@@ -54,6 +55,7 @@ export class ProdutoListaComponent implements OnInit {
     private grupoService: GrupoService,
     private embalagemService: EmbalagemService,
     private devolucaoService: DevolucaoService,
+    private unidadeService: UnidadeService,
 
     private fb: FormBuilder,
     private modalService: NgbModal,
@@ -63,9 +65,9 @@ export class ProdutoListaComponent implements OnInit {
 
   ngOnInit() {
     this.onIniciaProduto();
-   // this.datacadastro = moment().format('DD/MM/YYYY HH:mm:ss');
-   this.datacadastro = moment().format('DD/MM/YYYY');
-    console.log('sDATA CADASTRO : ' + this.datacadastro);
+    this.datacadastro = moment().format('DD/MM/YYYY HH:mm:ss');
+    this.status = 'Ativo';
+    console.log('DATA CADASTRO : ' + this.datacadastro);
   }
 
 ngAfterContentInit(): void {
@@ -84,7 +86,7 @@ onForm() {
     durabilidade: [],
     peso: [],
     rotulagem: [],
-    status: [],
+    status: this.status,
     cor: [], //[null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
     grupo: [],
     marca: [],
@@ -94,11 +96,12 @@ onForm() {
     altura: [],
     largura: [],
     formato: [],
-    datacadastro: this.datacadastro
+    datacadastro: this.datacadastro,
+    unidade: []
   });
 }
 
-  onRefreshProduto() {
+   onRefreshProduto() {
     this.produtos$ = this.produtoService.list();
     if (this.produtos$ != null) {
       this.handleSucesso();
@@ -245,6 +248,7 @@ onForm() {
     this.form.reset();
     this.handleSucesso();
   }
+
   onSubmitShearch() {
     this.searchProdutos(this.descricao);
     this.handleSucesso();

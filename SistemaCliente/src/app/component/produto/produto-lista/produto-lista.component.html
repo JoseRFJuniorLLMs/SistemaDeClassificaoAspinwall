@@ -287,6 +287,7 @@
             Largura:{{produto.largura}}<br>
             Formato:{{produto.formato}}<br>
             Formato:{{produto.datacadastro}}<br>
+            Formato:{{produto.status}}<br>
           </ng-template>
           <strong 
           [ngbPopover]="popContentProd" 
@@ -347,6 +348,10 @@
         <a href="#" class="badge badge-primary">Data Cadastro:</a>
         <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
                    title="Daata de Cadastro">{{ produto.datacadastro }}</a> 
+
+        <a href="#" class="badge badge-primary">Status:</a>
+        <a href="#" class="badge badge-danger" data-toggle="tooltip" data-placement="top"
+                   title="Daata de Cadastro">{{ produto.status }}</a> 
    
           <td>
             <span class="float-right">
