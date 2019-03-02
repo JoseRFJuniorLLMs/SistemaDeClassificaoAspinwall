@@ -12,15 +12,13 @@
     </div>
       
     <div class="modal-body" [formGroup]="form" style="padding-top: 50px">
-      
         <div class="form-row">
-
-            <div class="col-sm-10">
+           <div class="col-sm-10">
                 <ng-template #popContentNome>Nome do Produto de forma clara e resumida</ng-template>
                 <label for="descricao">Nome do Produto</label>
                 <input
-                [ngbPopover]="popContentNome" 
-                popoverTitle="Campo Nome"
+                  [ngbPopover]="popContentNome" 
+                  popoverTitle="Campo Nome"
                   type="text"
                   class="form-control"
                   id="descricao"
@@ -132,11 +130,28 @@
 
    <div class="col-sm-4">
      <div class="form-row">
-          <div class="form-group col-md-12" *ngIf="cors$ | async as cors; else loading">
+          <div class="form-group col-md-12" 
+          *ngIf="cors$ | async as cors; else loading">
             <label for="cor">Cor</label>
-            <select name="cor" id="cor" formControlName="cor" class="form-control">
+            <select 
+            name="cor" 
+            id="cor" 
+            formControlName="cor" 
+            class="form-control" 
+            [ngClass]="{ 'is-invalid': submitted && hasError('nome')}">
                  <option *ngFor="let cor of cors" [ngValue]="cor">{{ cor.nome }}</option>
             </select>
+
+            <div class="invalid-feedback" *ngIf="hasError('nome') && hasError('nome')['required']" >
+                Por favor informe um nome para o produto.
+              </div>
+              <div class="invalid-feedback" *ngIf="hasError('nome') && hasError('nome')['minlength']" >
+                Nome precisa ter no mínimo {{ hasError('nome')['minlength'].requiredLength }} caracteres.
+              </div>
+              <div class="invalid-feedback" *ngIf="hasError('nome') && hasError('nome')['maxlength']" >
+                Nome precisa ter no máximo {{ hasError('nome')['maxlength'].requiredLength }} caracteres.
+              </div>
+
           </div>
           <ng-template #loading>
             <span>Aguarde..</span>
@@ -228,11 +243,18 @@
     <div class="card">
       <div class="card-body">
 
-    <form (ngSubmit)="onSubmitShearch()">
+        <ng-template #popContentPes>
+         Digite em CAIXA ALTA O NOME DO PRODUTO !
+        </ng-template>
+
+    <form  (ngSubmit)="onSubmitShearch()">
         <label for="lastname">Nome</label>
         <input 
-        id="descricao" 
-        required [(ngModel)]="descricao" 
+        [ngbPopover]="popContentPes" 
+          popoverTitle="Pesquisar Produtos"
+        (blur)="uPpercase($event)"
+         id="descricao" 
+        [(ngModel)]="descricao" 
         name="descricao"
         class="form-control" 
         type="search" 
@@ -275,15 +297,16 @@
             Altura:{{produto.altura}}<br>
             Largura:{{produto.largura}}<br>
             Formato:{{produto.formato}}<br>
+            Formato:{{produto.datacadastro}}<br>
           </ng-template>
           <strong 
           [ngbPopover]="popContentProd" 
           popoverTitle="Informações do produto">
           {{produto.descricao}}</strong><br>
 
-           <a href="#" 
+        <a href="#" 
           class="badge badge-primary">Valor R$:</a>
-          <a href="#" 
+        <a href="#" 
           [ngbPopover]="popContentPreco" 
           popoverTitle="Campo Preco"
           class="badge badge-info" 
@@ -291,46 +314,50 @@
           data-placement="top"
           title="Preco do Produto">{{produto.preco}}</a>
      
-          <a href="#" class="badge badge-primary">Peso Kg:</a>
-          <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
+        <a href="#" class="badge badge-primary">Peso Kg:</a>
+        <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
             title="Valor do Produto">{{produto.peso}}</a>
-          <a href="#" class="badge badge-primary">Cod:</a>
-          <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
+        <a href="#" class="badge badge-primary">Cod:</a>
+        <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
             title="Codigo do Produto">{{ produto._id }}</a>
     
-          <a href="#" class="badge badge-primary">Cor:</a>
-           <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
+        <a href="#" class="badge badge-primary">Cor:</a>
+        <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
             title="Codigo do Produto">{{ produto.cor.nome }}</a> 
-          <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
+        <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
             title="Codigo do Produto">{{ produto.cor.hex }}</a> 
 
-          <a href="#" class="badge badge-primary">Grupo:</a>
-          <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
+        <a href="#" class="badge badge-primary">Grupo:</a>
+        <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
             title="Codigo do Produto">{{ produto.grupo.descricao }}</a>
 
-          <a href="#" class="badge badge-primary">Marca:</a>
-          <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
+        <a href="#" class="badge badge-primary">Marca:</a>
+        <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
               title="Codigo do Produto">{{ produto.marca.descricao }}</a>
           
-         <a href="#" class="badge badge-primary">Embalagem:</a>
-         <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
+        <a href="#" class="badge badge-primary">Embalagem:</a>
+        <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
               title="Codigo do Produto">{{ produto.embalagem.descricao }}</a> 
               
         <a href="#" class="badge badge-primary">Devolucao:</a>
         <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
                    title="Codigo do Produto">{{ produto.devolucao.descricao }}</a> 
 
-                   <a href="#" class="badge badge-primary">Altura:</a>
+        <a href="#" class="badge badge-primary">Altura:</a>
         <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
                    title="Altura do Produto">{{ produto.altura }}</a> 
 
-                   <a href="#" class="badge badge-primary">Largura:</a>
+        <a href="#" class="badge badge-primary">Largura:</a>
         <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
                    title="Largura do Produto">{{ produto.largura}}</a> 
 
-                   <a href="#" class="badge badge-primary">Formato:</a>
+        <a href="#" class="badge badge-primary">Formato:</a>
         <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
                    title="Formato do Produto">{{ produto.formato }}</a> 
+        
+        <a href="#" class="badge badge-primary">Data Cadastro:</a>
+        <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
+                   title="Daata de Cadastro">{{ produto.datacadastro }}</a> 
    
           <td>
             <span class="float-right">
@@ -352,5 +379,5 @@
         <span class="sr-only">Loading...</span>
       </div>
     </ng-template>
-       </div>
+  </div>
  

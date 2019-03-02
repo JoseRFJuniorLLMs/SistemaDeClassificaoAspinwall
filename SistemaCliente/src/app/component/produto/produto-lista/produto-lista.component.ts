@@ -19,6 +19,8 @@ import { Marca } from '../../paginas/marca/marca';
 import { Grupo } from '../../paginas/grupo/grupo';
 import { Embalagem } from '../../paginas/embalagem/embalagem';
 
+import * as moment from 'moment';
+
 @Component({
   selector: 'app-produto-lista',
   templateUrl: 'produto-lista.component.html',
@@ -43,6 +45,8 @@ export class ProdutoListaComponent implements OnInit {
 
   descricao: string;
 
+  datacadastro: string;
+
   constructor(
 
     private produtoService: ProdutoService,
@@ -59,6 +63,7 @@ export class ProdutoListaComponent implements OnInit {
 
   ngOnInit() {
     this.onIniciaProduto();
+    this.datacadastro = moment().format('DD/MM/YYYY HH:mm:ss');
   }
 
 ngAfterContentInit(): void {
@@ -78,7 +83,7 @@ onForm() {
     peso: [],
     rotulagem: [],
     status: [],
-    cor: [],
+    cor: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
     grupo: [],
     marca: [],
     embalagem: [],
@@ -86,7 +91,8 @@ onForm() {
     imagem: [],
     altura: [],
     largura: [],
-    formato: []
+    formato: [],
+    datacadastro: []
   });
 }
 
@@ -220,7 +226,11 @@ onForm() {
   searchProdutos(descricao: string) {
      this.produtos$ =  this.produtoService.searchProdutos(descricao),
         console.log('PRODUTOX: ' + this.produtos$);
-  } 
+  }
+
+  uPpercase(event: any) {
+    event.target.value = event.target.value.toUpperCase();
+  }
 
   onCancel() {
     this.submitted = false;

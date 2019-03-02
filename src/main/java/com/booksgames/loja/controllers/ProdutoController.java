@@ -10,13 +10,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
+
+import java.util.Comparator;
+import java.util.stream.Collectors;
+import java.util.List;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.List;
-import java.util.stream.Collectors;
 
+import java.util.stream.IntStream;
 /**
  * @author Jose R F Junior
  * web2ajax@gmail.com
@@ -38,23 +40,23 @@ public class ProdutoController {
   public Flux<Produto> getProduto(){
     return produtoServiceImpl.findAll();
   }
-
-  @CrossOrigin(origins = "http://localhost:4200")
-  @RequestMapping(value="/nome/{descricao}", method=RequestMethod.GET)
-  public Flux<Produto> getCorNome(@PathVariable String descricao){
-    return produtoServiceImpl.findByDescricao(descricao);
-  }
-
   @CrossOrigin(origins = "http://localhost:4200")
   @RequestMapping(value="/flux6", method=RequestMethod.GET)
   public ResponseEntity<List<ProdutoDTO>> findAll() {
     Flux<Produto> listFlux = produtoServiceImpl.findAll();
     List<ProdutoDTO> listDto = listFlux.toStream()
             //.map(obj -> new ProdutoDTO(obj))
+            .sorted(Comparator.comparing(Produto::get_id).reversed())
             .map( ProdutoDTO::new)
             .limit(6)
             .collect( Collectors.toList());
     return ResponseEntity.ok().body(listDto);
+  }
+
+  @CrossOrigin(origins = "http://localhost:4200")
+  @RequestMapping(value="/nome/{descricao}", method=RequestMethod.GET)
+  public Flux<Produto> getCorNome(@PathVariable String descricao){
+    return produtoServiceImpl.findByDescricao(descricao);
   }
 
   @RequestMapping(value = "/{_id}", method = RequestMethod.GET)
@@ -67,6 +69,7 @@ public class ProdutoController {
     produto.set_id(_id);
     produtoRepository.save(produto);
   }
+
   @CrossOrigin(origins = "http://localhost:4200")
   @PostMapping(value = "/")
   public ResponseEntity<Void> createProduto(@Valid @RequestBody Produto objDto) {
@@ -82,7 +85,7 @@ public class ProdutoController {
     produtoRepository.delete(produtoRepository.findBy_id(_id));
   }
 
- @RequestMapping(value="/page", method=RequestMethod.GET)
+  @RequestMapping(value="/page", method=RequestMethod.GET)
   public ResponseEntity<Page<ProdutoDTO>> findPage(
           @RequestParam(value="page", defaultValue="0") Integer page,
           @RequestParam(value="linesPerPage", defaultValue="5") Integer linesPerPage,

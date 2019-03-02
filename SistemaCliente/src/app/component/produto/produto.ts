@@ -4,9 +4,10 @@ import { Grupo } from '../paginas/grupo/grupo';
 import { Marca } from '../paginas/marca/marca';
 import { Devolucao } from '../paginas/devolucao/devolucao';
 export interface Produto {
-     _id?: any;
+
+     _id: any;
      uuid?: String;
-     descricao?: string;
+     descricao: string;
      preco?: Number;
      durabilidade?: string;
      peso?: Number;
@@ -16,10 +17,11 @@ export interface Produto {
      altura?: Number;
      largura?: Number;
      formato?: string;
+     datacadastro?: Date;
 
-     cor?: Cor[];
-     embalagem?: Embalagem[];
-     grupo?: Grupo[];
-     marca?: Marca[];
-     devolucao?: Devolucao[];
+     cor: Cor[];
+     embalagem: Embalagem[];
+     grupo: Grupo[];
+     marca: Marca[];
+     devolucao: Devolucao[];
 }
