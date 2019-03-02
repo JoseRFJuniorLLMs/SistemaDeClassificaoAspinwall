@@ -58,11 +58,11 @@ public class Produto implements Serializable {
   public Marca marca;
   public GridFS imagem;
   public Unidade unidade;
-  @JsonFormat(pattern="dd/MM/yyyy HH:mm")
-  public LocalDate datacadastro;
-  @JsonFormat(pattern="dd/MM/yyyy HH:mm")
+  @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
+  public Date datacadastro;
+  @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
   public Date fabricacao;
-  @JsonFormat(pattern="dd/MM/yyyy HH:mm")
+  @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
   public Date vencimento;
 
   @DBRef(lazy = true)
@@ -110,7 +110,7 @@ public class Produto implements Serializable {
                  String estilo,
                  String qualidade,
                  GridFS imagem,
-                 LocalDate datacadastro,
+                 Date datacadastro,
                  Date fabricacao,
                  Date vencimento,
 
@@ -195,7 +195,7 @@ public class Produto implements Serializable {
           Cor cor,
           Marca marca,
           GridFS imagem,
-          LocalDate datacadastro,
+          Date datacadastro,
           Date fabricacao,
           Date vencimento,
           Unidade unidade
@@ -413,11 +413,11 @@ public class Produto implements Serializable {
     this.unidade = unidade;
   }
 
-  public LocalDate getDatacadastro() {
+  public Date getDatacadastro() {
     return datacadastro;
   }
 
-  public void setDatacadastro(LocalDate datacadastro) {
+  public void setDatacadastro(Date datacadastro) {
     this.datacadastro = datacadastro;
   }
 

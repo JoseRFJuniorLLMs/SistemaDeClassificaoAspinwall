@@ -42,11 +42,11 @@ public class ProdutoDTO implements Serializable {
     public Marca marca;
     public GridFS imagem;
     public Unidade unidade;
-    @JsonFormat(pattern="dd/MM/yyyy HH:mm")
-    public LocalDate datacadastro;
-    @JsonFormat(pattern="dd/MM/yyyy HH:mm")
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
+    public Date datacadastro;
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
     public Date fabricacao;
-    @JsonFormat(pattern="dd/MM/yyyy HH:mm")
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
     public Date vencimento;
 
     public ProdutoDTO() {
@@ -66,7 +66,6 @@ public class ProdutoDTO implements Serializable {
         cor = obj.getCor();
         marca = obj.getMarca();
         imagem = obj.getImagem();
-        datacadastro = obj.getDatacadastro();
         altura = obj.getAltura();
         largura = obj.getLargura();
         formato = obj.getFormato();
@@ -266,11 +265,11 @@ public class ProdutoDTO implements Serializable {
         this.unidade = unidade;
     }
 
-    public LocalDate getDatacadastro() {
+    public Date getDatacadastro() {
         return datacadastro;
     }
 
-    public void setDatacadastro(LocalDate datacadastro) {
+    public void setDatacadastro(Date datacadastro) {
         this.datacadastro = datacadastro;
     }
 

@@ -137,20 +137,9 @@
             name="cor" 
             id="cor" 
             formControlName="cor" 
-            class="form-control" 
-            [ngClass]="{ 'is-invalid': submitted && hasError('nome')}">
+            class="form-control">
                  <option *ngFor="let cor of cors" [ngValue]="cor">{{ cor.nome }}</option>
             </select>
-
-            <div class="invalid-feedback" *ngIf="hasError('nome') && hasError('nome')['required']" >
-                Por favor informe um nome para o produto.
-              </div>
-              <div class="invalid-feedback" *ngIf="hasError('nome') && hasError('nome')['minlength']" >
-                Nome precisa ter no mínimo {{ hasError('nome')['minlength'].requiredLength }} caracteres.
-              </div>
-              <div class="invalid-feedback" *ngIf="hasError('nome') && hasError('nome')['maxlength']" >
-                Nome precisa ter no máximo {{ hasError('nome')['maxlength'].requiredLength }} caracteres.
-              </div>
 
           </div>
           <ng-template #loading>

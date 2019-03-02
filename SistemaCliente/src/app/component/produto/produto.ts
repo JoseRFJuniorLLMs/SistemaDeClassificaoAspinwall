@@ -17,7 +17,7 @@ export interface Produto {
      altura?: Number;
      largura?: Number;
      formato?: string;
-     datacadastro?: Date;
+     datacadastro?: string;
 
      cor: Cor[];
      embalagem: Embalagem[];

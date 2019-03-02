@@ -44,7 +44,6 @@ export class ProdutoListaComponent implements OnInit {
   submitted = false;
 
   descricao: string;
-
   datacadastro: string;
 
   constructor(
@@ -59,11 +58,14 @@ export class ProdutoListaComponent implements OnInit {
     private fb: FormBuilder,
     private modalService: NgbModal,
     private alertService: AlertModalService
+
     ) { }
 
   ngOnInit() {
     this.onIniciaProduto();
-    this.datacadastro = moment().format('DD/MM/YYYY HH:mm:ss');
+   // this.datacadastro = moment().format('DD/MM/YYYY HH:mm:ss');
+   this.datacadastro = moment().format('DD/MM/YYYY');
+    console.log('sDATA CADASTRO : ' + this.datacadastro);
   }
 
 ngAfterContentInit(): void {
@@ -83,7 +85,7 @@ onForm() {
     peso: [],
     rotulagem: [],
     status: [],
-    cor: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+    cor: [], //[null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
     grupo: [],
     marca: [],
     embalagem: [],
@@ -92,7 +94,7 @@ onForm() {
     altura: [],
     largura: [],
     formato: [],
-    datacadastro: []
+    datacadastro: this.datacadastro
   });
 }
 
@@ -201,6 +203,7 @@ onForm() {
     console.log(this.form.value);
     if (this.form.valid) {
       console.log('submit');
+     // this.datacadastro = moment().format('DD/MM/YYYY HH:mm:ss');
        this.produtoService.create(this.form.value).subscribe(
         success => {
           this.onRefreshProduto();
