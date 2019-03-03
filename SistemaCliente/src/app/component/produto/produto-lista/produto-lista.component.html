@@ -13,7 +13,7 @@
       
     <div class="modal-body" [formGroup]="form" style="padding-top: 50px">
         <div class="form-row">
-           <div class="col-sm-10">
+           <div class="col-sm-8">
                 <ng-template #popContentNome>Nome do Produto de forma clara e resumida</ng-template>
                 <label for="descricao">Nome do Produto</label>
                 <input
@@ -36,7 +36,26 @@
                     Nome precisa ter no máximo {{ hasError('descricao')['maxlength'].requiredLength }} caracteres.
                   </div>
             </div>
-
+            
+            <div class="col-sm-4">
+                <label for="preco">Fabricação</label>
+                  <input 
+                  type="date" 
+                  class="form-control col-md-12"
+                  id="fabricacao"
+                  placeholder="Data Fabricação"
+                  formControlName="fabricacao" />
+            </div>
+         
+            <div class="col-sm-4">
+                <label for="preco">Vencimento</label>
+                    <input 
+                    type="date" 
+                    class="form-control col-md-12"
+                    id="vencimento"
+                    placeholder="Data Vencimento"
+                    formControlName="vencimento" />
+            </div>
             <div class="col-sm-2">
                 <ng-template #popContentValor>Valor do Produto em R$ 0.0</ng-template>
                 <label for="preco">Valor</label>

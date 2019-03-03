@@ -4,8 +4,8 @@ import { Grupo } from '../paginas/grupo/grupo';
 import { Marca } from '../paginas/marca/marca';
 import { Devolucao } from '../paginas/devolucao/devolucao';
 import { Unidade } from '../paginas/unidade/unidade';
-export interface Produto {
 
+export interface Produto {
      _id: any;
      uuid?: String;
      descricao: string;
@@ -20,6 +20,8 @@ export interface Produto {
      formato?: string;
      datacadastro?: string;
      estilo?: string;
+     fabricacao?: string;
+     vencimento?: string;
      unidade?: Unidade[];
      cor: Cor[];
      embalagem: Embalagem[];

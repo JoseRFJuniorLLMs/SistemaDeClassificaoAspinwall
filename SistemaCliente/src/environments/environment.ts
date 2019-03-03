@@ -21,7 +21,7 @@ export const environment = {
   API12: 'http://localhost:8080/devolucaos/v1/devolucao/',
 
   API13: 'http://localhost:8080/tipos/v1/tipo/flux',
-  API14: 'http://localhost:8080/tipos/v1/tipo/'
+  API14: 'http://localhost:8080/tipos/v1/tipo/',
 
   API15: 'http://localhost:8080/unidades/v1/unidade/flux',
   API16: 'http://localhost:8080/unidades/v1/unidade/'

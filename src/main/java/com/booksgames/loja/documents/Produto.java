@@ -60,9 +60,9 @@ public class Produto implements Serializable {
   public Unidade unidade;
   @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
   public Date datacadastro;
-  @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
+  @JsonFormat(pattern="dd/MM/yyyy")
   public Date fabricacao;
-  @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
+  @JsonFormat(pattern="dd/MM/yyyy")
   public Date vencimento;
 
   @DBRef(lazy = true)

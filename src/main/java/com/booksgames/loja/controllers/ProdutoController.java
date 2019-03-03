@@ -17,8 +17,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 import java.net.URI;
-
 import java.util.stream.IntStream;
+
 /**
  * @author Jose R F Junior
  * web2ajax@gmail.com
@@ -37,9 +37,10 @@ public class ProdutoController {
 
   @CrossOrigin(origins = "http://localhost:4200")
   @GetMapping(value="/flux")
-  public Flux<Produto> getProduto(){
+  public Flux<Produto> getProduto() {
     return produtoServiceImpl.findAll();
   }
+
   @CrossOrigin(origins = "http://localhost:4200")
   @RequestMapping(value="/flux6", method=RequestMethod.GET)
   public ResponseEntity<List<ProdutoDTO>> findAll() {

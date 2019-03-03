@@ -21,6 +21,9 @@ import { Embalagem } from '../../paginas/embalagem/embalagem';
 
 import * as moment from 'moment';
 import { Unidade } from '../../paginas/unidade/unidade';
+import { UnidadeService } from '../../paginas/unidade/unidade-service';
+import { TipoService } from '../../paginas/tipo/tipo.service';
+import { Tipo } from '../../paginas/tipo/tipo';
 
 @Component({
   selector: 'app-produto-lista',
@@ -39,12 +42,15 @@ export class ProdutoListaComponent implements OnInit {
   embalagens$: Observable<Embalagem[]>;
   devolucaos$: Observable<Devolucao[]>;
   unidades$: Observable<Unidade[]>;
+  tipos$: Observable<Tipo[]>;
   error$ = new Subject<boolean>();
   closeResult: string;
   form: FormGroup;
   submitted = false;
   descricao: string;
   datacadastro: string;
+  fabricacao: string;
+  vencimento: string;
   status: string;
 
   constructor(
@@ -56,6 +62,7 @@ export class ProdutoListaComponent implements OnInit {
     private embalagemService: EmbalagemService,
     private devolucaoService: DevolucaoService,
     private unidadeService: UnidadeService,
+    private tipoService: TipoService,
 
     private fb: FormBuilder,
     private modalService: NgbModal,
@@ -63,9 +70,11 @@ export class ProdutoListaComponent implements OnInit {
 
     ) { }
 
-  ngOnInit() {
+ngOnInit() {
     this.onIniciaProduto();
     this.datacadastro = moment().format('DD/MM/YYYY HH:mm:ss');
+    this.fabricacao = moment().format('DD/MM/YYYY');
+    this.vencimento = moment().format('DD/MM/YYYY');
     this.status = 'Ativo';
     console.log('DATA CADASTRO : ' + this.datacadastro);
   }
@@ -77,6 +86,8 @@ ngAfterContentInit(): void {
     this.onRefreshGrupo();
     this.onRefreshEmbalagem();
     this.onRefreshDevolucao();
+    this.onRefreshUnidade();
+    this.onRefreshTipo();
 }
 
 onForm() {
@@ -97,11 +108,13 @@ onForm() {
     largura: [],
     formato: [],
     datacadastro: this.datacadastro,
-    unidade: []
+    //unidade: []
+    fabricacao: [],
+    vencimento: []
   });
 }
 
-   onRefreshProduto() {
+  onRefreshProduto() {
     this.produtos$ = this.produtoService.list();
     if (this.produtos$ != null) {
       this.handleSucesso();
@@ -111,7 +124,7 @@ onForm() {
     }
    }
 
-   onIniciaProduto() {
+  onIniciaProduto() {
     this.produtos$ = this.produtoService.list()
       .pipe(
       catchError(error => {
@@ -163,6 +176,28 @@ onForm() {
         this.handleError();
         return empty();
         })
+    );
+  }
+
+  onRefreshUnidade() {
+    this.unidades$ = this.unidadeService.list()
+    .pipe(
+      catchError(error => {
+        console.error(error);
+        this.handleError();
+        return empty();
+      })
+    );
+  }
+
+  onRefreshTipo() {
+    this.tipos$ = this.tipoService.list()
+    .pipe(
+      catchError(error => {
+        console.error(error);
+        this.handleError();
+        return empty();
+      })
     );
   }
 
@@ -254,11 +289,11 @@ onForm() {
     this.handleSucesso();
    }
 
-    handleSucesso() {
+  handleSucesso() {
     this.alertService.showAlertSuccess('Calma PORRA estou indo ao servidor....');
    }
 
-   handleError() {
+  handleError() {
     this.alertService.showAlertDanger('Erro ao carregar produtos. Servidor off line Tente novamente mais tarde.');
    }
 }

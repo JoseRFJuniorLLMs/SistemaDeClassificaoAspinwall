@@ -25,7 +25,6 @@ import { ButtonsComponent } from './buttons/buttons.component';
 
 import { ProdutoComponent } from './produto/produto.component';
 import { ProdutoListaComponent } from './produto/produto-lista/produto-lista.component';
-import { UnidadeComponent } from './unidade/unidade.component';
 
 @NgModule({
   imports: [
@@ -53,8 +52,7 @@ import { UnidadeComponent } from './unidade/unidade.component';
     CardsComponent,
     ButtonsComponent,
     ProdutoComponent,
-    ProdutoListaComponent,
-    UnidadeComponent
+    ProdutoListaComponent
   ]
 })
 export class ComponentsModule {}
