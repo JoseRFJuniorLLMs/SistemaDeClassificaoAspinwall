@@ -2,28 +2,28 @@ import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { ProdutoService } from '../produto.service';
-import { Produto } from '../produto';
 import { Observable, empty, of, Subject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Cor } from '../../../component/paginas/cor/cor';
-import { CorService } from '../../paginas/cor/cor.service';
+import * as moment from 'moment';
 
+import { CorService } from '../../paginas/cor/cor.service';
+import { ProdutoService } from '../produto.service';
 import { MarcaService } from '../../paginas/marca/marca.service';
 import { GrupoService } from '../../paginas/grupo/grupo.service';
 import { EmbalagemService } from '../../paginas/embalagem/embalagem.service';
 import { AlertModalService } from '../../../shared/alert-modal/alert-modal.service';
 import { DevolucaoService } from '../../paginas/devolucao/devolucao.service';
+import { UnidadeService } from '../../paginas/unidade/unidade-service';
+import { TipoService } from '../../paginas/tipo/tipo.service';
+
+import { Produto } from '../produto';
 import { Devolucao } from '../../paginas/devolucao/devolucao';
 import { Marca } from '../../paginas/marca/marca';
 import { Grupo } from '../../paginas/grupo/grupo';
 import { Embalagem } from '../../paginas/embalagem/embalagem';
-
-import * as moment from 'moment';
-import { Unidade } from '../../paginas/unidade/unidade';
-import { UnidadeService } from '../../paginas/unidade/unidade-service';
-import { TipoService } from '../../paginas/tipo/tipo.service';
+import { Cor } from '../../../component/paginas/cor/cor';
 import { Tipo } from '../../paginas/tipo/tipo';
+import { Unidade } from '../../paginas/unidade/unidade';
 
 @Component({
   selector: 'app-produto-lista',
@@ -34,7 +34,6 @@ import { Tipo } from '../../paginas/tipo/tipo';
 })
 
 export class ProdutoListaComponent implements OnInit {
-
   produtos$: Observable<Produto[]>;
   cors$: Observable<Cor[]>;
   marcas$: Observable<Marca[]>;
@@ -45,16 +44,14 @@ export class ProdutoListaComponent implements OnInit {
   tipos$: Observable<Tipo[]>;
   error$ = new Subject<boolean>();
   closeResult: string;
-  form: FormGroup;
+  produtoForm: FormGroup;
   submitted = false;
   descricao: string;
   datacadastro: string;
   fabricacao: string;
   vencimento: string;
   status: string;
-
   constructor(
-
     private produtoService: ProdutoService,
     private corService: CorService,
     private marcaService: MarcaService,
@@ -63,22 +60,20 @@ export class ProdutoListaComponent implements OnInit {
     private devolucaoService: DevolucaoService,
     private unidadeService: UnidadeService,
     private tipoService: TipoService,
-
     private fb: FormBuilder,
     private modalService: NgbModal,
     private alertService: AlertModalService
-
     ) { }
-
 ngOnInit() {
     this.onIniciaProduto();
     this.datacadastro = moment().format('DD/MM/YYYY HH:mm:ss');
-    this.fabricacao = moment().format('DD/MM/YYYY');
+    this.fabricacao = moment().format('DD/MM/YYYYcd');
     this.vencimento = moment().format('DD/MM/YYYY');
     this.status = 'Ativo';
     console.log('DATA CADASTRO : ' + this.datacadastro);
   }
 
+// tslint:disable-next-line: use-life-cycle-interface
 ngAfterContentInit(): void {
     this.onForm();
     this.onRefreshCor();
@@ -91,7 +86,7 @@ ngAfterContentInit(): void {
 }
 
 onForm() {
-  this.form = this.fb.group({
+  this.produtoForm = this.fb.group({
     descricao: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
     preco: [],
     durabilidade: [],
@@ -213,7 +208,17 @@ onForm() {
   }
 
   /* Abri o painel para cadastro de Produtos */
-  open(content: any) {
+  openCadastrar(content: any) {
+    this.modalService.open(content, {
+       windowClass: 'dark-modal',
+       size: 'lg',
+       centered: true,
+       backdropClass: 'light-blue-backdrop'
+       });
+   }
+
+    /* Abri o painel para editar os Produtos */
+  openEditar(content: any) {
     this.modalService.open(content, {
        windowClass: 'dark-modal',
        size: 'lg',
@@ -233,19 +238,19 @@ onForm() {
   }
 
   hasError(field: string) {
-    return this.form.get(field).errors;
+    return this.produtoForm.get(field).errors;
   }
 
   onSubmit() {
     this.submitted = true;
-    console.log(this.form.value);
-    if (this.form.valid) {
+    console.log(this.produtoForm.value);
+    if (this.produtoForm.valid) {
       console.log('submit');
-     // this.datacadastro = moment().format('DD/MM/YYYY HH:mm:ss');
-       this.produtoService.create(this.form.value).subscribe(
+       this.produtoService.create(this.produtoForm.value).subscribe(
         success => {
           this.onRefreshProduto();
-          this.form.reset();
+          this.produtoForm.reset();
+          this.handleSucesso();
         },
          error =>
          this.handleError(),
@@ -265,8 +270,14 @@ onForm() {
   } */
 
   searchProdutos(descricao: string) {
-     this.produtos$ =  this.produtoService.searchProdutos(descricao),
-        console.log('PRODUTOX: ' + this.produtos$);
+     this.produtos$ =  this.produtoService.searchProdutos(descricao);
+       if (this.descricao != null ) {
+        console.log('SUCESSO: ' + this.produtos$);
+        this.handleSucesso();
+       } else {
+        console.log('ERRO: ' + this.produtos$);
+        this.handleError();
+       }
   }
 
   uPpercase(event: any) {
@@ -275,12 +286,12 @@ onForm() {
 
   onCancel() {
     this.submitted = false;
-    this.form.reset();
+    this.produtoForm.reset();
     this.handleSucesso();
   }
 
   onReset() {
-    this.form.reset();
+    this.produtoForm.reset();
     this.handleSucesso();
   }
 
@@ -290,7 +301,7 @@ onForm() {
    }
 
   handleSucesso() {
-    this.alertService.showAlertSuccess('Calma PORRA estou indo ao servidor....');
+    this.alertService.showAlertSuccess('Aguarde procurando servidor....');
    }
 
   handleError() {

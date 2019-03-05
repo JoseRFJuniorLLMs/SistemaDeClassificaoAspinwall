@@ -11,7 +11,7 @@
       </button>
     </div>
       
-    <div class="modal-body" [formGroup]="form" style="padding-top: 50px">
+    <div class="modal-body" [formGroup]="produtoForm" style="padding-top: 50px">
         <div class="form-row">
            <div class="col-sm-8">
                 <ng-template #popContentNome>Nome do Produto de forma clara e resumida</ng-template>
@@ -100,7 +100,6 @@
                   [ngClass]="{ 'is-invalid': submitted && hasError('largura')}"
                 />
             </div>
-
 
             <div class="col-sm-2">
                 <ng-template #popContentFormato>Formato</ng-template>
@@ -237,11 +236,11 @@
              </ng-template>
            </div>
          </div> 
-
+        <!--  <img src="https://a-static.mlcdn.com.br/618x463/computador-all-in-one-positivo-union-ud3550-intel-dual-core-4gb-500gb-led-185-windows-10/magazineluiza/218180400/4136765888c30c8e2b7ede1d1261fd79.jpg" class="rounded float-left" alt="https://a-static.mlcdn.com.br/618x463/computador-all-in-one-positivo-union-ud3550-intel-dual-core-4gb-500gb-led-185-windows-10/magazineluiza/218180400/4136765888c30c8e2b7ede1d1261fd79.jpg"> -->
     </div>
   </div>
     <div class="modal-footer">
-             <button type="sumit" class="btn btn-primary" (click)="onSubmit()">Salvar</button>
+       <button type="sumit" class="btn btn-primary" (click)="onSubmit()">Salvar</button>
        <button type="button" class="btn btn-inverse" (click)="c('Close click')">Fechar</button>
     </div>
   </ng-template>
@@ -274,9 +273,9 @@
 
         <button type="button" 
         class="btn btn-outline-warning" 
-        (click)="open(content2)">Novo Produto</button>
+        (click)="openCadastrar(content2)">Novo Produto</button>
 
-         <button type="button" 
+        <button type="button" 
         class="btn btn-outline-info" 
         (click)="onRefreshProduto()">Atualizar Lista</button> 
       </form>
@@ -374,7 +373,9 @@
    
           <td>
             <span class="float-right">
-              <button class="btn btn-outline-warning mb-1 btn-sm">
+              <button class="btn btn-outline-warning mb-1 btn-sm" 
+              (click)="openEditar(content2)" 
+              [routerLink]="['/produto-form', produto._id]">
                 Atualizar
               </button>
               <button class="btn btn-outline-danger mb-1 btn-sm">
