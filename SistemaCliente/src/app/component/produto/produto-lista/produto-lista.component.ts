@@ -46,11 +46,15 @@ export class ProdutoListaComponent implements OnInit {
   closeResult: string;
   produtoForm: FormGroup;
   submitted = false;
-  descricao: string;
-  datacadastro: string;
-  fabricacao: string;
-  vencimento: string;
-  status: string;
+  @Input() descricao: string;
+  @Input() datacadastro: string;
+  @Input() fabricacao: string;
+  @Input() vencimento: string;
+  @Input() status: string;
+  @Input() tamanho: number;
+  @Input() altura: number;
+  @Input() largura: number;
+
   constructor(
     private produtoService: ProdutoService,
     private corService: CorService,
@@ -67,14 +71,17 @@ export class ProdutoListaComponent implements OnInit {
 ngOnInit() {
     this.onIniciaProduto();
     this.datacadastro = moment().format('DD/MM/YYYY HH:mm:ss');
-    this.fabricacao = moment().format('DD/MM/YYYYcd');
+    this.fabricacao = moment().format('DD/MM/YYYY');
     this.vencimento = moment().format('DD/MM/YYYY');
     this.status = 'Ativo';
+    //this.tamanho = (this.altura * this.largura);
     console.log('DATA CADASTRO : ' + this.datacadastro);
+    console.log('DATA FABRICACAO : ' + this.fabricacao);
+    console.log('DATA VENCIMENTO : ' + this.vencimento);
+    console.log('DATA VENCIMENTO : ' + this.vencimento);
   }
 
-// tslint:disable-next-line: use-life-cycle-interface
-ngAfterContentInit(): void {
+  ngAfterContentInit(): void {
     this.onForm();
     this.onRefreshCor();
     this.onRefreshMarca();
@@ -93,7 +100,7 @@ onForm() {
     peso: [],
     rotulagem: [],
     status: this.status,
-    cor: [], //[null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+    cor: [], // [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
     grupo: [],
     marca: [],
     embalagem: [],
@@ -103,16 +110,16 @@ onForm() {
     largura: [],
     formato: [],
     datacadastro: this.datacadastro,
-    //unidade: []
     fabricacao: [],
-    vencimento: []
+    vencimento: [],
+    tamanho: this.altura * this.largura
   });
 }
 
   onRefreshProduto() {
     this.produtos$ = this.produtoService.list();
     if (this.produtos$ != null) {
-      this.handleSucesso();
+      console.log('LISTA ATUALIZADA');
     } else {
       this.handleError();
       return empty();
@@ -218,14 +225,14 @@ onForm() {
    }
 
     /* Abri o painel para editar os Produtos */
-  openEditar(content: any) {
+/*   openEditar(content: any) {
     this.modalService.open(content, {
        windowClass: 'dark-modal',
        size: 'lg',
        centered: true,
        backdropClass: 'light-blue-backdrop'
        });
-   }
+   } */
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
@@ -245,16 +252,17 @@ onForm() {
     this.submitted = true;
     console.log(this.produtoForm.value);
     if (this.produtoForm.valid) {
-      console.log('submit');
-       this.produtoService.create(this.produtoForm.value).subscribe(
+        this.tamanho = (this.altura * this.largura);
+        this.produtoService.create(this.produtoForm.value).subscribe(
         success => {
+          console.log('SALVO COM SUCESSO');
           this.onRefreshProduto();
           this.produtoForm.reset();
-          this.handleSucesso();
+          this.CadastroSucesso();
         },
          error =>
          this.handleError(),
-         () =>
+        () =>
         console.log('request completo')
       );
     }
@@ -273,7 +281,6 @@ onForm() {
      this.produtos$ =  this.produtoService.searchProdutos(descricao);
        if (this.descricao != null ) {
         console.log('SUCESSO: ' + this.produtos$);
-        this.handleSucesso();
        } else {
         console.log('ERRO: ' + this.produtos$);
         this.handleError();
@@ -284,16 +291,11 @@ onForm() {
     event.target.value = event.target.value.toUpperCase();
   }
 
-  onCancel() {
+  onReset() {
     this.submitted = false;
     this.produtoForm.reset();
     this.handleSucesso();
-  }
-
-  onReset() {
-    this.produtoForm.reset();
-    this.handleSucesso();
-  }
+   }
 
   onSubmitShearch() {
     this.searchProdutos(this.descricao);
@@ -301,10 +303,18 @@ onForm() {
    }
 
   handleSucesso() {
-    this.alertService.showAlertSuccess('Aguarde procurando servidor....');
+    this.alertService.showAlertSuccess('Aguarde CONECTANDO ao servidor....');
+   }
+
+   CadastroSucesso() {
+    this.alertService.showAlertSuccess('Aguarde estou enviando o cadastro.......');
+   }
+
+   ListaSucesso() {
+    this.alertService.showAlertSuccess('Atualizando a Lista....');
    }
 
   handleError() {
-    this.alertService.showAlertDanger('Erro ao carregar produtos. Servidor off line Tente novamente mais tarde.');
+    this.alertService.showAlertDanger('Servidor ( RETONOU NEGATIVO ) ....');
    }
 }

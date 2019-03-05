@@ -16,8 +16,7 @@ export class ProdutoService {
   private readonly APINOME = `${environment.APINOME}`;
 
   constructor(
-    private http: HttpClient,
-    private alertService: AlertModalService
+    private http: HttpClient
     ) { }
 
   headers: HttpHeaders = new HttpHeaders({
@@ -44,10 +43,14 @@ export class ProdutoService {
       }
 
   create(produto: Produto) {
+    console.log(`CREATE DO PRODUTO 1` +  produto)
     return this.http.post<Produto>(this.API2, produto, {
       headers: this.headers
     })
-    .pipe(map(data => data));
+    .pipe(map(data => data),
+    tap(_ => console.log(`CREATE DO PRODUTO 2` +  produto)),
+    catchError(this.handleError)
+    );
   }
 
   getProduto(id: string): Observable<Produto> {
@@ -61,11 +64,6 @@ export class ProdutoService {
 
   protected handleError(error: any): Observable<any> {
     console.log('ERRO NA REQUISIÇÃO => ', error);
-    this.alertService.showAlertDanger('Erro ao carregar produtos. Servidor off line Tente novamente mais tarde.');
-    return throwError(error);
+      return throwError(error);
   }
-
-  handleSucesso() {
-    this.alertService.showAlertSuccess('Aguarde procurando servidor....');
-   }
 }

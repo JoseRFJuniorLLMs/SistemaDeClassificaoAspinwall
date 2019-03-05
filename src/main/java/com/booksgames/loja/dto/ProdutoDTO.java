@@ -1,9 +1,15 @@
 package com.booksgames.loja.dto;
 
 import com.booksgames.loja.documents.*;
+import com.booksgames.loja.util.JsonDateDeserializer;
+import com.booksgames.loja.util.JsonDateSerializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.mongodb.gridfs.GridFS;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
@@ -42,11 +48,32 @@ public class ProdutoDTO implements Serializable {
     public Marca marca;
     public GridFS imagem;
     public Unidade unidade;
-    @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
+
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING,
+            pattern = "dd/MM/yyyy HH:mm:ss",
+            locale = "pt-BR",
+            timezone = "Brazil/East")
+    @JsonDeserialize(using = JsonDateDeserializer.class)
+    @JsonSerialize(using = JsonDateSerializer.class)
     public Date datacadastro;
-    @JsonFormat(pattern="dd/MM/yyyy")
+
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING,
+            pattern = "dd/MM/yyyy",
+            locale = "pt-BR",
+            timezone = "Brazil/East")
+    @JsonDeserialize(using = JsonDateDeserializer.class)
+    @JsonSerialize(using = JsonDateSerializer.class)
     public Date fabricacao;
-    @JsonFormat(pattern="dd/MM/yyyy")
+
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING,
+            pattern = "dd/MM/yyyy",
+            locale = "pt-BR",
+            timezone = "Brazil/East")
+    @JsonDeserialize(using = JsonDateDeserializer.class)
+    @JsonSerialize(using = JsonDateSerializer.class)
     public Date vencimento;
 
     public ProdutoDTO() {

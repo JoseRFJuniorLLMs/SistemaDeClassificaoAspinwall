@@ -1,9 +1,12 @@
 package com.booksgames.loja.controllers;
 
+import com.LojaApplication;
 import com.booksgames.loja.documents.Produto;
 import com.booksgames.loja.dto.ProdutoDTO;
 import com.booksgames.loja.repository.ProdutoRepository;
 import com.booksgames.loja.services.impl.ProdutoServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -24,26 +27,28 @@ import java.util.stream.IntStream;
  * web2ajax@gmail.com
  * Santiago Chile 15 02 2019
  */
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/v1/produtos")
 public class ProdutoController {
 
-  @Autowired
+    private static final Logger LOG = LoggerFactory.getLogger(ProdutoController.class);
+
+    @Autowired
   private ProdutoRepository produtoRepository;
 
   @Autowired
   private ProdutoServiceImpl produtoServiceImpl;
 
-  @CrossOrigin(origins = "http://localhost:4200")
   @GetMapping(value="/flux")
   public Flux<Produto> getProduto() {
+      LOG.info("INICIANDO.../flux...findAll()");
     return produtoServiceImpl.findAll();
   }
 
-  @CrossOrigin(origins = "http://localhost:4200")
   @RequestMapping(value="/flux6", method=RequestMethod.GET)
   public ResponseEntity<List<ProdutoDTO>> findAll() {
+      LOG.info("INICIANDO.../flux6...");
     Flux<Produto> listFlux = produtoServiceImpl.findAll();
     List<ProdutoDTO> listDto = listFlux.toStream()
             //.map(obj -> new ProdutoDTO(obj))
@@ -54,10 +59,16 @@ public class ProdutoController {
     return ResponseEntity.ok().body(listDto);
   }
 
-  @CrossOrigin(origins = "http://localhost:4200")
   @RequestMapping(value="/nome/{descricao}", method=RequestMethod.GET)
   public Flux<Produto> getCorNome(@PathVariable String descricao){
-    return produtoServiceImpl.findByDescricao(descricao);
+      LOG.info("INICIANDO.../nome/{descricao}..." + descricao);
+      if (descricao == null ) {
+        LOG.info("INICIANDO.../PARAEMTRO NULO" + descricao);
+        return null;
+      } else {
+        LOG.info("INICIANDO.../PESQUISAR >> " + descricao);
+        return produtoServiceImpl.findByDescricao(descricao);
+      }
   }
 
   @RequestMapping(value = "/{_id}", method = RequestMethod.GET)
@@ -71,13 +82,15 @@ public class ProdutoController {
     produtoRepository.save(produto);
   }
 
-  @CrossOrigin(origins = "http://localhost:4200")
   @PostMapping(value = "/")
   public ResponseEntity<Void> createProduto(@Valid @RequestBody Produto objDto) {
+      LOG.info("INICIANDO.../POST..." + objDto);
     Produto obj = produtoServiceImpl.fromDTO(objDto);
     obj = produtoServiceImpl.insert(obj);
     URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-            .path("/{_id}").buildAndExpand(obj.get_id()).toUri();
+            .path("/{_id}")
+            .buildAndExpand(obj.get_id())
+            .toUri();
     return ResponseEntity.created(uri).build();
   }
   

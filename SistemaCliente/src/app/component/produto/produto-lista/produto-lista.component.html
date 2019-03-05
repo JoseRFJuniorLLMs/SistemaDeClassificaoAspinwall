@@ -40,7 +40,8 @@
             <div class="col-sm-4">
                 <label for="preco">Fabricação</label>
                   <input 
-                  type="date" 
+               
+                  type="text" 
                   class="form-control col-md-12"
                   id="fabricacao"
                   placeholder="Data Fabricação"
@@ -50,12 +51,13 @@
             <div class="col-sm-4">
                 <label for="preco">Vencimento</label>
                     <input 
-                    type="date" 
+                    type="text"
                     class="form-control col-md-12"
                     id="vencimento"
                     placeholder="Data Vencimento"
                     formControlName="vencimento" />
             </div>
+
             <div class="col-sm-2">
                 <ng-template #popContentValor>Valor do Produto em R$ 0.0</ng-template>
                 <label for="preco">Valor</label>
@@ -75,9 +77,10 @@
                 <ng-template #popContentAltura>Altura</ng-template>
                 <label for="altura">Altura</label>
                 <input
+                
                 [ngbPopover]="popContentAltura" 
                 popoverTitle="Campo Altura"
-                  type="text"
+                  type="number"
                   class="form-control col-md-12"
                   id="altura"
                   placeholder="Altura"
@@ -90,9 +93,10 @@
                 <ng-template #popContentLargura>Largura</ng-template>
                 <label for="largura">Largura</label>
                 <input
+                
                 [ngbPopover]="popContentAltura" 
                 popoverTitle="Campo Largura"
-                  type="text"
+                  type="number"
                   class="form-control col-md-12"
                   id="largura"
                   placeholder="Largura"
@@ -100,6 +104,23 @@
                   [ngClass]="{ 'is-invalid': submitted && hasError('largura')}"
                 />
             </div>
+
+            <div class="col-sm-2">
+              <ng-template #popContentTamanho>Tamanho</ng-template>
+              <label for="tamanho">Tamanho {{tamanho}}</label>
+              <input
+                            
+                disabled
+                [ngbPopover]="popContentTamanho" 
+                popoverTitle="Campo Largura"
+                type="number"
+                class="form-control col-md-12"
+                id="tamanho"
+                placeholder="Tamanho"
+                formControlName="tamanho"
+                [ngClass]="{ 'is-invalid': submitted && hasError('tamanho')}"
+              />
+          </div>
 
             <div class="col-sm-2">
                 <ng-template #popContentFormato>Formato</ng-template>
@@ -241,7 +262,7 @@
   </div>
     <div class="modal-footer">
        <button type="sumit" class="btn btn-primary" (click)="onSubmit()">Salvar</button>
-       <button type="button" class="btn btn-inverse" (click)="c('Close click')">Fechar</button>
+       <button type="button" id="xd" class="btn btn-inverse" (click)="c('Close click')">Fechar</button>
     </div>
   </ng-template>
 <!-- fim do Produto -->
@@ -258,9 +279,9 @@
         <label for="lastname">Nome</label>
         <input 
         [ngbPopover]="popContentPes" 
-          popoverTitle="Pesquisar Produtos"
+        popoverTitle="Pesquisar Produtos"
         (blur)="uPpercase($event)"
-         id="descricao" 
+        id="descricao" 
         [(ngModel)]="descricao" 
         name="descricao"
         class="form-control" 
@@ -371,6 +392,22 @@
         <a href="#" class="badge badge-danger" data-toggle="tooltip" data-placement="top"
                    title="Daata de Cadastro">{{ produto.status }}</a> 
    
+        <a href="#" class="badge badge-primary">Fabricação:</a>
+        <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
+                   title="Fabricação">{{ produto.fabricacao }}</a> 
+        
+        <a href="#" class="badge badge-primary">Vencimento:</a>
+        <a href="#" class="badge badge-danger" data-toggle="tooltip" data-placement="top"
+                    title="Vencimento">{{ produto.vencimento }}</a> 
+
+        <a href="#" class="badge badge-primary">Tamanho:</a>
+        <a href="#" class="badge badge-danger" data-toggle="tooltip" data-placement="top"
+                    title="Tamanho">{{ produto.tamanho }}</a> 
+
+                  <!--  <label>color:</label>
+                   <input 
+                   value="{{ produto.cor.hex }}"
+                   type=”color”> -->
           <td>
             <span class="float-right">
               <button class="btn btn-outline-warning mb-1 btn-sm" 

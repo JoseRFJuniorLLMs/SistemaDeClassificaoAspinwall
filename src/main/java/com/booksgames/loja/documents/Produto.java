@@ -6,6 +6,10 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
 
+import com.booksgames.loja.util.JsonDateDeserializer;
+import com.booksgames.loja.util.JsonDateSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.mongodb.gridfs.GridFS;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.Id;
@@ -15,6 +19,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.crypto.Data;
 
 /**
@@ -58,11 +64,32 @@ public class Produto implements Serializable {
   public Marca marca;
   public GridFS imagem;
   public Unidade unidade;
-  @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
+
+  @Temporal(TemporalType.DATE)
+  @JsonFormat(shape = JsonFormat.Shape.STRING,
+          pattern = "dd/MM/yyyy HH:mm:ss",
+          locale = "pt-BR",
+          timezone = "Brazil/East")
+  @JsonDeserialize(using = JsonDateDeserializer.class)
+  @JsonSerialize(using = JsonDateSerializer.class)
   public Date datacadastro;
-  @JsonFormat(pattern="dd/MM/yyyy")
+
+  @Temporal(TemporalType.DATE)
+  @JsonFormat(shape = JsonFormat.Shape.STRING,
+          pattern = "dd/MM/yyyy",
+          locale = "pt-BR",
+          timezone = "Brazil/East")
+  @JsonDeserialize(using = JsonDateDeserializer.class)
+  @JsonSerialize(using = JsonDateSerializer.class)
   public Date fabricacao;
-  @JsonFormat(pattern="dd/MM/yyyy")
+
+  @Temporal(TemporalType.DATE)
+  @JsonFormat(shape = JsonFormat.Shape.STRING,
+          pattern = "dd/MM/yyyy",
+          locale = "pt-BR",
+          timezone = "Brazil/East")
+  @JsonDeserialize(using = JsonDateDeserializer.class)
+  @JsonSerialize(using = JsonDateSerializer.class)
   public Date vencimento;
 
   @DBRef(lazy = true)
