@@ -50,8 +50,7 @@ export class ProdutoListaComponent implements OnInit {
   @Input() datacadastro: string;
   @Input() fabricacao: string;
   @Input() vencimento: string;
-  @Input() status: string;
-  @Input() tamanho: number;
+  @Input() status = 'Ativo';
   @Input() altura: number;
   @Input() largura: number;
 
@@ -64,7 +63,7 @@ export class ProdutoListaComponent implements OnInit {
     private devolucaoService: DevolucaoService,
     private unidadeService: UnidadeService,
     private tipoService: TipoService,
-    private fb: FormBuilder,
+    private formBuilder: FormBuilder,
     private modalService: NgbModal,
     private alertService: AlertModalService
     ) { }
@@ -73,12 +72,6 @@ ngOnInit() {
     this.datacadastro = moment().format('DD/MM/YYYY HH:mm:ss');
     this.fabricacao = moment().format('DD/MM/YYYY');
     this.vencimento = moment().format('DD/MM/YYYY');
-    this.status = 'Ativo';
-    //this.tamanho = (this.altura * this.largura);
-    console.log('DATA CADASTRO : ' + this.datacadastro);
-    console.log('DATA FABRICACAO : ' + this.fabricacao);
-    console.log('DATA VENCIMENTO : ' + this.vencimento);
-    console.log('DATA VENCIMENTO : ' + this.vencimento);
   }
 
   ngAfterContentInit(): void {
@@ -93,7 +86,7 @@ ngOnInit() {
 }
 
 onForm() {
-  this.produtoForm = this.fb.group({
+  this.produtoForm = this.formBuilder.group({
     descricao: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
     preco: [],
     durabilidade: [],
@@ -112,8 +105,7 @@ onForm() {
     datacadastro: this.datacadastro,
     fabricacao: [],
     vencimento: [],
-    tamanho: this.altura * this.largura
-  });
+    });
 }
 
   onRefreshProduto() {
@@ -252,7 +244,6 @@ onForm() {
     this.submitted = true;
     console.log(this.produtoForm.value);
     if (this.produtoForm.valid) {
-        this.tamanho = (this.altura * this.largura);
         this.produtoService.create(this.produtoForm.value).subscribe(
         success => {
           console.log('SALVO COM SUCESSO');

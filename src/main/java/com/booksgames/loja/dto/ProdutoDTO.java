@@ -35,10 +35,10 @@ public class ProdutoDTO implements Serializable {
     public String status;
     public Double altura;
     public Double largura;
+    public Double tamanho;
     public String formato;
     public String estilo;
     public String qualidade;
-    public Tamanho tamanho;
     public Devolucao devolucao;
     public Tipo tipo;
     public Garantia garantia;
@@ -106,6 +106,52 @@ public class ProdutoDTO implements Serializable {
         fabricacao = obj.getFabricacao();
         vencimento = obj.getVencimento();
         unidade = obj.getUnidade();
+    }
+    public double getTamanho() {
+    /*List<Double> listLargura = Arrays.asList(getLargura().doubleValue());
+    List<Double> listAltura = Arrays.asList(getAltura().doubleValue());
+    tamanho = listLargura.stream().mapToDouble(Double::intValue).sum();*/
+        double largura = getLargura().doubleValue();
+        double altura = getAltura().doubleValue();
+        double tamanho = largura * altura ;
+        return tamanho;
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ProdutoDTO)) return false;
+        ProdutoDTO that = (ProdutoDTO) o;
+        return Objects.equals(get_id(), that.get_id()) &&
+                Objects.equals(getUuid(), that.getUuid()) &&
+                Objects.equals(getDescricao(), that.getDescricao()) &&
+                Objects.equals(getPreco(), that.getPreco()) &&
+                Objects.equals(getDurabilidade(), that.getDurabilidade()) &&
+                Objects.equals(getPeso(), that.getPeso()) &&
+                Objects.equals(getRotulagem(), that.getRotulagem()) &&
+                Objects.equals(getStatus(), that.getStatus()) &&
+                Objects.equals(getAltura(), that.getAltura()) &&
+                Objects.equals(getLargura(), that.getLargura()) &&
+                Objects.equals(getTamanho(), that.getTamanho()) &&
+                Objects.equals(getFormato(), that.getFormato()) &&
+                Objects.equals(getEstilo(), that.getEstilo()) &&
+                Objects.equals(getQualidade(), that.getQualidade()) &&
+                Objects.equals(getDevolucao(), that.getDevolucao()) &&
+                Objects.equals(getTipo(), that.getTipo()) &&
+                Objects.equals(getGarantia(), that.getGarantia()) &&
+                Objects.equals(getEmbalagem(), that.getEmbalagem()) &&
+                Objects.equals(getGrupo(), that.getGrupo()) &&
+                Objects.equals(getCor(), that.getCor()) &&
+                Objects.equals(getMarca(), that.getMarca()) &&
+                Objects.equals(getImagem(), that.getImagem()) &&
+                Objects.equals(getUnidade(), that.getUnidade()) &&
+                Objects.equals(getDatacadastro(), that.getDatacadastro()) &&
+                Objects.equals(getFabricacao(), that.getFabricacao()) &&
+                Objects.equals(getVencimento(), that.getVencimento());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(get_id(), getUuid(), getDescricao(), getPreco(), getDurabilidade(), getPeso(), getRotulagem(), getStatus(), getAltura(), getLargura(), getTamanho(), getFormato(), getEstilo(), getQualidade(), getDevolucao(), getTipo(), getGarantia(), getEmbalagem(), getGrupo(), getCor(), getMarca(), getImagem(), getUnidade(), getDatacadastro(), getFabricacao(), getVencimento());
     }
 
     public String get_id() {
@@ -188,6 +234,14 @@ public class ProdutoDTO implements Serializable {
         this.largura = largura;
     }
 
+    /*public Double getTamanho() {
+        return tamanho;
+    }*/
+
+    public void setTamanho(Double tamanho) {
+        this.tamanho = tamanho;
+    }
+
     public String getFormato() {
         return formato;
     }
@@ -210,14 +264,6 @@ public class ProdutoDTO implements Serializable {
 
     public void setQualidade(String qualidade) {
         this.qualidade = qualidade;
-    }
-
-    public Tamanho getTamanho() {
-        return tamanho;
-    }
-
-    public void setTamanho(Tamanho tamanho) {
-        this.tamanho = tamanho;
     }
 
     public Devolucao getDevolucao() {
@@ -314,44 +360,6 @@ public class ProdutoDTO implements Serializable {
 
     public void setVencimento(Date vencimento) {
         this.vencimento = vencimento;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ProdutoDTO)) return false;
-        ProdutoDTO that = (ProdutoDTO) o;
-        return Objects.equals(get_id(), that.get_id()) &&
-                Objects.equals(getUuid(), that.getUuid()) &&
-                Objects.equals(getDescricao(), that.getDescricao()) &&
-                Objects.equals(getPreco(), that.getPreco()) &&
-                Objects.equals(getDurabilidade(), that.getDurabilidade()) &&
-                Objects.equals(getPeso(), that.getPeso()) &&
-                Objects.equals(getRotulagem(), that.getRotulagem()) &&
-                Objects.equals(getStatus(), that.getStatus()) &&
-                Objects.equals(getAltura(), that.getAltura()) &&
-                Objects.equals(getLargura(), that.getLargura()) &&
-                Objects.equals(getFormato(), that.getFormato()) &&
-                Objects.equals(getEstilo(), that.getEstilo()) &&
-                Objects.equals(getQualidade(), that.getQualidade()) &&
-                Objects.equals(getTamanho(), that.getTamanho()) &&
-                Objects.equals(getDevolucao(), that.getDevolucao()) &&
-                Objects.equals(getTipo(), that.getTipo()) &&
-                Objects.equals(getGarantia(), that.getGarantia()) &&
-                Objects.equals(getEmbalagem(), that.getEmbalagem()) &&
-                Objects.equals(getGrupo(), that.getGrupo()) &&
-                Objects.equals(getCor(), that.getCor()) &&
-                Objects.equals(getMarca(), that.getMarca()) &&
-                Objects.equals(getImagem(), that.getImagem()) &&
-                Objects.equals(getUnidade(), that.getUnidade()) &&
-                Objects.equals(getDatacadastro(), that.getDatacadastro()) &&
-                Objects.equals(getFabricacao(), that.getFabricacao()) &&
-                Objects.equals(getVencimento(), that.getVencimento());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(get_id(), getUuid(), getDescricao(), getPreco(), getDurabilidade(), getPeso(), getRotulagem(), getStatus(), getAltura(), getLargura(), getFormato(), getEstilo(), getQualidade(), getTamanho(), getDevolucao(), getTipo(), getGarantia(), getEmbalagem(), getGrupo(), getCor(), getMarca(), getImagem(), getUnidade(), getDatacadastro(), getFabricacao(), getVencimento());
     }
 
     @Override

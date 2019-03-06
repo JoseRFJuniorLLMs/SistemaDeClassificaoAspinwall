@@ -7,7 +7,7 @@ import { Unidade } from '../paginas/unidade/unidade';
 
 export interface Produto {
      _id: any;
-     uuid?: String;
+     uuid?: string;
      descricao: string;
      preco?: number;
      durabilidade?: string;
@@ -17,7 +17,7 @@ export interface Produto {
      imagem?: string;
      altura?: number;
      largura?: number;
-     tamanho: number;
+    // tamanho: number;
      formato?: string;
      datacadastro?: string;
      estilo?: string;
