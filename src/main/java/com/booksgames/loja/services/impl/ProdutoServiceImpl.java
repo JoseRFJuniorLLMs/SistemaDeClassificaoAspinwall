@@ -112,6 +112,7 @@ public class ProdutoServiceImpl implements ProdutoService {
                 objDto.getEstilo(),
                 objDto.getQualidade(),
                 objDto.getTamanho(),
+                objDto.getRecorrencia(),
                 objDto.getDevolucaodescricao(),
                 objDto.getDevolucaodata(),
                 objDto.getTamanho(),

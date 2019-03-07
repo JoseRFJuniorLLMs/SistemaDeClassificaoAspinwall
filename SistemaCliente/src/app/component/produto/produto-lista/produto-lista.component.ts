@@ -12,7 +12,6 @@ import { MarcaService } from '../../paginas/marca/marca.service';
 import { GrupoService } from '../../paginas/grupo/grupo.service';
 import { EmbalagemService } from '../../paginas/embalagem/embalagem.service';
 import { AlertModalService } from '../../../shared/alert-modal/alert-modal.service';
-import { DevolucaoService } from '../../paginas/devolucao/devolucao.service';
 import { UnidadeService } from '../../paginas/unidade/unidade-service';
 import { TipoService } from '../../paginas/tipo/tipo.service';
 
@@ -39,7 +38,6 @@ export class ProdutoListaComponent implements OnInit {
   marcas$: Observable<Marca[]>;
   grupos$: Observable<Grupo[]>;
   embalagens$: Observable<Embalagem[]>;
-  devolucaos$: Observable<Devolucao[]>;
   unidades$: Observable<Unidade[]>;
   tipos$: Observable<Tipo[]>;
   error$ = new Subject<boolean>();
@@ -53,15 +51,15 @@ export class ProdutoListaComponent implements OnInit {
   @Input() status = 'Ativo';
   @Input() altura: number;
   @Input() largura: number;
-  
+  @Input() comprimento: number;
+
   constructor(
     private produtoService: ProdutoService,
     private corService: CorService,
     private marcaService: MarcaService,
     private grupoService: GrupoService,
     private embalagemService: EmbalagemService,
-    private devolucaoService: DevolucaoService,
-    private unidadeService: UnidadeService,
+     private unidadeService: UnidadeService,
     private tipoService: TipoService,
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
@@ -80,13 +78,13 @@ ngOnInit() {
     this.onRefreshMarca();
     this.onRefreshGrupo();
     this.onRefreshEmbalagem();
-    this.onRefreshDevolucao();
     this.onRefreshUnidade();
     this.onRefreshTipo();
 }
 
 onForm() {
   this.produtoForm = this.formBuilder.group({
+    _id: [],
     descricao: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
     preco: [],
     durabilidade: [],
@@ -97,10 +95,10 @@ onForm() {
     grupo: [],
     marca: [],
     embalagem: [],
-    devolucao: [],
     imagem: [],
-    altura: [],
-    largura: [],
+    altura: [null, [Validators.required]],
+    largura: [null, [Validators.required]],
+    comprimento: [null, [Validators.required]],
     formato: [],
     datacadastro: this.datacadastro,
     fabricacao: [],
@@ -194,17 +192,6 @@ onForm() {
       })
     );
   }
-
-  onRefreshDevolucao() {
-    this.devolucaos$ = this.devolucaoService.list()
-    .pipe(
-      catchError(error => {
-        console.error(error);
-        this.handleError();
-        return empty();
-      })
-    );
-  }
  
    /* Abri o painel para cadastro de Produtos */
   openCadastrar(content: any) {
@@ -217,14 +204,18 @@ onForm() {
    }
 
     /* Abri o painel para editar os Produtos */
-/*   openEditar(content: any) {
+   openEditar() {
+
+    const soma = this.produtoForm.valueChanges
+    .subscribe(value => console.log(value));
+/* 
     this.modalService.open(content, {
        windowClass: 'dark-modal',
        size: 'lg',
        centered: true,
        backdropClass: 'light-blue-backdrop'
-       });
-   } */
+       }); */
+   }
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {

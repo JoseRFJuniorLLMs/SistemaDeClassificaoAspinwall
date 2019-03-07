@@ -25,14 +25,14 @@ import { Tipo } from '../../paginas/tipo/tipo';
 import { Unidade } from '../../paginas/unidade/unidade';
 
 @Component({
-  selector: 'app-produto-form',
-  templateUrl: 'produto-form.component.html',
+  selector: 'app-produto-editar',
+  templateUrl: 'produto-editar.component.html',
   encapsulation: ViewEncapsulation.None,
-  styleUrls: ['produto-form.component.scss'],
+  styleUrls: ['produto-editar.component.scss'],
   preserveWhitespaces: true
 })
 
-export class ProdutoFormComponent implements OnInit {
+export class ProdutoEditarComponent implements OnInit {
   produtos$: Observable<Produto[]>;
   cors$: Observable<Cor[]>;
   marcas$: Observable<Marca[]>;

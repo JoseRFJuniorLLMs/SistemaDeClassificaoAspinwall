@@ -25,6 +25,8 @@ import { ButtonsComponent } from './buttons/buttons.component';
 
 import { ProdutoComponent } from './produto/produto.component';
 import { ProdutoListaComponent } from './produto/produto-lista/produto-lista.component';
+import { ProdutoFormComponent } from './produto/produto-form/produto-form.component';
+import { ProdutoEditarComponent } from './produto/produto-editar/produto-editar.component';
 
 @NgModule({
   imports: [
@@ -52,7 +54,10 @@ import { ProdutoListaComponent } from './produto/produto-lista/produto-lista.com
     CardsComponent,
     ButtonsComponent,
     ProdutoComponent,
-    ProdutoListaComponent
+    ProdutoListaComponent,
+    ProdutoFormComponent,
+    ProdutoEditarComponent
+    
   ]
 })
 export class ComponentsModule {}

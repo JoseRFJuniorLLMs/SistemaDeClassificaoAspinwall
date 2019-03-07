@@ -23,9 +23,19 @@ export interface Produto {
      fabricacao?: string;
      vencimento?: string;
      tipo?: string;
+ 
+     comprimento?: number;
+     pesovolumetrico?: number;
+     pesoliquido?: number;
+     qualidade?: string;
+     devolucaodescricao?: string;
+     datadevolucao?: string;
+     devolucaostatus?: string;
+     recorrencia?: string;
+
      cor?: Cor[];
      embalagem?: Embalagem[];
      grupo?: Grupo[];
      marca?: Marca[];
-     //devolucao?: Devolucao[];
+    
 }

@@ -15,8 +15,8 @@
 <div class="modal-body" [formGroup]="produtoForm" style="padding-top: 50px">
   <div class="form-group">
     <div class="form-row">
-           <div class="col-sm-8">
-                <ng-template #popContentNome>Nome do Produto de forma clara e resumida</ng-template>
+          <div class="col-sm-8">
+              <ng-template #popContentNome>Nome do Produto de forma clara e resumida</ng-template>
                 <label for="descricao">Nome do Produto</label>
                 <input
                   [ngbPopover]="popContentNome" 
@@ -84,22 +84,48 @@
                   id="altura"
                   placeholder="Altura"
                   formControlName="altura"
+                  [ngClass]="{ 'is-invalid': submitted && hasError('altura')}"
                 />
+                <div class="invalid-feedback" *ngIf="hasError('altura') && hasError('altura')['required']" >
+                  Por favor informe uma altura para o produto.
+                </div>
             </div>
 
             <div class="col-sm-2">
                 <ng-template #popContentLargura>Largura</ng-template>
                 <label for="largura">Largura</label>
                 <input
-                  [ngbPopover]="popContentAltura" 
+                  [ngbPopover]="popContentLargura" 
                   popoverTitle="Campo Largura"
                   type="number"
                   class="form-control"
                   id="largura"
                   placeholder="Largura"
                   formControlName="largura"
+                  [ngClass]="{ 'is-invalid': submitted && hasError('largura')}"
                   />
+                  <div class="invalid-feedback" *ngIf="hasError('largura') && hasError('largura')['required']" >
+                    Por favor informe uma largura para o produto.
+                  </div>
             </div>
+
+            <div class="col-sm-2">
+              <ng-template #popContentComprimento>Comprimento</ng-template>
+              <label for="comprimento">Comprimento</label>
+              <input
+                [ngbPopover]="popContentComprimento" 
+                popoverTitle="Campo Comprimento"
+                type="number"
+                class="form-control"
+                id="comprimento"
+                placeholder="Comprimento"
+                formControlName="comprimento"
+                [ngClass]="{ 'is-invalid': submitted && hasError('comprimento')}"
+                />
+                <div class="invalid-feedback" *ngIf="hasError('comprimento') && hasError('comprimento')['required']" >
+                  Por favor informe um comprimento para o produto.
+                </div>
+          </div>
 
         <!--     <div class="col-sm-2">
               <ng-template #popContentTamanho>Tamanho</ng-template>
@@ -288,7 +314,10 @@
 
         <button type="button" 
         class="btn btn-outline-warning" 
-        (click)="openCadastrar(content2)">Novo Produto</button>
+        [routerLink]="['/component/produto/produto-form/produto-form']"
+        >Novo Produto</button>
+
+      <!--   (click)="openCadastrar(content2)" -->
 
         <button type="button" 
         class="btn btn-outline-info" 
@@ -321,6 +350,7 @@
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
            </strong>
           <h4><a  class="badge badge-Dark">UUID :  {{produto.uuid}}</a>
+            {{ produto.altura }} + {{ produto.largura }}
           </h4>
           </h1>
 
@@ -373,6 +403,18 @@
         <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
                    title="Largura do Produto">{{ produto.largura}} Cm</a> 
 
+        <a href="#" class="badge badge-info">Comprimento:</a>
+        <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
+                   title="Comprimento do Produto">{{ produto.comprimento}} Cm</a> 
+
+        <a href="#" class="badge badge-primary">Tamanho:</a>
+        <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
+                               title="Tamanho">{{ produto.tamanho }} Cm</a> 
+           
+        <a href="#" class="badge badge-primary">Peso Volumetrico:</a>
+        <a href="#" class="badge badge-danger" data-toggle="tooltip" data-placement="top"
+                               title="Peso Volumetrico">{{ produto.pesovolumetrico }} Kg3</a> 
+
         <a href="#" class="badge badge-primary">Formato:</a>
         <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
                    title="Formato do Produto">{{ produto.formato }}</a> 
@@ -393,10 +435,6 @@
         <a href="#" class="badge badge-danger" data-toggle="tooltip" data-placement="top"
                     title="Vencimento">{{ produto.vencimento }}</a> 
 
-        <a href="#" class="badge badge-primary">Tamanho:</a>
-        <a href="#" class="badge badge-danger" data-toggle="tooltip" data-placement="top"
-                    title="Tamanho">{{ produto.tamanho }} Cm</a> 
-
                   <!--  <label>color:</label>
                    <input 
                    value="{{ produto.cor.hex }}"
@@ -404,9 +442,10 @@
           <td>
             <span class="float-right">
               <button class="btn btn-outline-warning mb-1 btn-sm" 
-              (click)="openEditar(content2)" 
-              [routerLink]="['/produto-form', produto._id]">
-                Atualizar
+             
+              [routerLink]="['/component/produto/produto-editar/produto-editar', produto._id]"
+             >
+                Atualizar 
               </button>
               <button class="btn btn-outline-danger mb-1 btn-sm">
                 Desativar

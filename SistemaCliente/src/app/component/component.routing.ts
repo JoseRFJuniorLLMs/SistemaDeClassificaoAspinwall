@@ -16,8 +16,9 @@ import { NgbdtypeheadBasicComponent } from './typehead/typehead.component';
 import { CardsComponent } from './card/card.component';
 import { ButtonsComponent } from './buttons/buttons.component';
 
-import { ProdutoComponent } from '../component/produto/produto.component';
 import { ProdutoListaComponent } from './produto/produto-lista/produto-lista.component';
+import { ProdutoFormComponent } from './produto/produto-form/produto-form.component';
+import { ProdutoEditarComponent } from './produto/produto-editar/produto-editar.component';
 
 export const ComponentsRoutes: Routes = [
   {
@@ -210,12 +211,35 @@ export const ComponentsRoutes: Routes = [
           title: 'Produto',
           urls: [
             { title: 'Dashboard', url: '/dashboard' },
-            { title: 'ngComponent' },
+            { title: 'Produto' },
             { title: 'Produto' }
           ]
         }
+      },
+      {
+        path: 'produto/produto-form/produto-form',
+        component: ProdutoFormComponent,
+        data: {
+          title: 'Produto',
+          urls: [
+            { title: 'Dashboard', url: '/dashboard' },
+            { title: 'Produto' },
+            { title: 'Produto' }
+          ]
+        }
+      },
+      {
+        path: 'produto/produto-editar/produto-editar:_id',
+        component: ProdutoEditarComponent,
+        data: {
+          title: 'Editar',
+          urls: [
+            { title: 'Dashboard', url: '/dashboard' },
+            { title: 'Editar' },
+            { title: 'Editar' }
+          ]
+        }
       }
-
     ]
   }
 ];

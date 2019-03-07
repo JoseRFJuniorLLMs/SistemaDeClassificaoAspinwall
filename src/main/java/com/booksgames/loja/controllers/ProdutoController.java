@@ -1,6 +1,5 @@
 package com.booksgames.loja.controllers;
 
-import com.LojaApplication;
 import com.booksgames.loja.documents.Produto;
 import com.booksgames.loja.dto.ProdutoDTO;
 import com.booksgames.loja.repository.ProdutoRepository;
@@ -54,7 +53,7 @@ public class ProdutoController {
             //.map(obj -> new ProdutoDTO(obj))
             .sorted(Comparator.comparing(Produto::get_id).reversed())
             .map( ProdutoDTO::new)
-            .limit(6)
+            .limit(10)
             .collect( Collectors.toList());
     return ResponseEntity.ok().body(listDto);
   }

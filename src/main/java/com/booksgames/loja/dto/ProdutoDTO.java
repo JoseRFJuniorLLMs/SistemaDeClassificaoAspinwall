@@ -39,6 +39,7 @@ public class ProdutoDTO implements Serializable {
     public Double comprimento;
     public Double pesovolumetrico;
     public Double pesoliquido;
+    public Double recorrencia;
     public String devolucaostatus;
     public String devolucaodescricao;
     public String formato;
@@ -114,6 +115,7 @@ public class ProdutoDTO implements Serializable {
         tamanho = obj.getTamanho();
         comprimento = obj.getTamanho();
         pesovolumetrico = obj.getPesovolumetrico();
+        recorrencia = obj.getRecorrencia();
         pesoliquido = obj.getPesoliquido();
         devolucaostatus = obj.getDevolucaostatus();
         devolucaodescricao = obj.getDevolucaodescricao();
@@ -139,9 +141,13 @@ public class ProdutoDTO implements Serializable {
         double largura = getLargura().doubleValue();
         double altura = getAltura().doubleValue();
         double comprimento = getComprimento().doubleValue();
-        double peso = getPeso().doubleValue();
-        double pesovolumetrico = (largura * altura * comprimento * peso) / fator;
+        double pesovolumetrico = (largura * altura * comprimento) / fator;
         return pesovolumetrico;
+    }
+
+    public double getRecorrencia() {
+        double x = 1.0;
+        return  x;
     }
 
     @Override
@@ -314,6 +320,10 @@ public class ProdutoDTO implements Serializable {
 
     public void setComprimento(Double comprimento) {
         this.comprimento = comprimento;
+    }
+
+    public void setRecorrencia(Double recorrencia) {
+        this.recorrencia = recorrencia;
     }
 
     public void setPesovolumetrico(Double pesovolumetrico) {

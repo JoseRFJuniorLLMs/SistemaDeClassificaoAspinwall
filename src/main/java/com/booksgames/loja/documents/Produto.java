@@ -61,6 +61,7 @@ public class Produto implements Serializable {
   public String estilo;
   public String qualidade;
   public String devolucaodescricao;
+  public Double recorrencia;
   public Tipo tipo;
   public Garantia garantia;
   public Embalagem embalagem;
@@ -142,6 +143,7 @@ public class Produto implements Serializable {
                  Double altura,
                  Double largura,
                  Double tamanho,
+                 Double recorrencia,
                  String formato,
                  String estilo,
                  String qualidade,
@@ -191,6 +193,7 @@ public class Produto implements Serializable {
     this.tipo = tipo;
     this.garantia = garantia;
     this.embalagem = embalagem;
+    this.recorrencia = recorrencia;
     this.grupo = grupo;
     this.cor = cor;
     this.marca = marca;
@@ -227,6 +230,7 @@ public class Produto implements Serializable {
           String estilo,
           String qualidade,
           Double tamanho,
+          Double recorrencia,
           String devolucaodescricao,
           Date devolucaodata,
           Double comprimento,
@@ -256,6 +260,7 @@ public class Produto implements Serializable {
     this.altura = altura;
     this.largura = largura;
     this.formato = formato;
+    this.recorrencia = recorrencia;
     this.estilo = estilo;
     this.qualidade = qualidade;
     this.tamanho = tamanho;
@@ -297,14 +302,22 @@ public class Produto implements Serializable {
   }
 
   public double getPesovolumetrico() {
-      double fator = 5000;
+      double fator = 6000;
       double largura = getLargura().doubleValue();
       double altura = getAltura().doubleValue();
       double comprimento = getComprimento().doubleValue();
-      double peso = getPeso().doubleValue();
-      double pesovolumetrico = (largura * altura * comprimento * peso) / fator;
-      return pesovolumetrico;
+      if (largura != 0 & largura != 0 & comprimento != 0 ) {
+          double pesovolumetrico = (largura * altura * comprimento ) / fator;
+          return pesovolumetrico;
+      } else {
+          return Double.parseDouble(null);
+      }
   }
+
+  public double getRecorrencia() {
+    double x = 1.0;
+    return  x;
+}
 
     @Override
     public boolean equals(Object o) {
@@ -402,6 +415,11 @@ public class Produto implements Serializable {
 
     public void setPeso(Double peso) {
         this.peso = peso;
+    }
+
+
+    public void setRecorrencia(Double recorrencia) {
+        this.recorrencia = recorrencia;
     }
 
     public String getRotulagem() {
