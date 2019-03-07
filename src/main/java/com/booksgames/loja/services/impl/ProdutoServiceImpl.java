@@ -112,7 +112,12 @@ public class ProdutoServiceImpl implements ProdutoService {
                 objDto.getEstilo(),
                 objDto.getQualidade(),
                 objDto.getTamanho(),
-                objDto.getDevolucao(),
+                objDto.getDevolucaodescricao(),
+                objDto.getDevolucaodata(),
+                objDto.getTamanho(),
+                objDto.getPesovolumetrico(),
+                objDto.getPesoliquido(),
+                objDto.getDevolucaostatus(),
                 objDto.getTipo(),
                 objDto.getGarantia(),
                 objDto.getEmbalagem(),
@@ -132,5 +137,6 @@ public class ProdutoServiceImpl implements ProdutoService {
         newObj.setGrupo(obj.getGrupo());
         newObj.setPreco(obj.getPreco());
         newObj.setDatacadastro(obj.getDatacadastro());
+        newObj.setStatus(obj.getStatus());
     }
   }

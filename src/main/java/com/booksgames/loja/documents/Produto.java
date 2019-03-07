@@ -53,10 +53,14 @@ public class Produto implements Serializable {
   public Double altura;
   public Double largura;
   public Double tamanho;
+  public Double comprimento;
+  public Double pesovolumetrico;
+  public Double pesoliquido;
+  public String devolucaostatus;
   public String formato;
   public String estilo;
   public String qualidade;
-  public Devolucao devolucao;
+  public String devolucaodescricao;
   public Tipo tipo;
   public Garantia garantia;
   public Embalagem embalagem;
@@ -93,6 +97,15 @@ public class Produto implements Serializable {
   @JsonSerialize(using = JsonDateSerializer.class)
   public Date vencimento;
 
+  @Temporal(TemporalType.DATE)
+  @JsonFormat(shape = JsonFormat.Shape.STRING,
+            pattern = "dd/MM/yyyy HH:mm:ss",
+            locale = "pt-BR",
+            timezone = "Brazil/East")
+  @JsonDeserialize(using = JsonDateDeserializer.class)
+  @JsonSerialize(using = JsonDateSerializer.class)
+  public Date devolucaodata;
+
   @DBRef(lazy = true)
   private List<Grupo> grupos = new ArrayList<>();
 
@@ -104,9 +117,6 @@ public class Produto implements Serializable {
 
   @DBRef(lazy = true)
   private List<Embalagem> embalagems = new ArrayList<>();
-
-  @DBRef(lazy = true)
-  private List<Devolucao> devolucaos = new ArrayList<>();
 
   @DBRef(lazy = true)
   private List<Tipo> tipos = new ArrayList<>();
@@ -139,8 +149,13 @@ public class Produto implements Serializable {
                  Date datacadastro,
                  Date fabricacao,
                  Date vencimento,
+                 String devolucaodescricao,
+                 Date devolucaodata,
+                 Double comprimento,
+                 Double pesovolumetrico,
+                 Double pesoliquido,
+                 String devolucaostatus,
 
-                 Devolucao devolucao,
                  Tipo tipo,
                  Garantia garantia,
                  Embalagem embalagem,
@@ -149,7 +164,6 @@ public class Produto implements Serializable {
                  Marca marca,
                  Unidade unidade,
 
-                 List<Devolucao> devolucaos,
                  List<Tipo> tipos,
                  List<Garantia> garantias,
                  List<Embalagem> embalagems,
@@ -172,7 +186,8 @@ public class Produto implements Serializable {
     this.tamanho = tamanho;
     this.estilo = estilo;
     this.qualidade = qualidade;
-    this.devolucao = devolucao;
+    this.devolucaodescricao = devolucaodescricao;
+    this.devolucaodata = devolucaodata;
     this.tipo = tipo;
     this.garantia = garantia;
     this.embalagem = embalagem;
@@ -184,12 +199,14 @@ public class Produto implements Serializable {
     this.fabricacao = fabricacao;
     this.vencimento = vencimento;
     this.unidade = unidade;
-
+    this.comprimento = comprimento;
+    this.pesovolumetrico = pesovolumetrico;
+    this.pesoliquido = pesoliquido;
+    this.devolucaostatus = devolucaostatus;
     this.grupos = grupos;
     this.cors = cors;
     this.marcas = marcas;
     this.embalagems = embalagems;
-    this.devolucaos = devolucaos;
     this.tipos = tipos;
     this.garantias = garantias;
     this.unidades = unidades;
@@ -210,7 +227,12 @@ public class Produto implements Serializable {
           String estilo,
           String qualidade,
           Double tamanho,
-          Devolucao devolucao,
+          String devolucaodescricao,
+          Date devolucaodata,
+          Double comprimento,
+          Double pesovolumetrico,
+          Double pesoliquido,
+          String devolucaostatus,
           Tipo tipo,
           Garantia garantia,
           Embalagem embalagem,
@@ -237,7 +259,12 @@ public class Produto implements Serializable {
     this.estilo = estilo;
     this.qualidade = qualidade;
     this.tamanho = tamanho;
-    this.devolucao = devolucao;
+    this.devolucaodescricao = devolucaodescricao;
+    this.devolucaodata = devolucaodata;
+    this.comprimento = comprimento;
+    this.pesovolumetrico = pesovolumetrico;
+    this.pesoliquido = pesoliquido;
+    this.devolucaostatus = devolucaostatus;
     this.tipo = tipo;
     this.garantia = garantia;
     this.embalagem = embalagem;
@@ -263,14 +290,20 @@ public class Produto implements Serializable {
     /*List<Double> listLargura = Arrays.asList(getLargura().doubleValue());
     List<Double> listAltura = Arrays.asList(getAltura().doubleValue());
     tamanho = listLargura.stream().mapToDouble(Double::intValue).sum();*/
-
-   // double tamanho = 0.0;
-   // for (tamanho t :  tamanho) {
       double largura = getLargura().doubleValue();
       double altura = getAltura().doubleValue();
       double tamanho = largura * altura;
       return tamanho;
-   // }
+  }
+
+  public double getPesovolumetrico() {
+      double fator = 5000;
+      double largura = getLargura().doubleValue();
+      double altura = getAltura().doubleValue();
+      double comprimento = getComprimento().doubleValue();
+      double peso = getPeso().doubleValue();
+      double pesovolumetrico = (largura * altura * comprimento * peso) / fator;
+      return pesovolumetrico;
   }
 
     @Override
@@ -289,10 +322,14 @@ public class Produto implements Serializable {
                 Objects.equals(getAltura(), produto.getAltura()) &&
                 Objects.equals(getLargura(), produto.getLargura()) &&
                 Objects.equals(getTamanho(), produto.getTamanho()) &&
+                Objects.equals(getComprimento(), produto.getComprimento()) &&
+                Objects.equals(getPesovolumetrico(), produto.getPesovolumetrico()) &&
+                Objects.equals(getPesoliquido(), produto.getPesoliquido()) &&
+                Objects.equals(getDevolucaostatus(), produto.getDevolucaostatus()) &&
                 Objects.equals(getFormato(), produto.getFormato()) &&
                 Objects.equals(getEstilo(), produto.getEstilo()) &&
                 Objects.equals(getQualidade(), produto.getQualidade()) &&
-                Objects.equals(getDevolucao(), produto.getDevolucao()) &&
+                Objects.equals(getDevolucaodescricao(), produto.getDevolucaodescricao()) &&
                 Objects.equals(getTipo(), produto.getTipo()) &&
                 Objects.equals(getGarantia(), produto.getGarantia()) &&
                 Objects.equals(getEmbalagem(), produto.getEmbalagem()) &&
@@ -304,11 +341,11 @@ public class Produto implements Serializable {
                 Objects.equals(getDatacadastro(), produto.getDatacadastro()) &&
                 Objects.equals(getFabricacao(), produto.getFabricacao()) &&
                 Objects.equals(getVencimento(), produto.getVencimento()) &&
+                Objects.equals(getDevolucaodata(), produto.getDevolucaodata()) &&
                 Objects.equals(getGrupos(), produto.getGrupos()) &&
                 Objects.equals(getCors(), produto.getCors()) &&
                 Objects.equals(getMarcas(), produto.getMarcas()) &&
                 Objects.equals(getEmbalagems(), produto.getEmbalagems()) &&
-                Objects.equals(getDevolucaos(), produto.getDevolucaos()) &&
                 Objects.equals(getTipos(), produto.getTipos()) &&
                 Objects.equals(getGarantias(), produto.getGarantias()) &&
                 Objects.equals(getUnidades(), produto.getUnidades());
@@ -316,7 +353,7 @@ public class Produto implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(get_id(), getUuid(), getDescricao(), getPreco(), getDurabilidade(), getPeso(), getRotulagem(), getStatus(), getAltura(), getLargura(), getTamanho(), getFormato(), getEstilo(), getQualidade(), getDevolucao(), getTipo(), getGarantia(), getEmbalagem(), getGrupo(), getCor(), getMarca(), getImagem(), getUnidade(), getDatacadastro(), getFabricacao(), getVencimento(), getGrupos(), getCors(), getMarcas(), getEmbalagems(), getDevolucaos(), getTipos(), getGarantias(), getUnidades());
+        return Objects.hash(get_id(), getUuid(), getDescricao(), getPreco(), getDurabilidade(), getPeso(), getRotulagem(), getStatus(), getAltura(), getLargura(), getTamanho(), getComprimento(), getPesovolumetrico(), getPesoliquido(), getDevolucaostatus(), getFormato(), getEstilo(), getQualidade(), getDevolucaodescricao(), getTipo(), getGarantia(), getEmbalagem(), getGrupo(), getCor(), getMarca(), getImagem(), getUnidade(), getDatacadastro(), getFabricacao(), getVencimento(), getDevolucaodata(), getGrupos(), getCors(), getMarcas(), getEmbalagems(), getTipos(), getGarantias(), getUnidades());
     }
 
     public String get_id() {
@@ -399,12 +436,36 @@ public class Produto implements Serializable {
         this.largura = largura;
     }
 
-  /*  public Double getTamanho() {
-        return tamanho;
-    }*/
-
     public void setTamanho(Double tamanho) {
         this.tamanho = tamanho;
+    }
+
+    public Double getComprimento() {
+        return comprimento;
+    }
+
+    public void setComprimento(Double comprimento) {
+        this.comprimento = comprimento;
+    }
+
+    public void setPesovolumetrico(Double pesovolumetrico) {
+        this.pesovolumetrico = pesovolumetrico;
+    }
+
+    public Double getPesoliquido() {
+        return pesoliquido;
+    }
+
+    public void setPesoliquido(Double pesoliquido) {
+        this.pesoliquido = pesoliquido;
+    }
+
+    public String getDevolucaostatus() {
+        return devolucaostatus;
+    }
+
+    public void setDevolucaostatus(String devolucaostatus) {
+        this.devolucaostatus = devolucaostatus;
     }
 
     public String getFormato() {
@@ -431,12 +492,12 @@ public class Produto implements Serializable {
         this.qualidade = qualidade;
     }
 
-    public Devolucao getDevolucao() {
-        return devolucao;
+    public String getDevolucaodescricao() {
+        return devolucaodescricao;
     }
 
-    public void setDevolucao(Devolucao devolucao) {
-        this.devolucao = devolucao;
+    public void setDevolucaodescricao(String devolucaodescricao) {
+        this.devolucaodescricao = devolucaodescricao;
     }
 
     public Tipo getTipo() {
@@ -527,6 +588,14 @@ public class Produto implements Serializable {
         this.vencimento = vencimento;
     }
 
+    public Date getDevolucaodata() {
+        return devolucaodata;
+    }
+
+    public void setDevolucaodata(Date devolucaodata) {
+        this.devolucaodata = devolucaodata;
+    }
+
     public List<Grupo> getGrupos() {
         return grupos;
     }
@@ -557,14 +626,6 @@ public class Produto implements Serializable {
 
     public void setEmbalagems(List<Embalagem> embalagems) {
         this.embalagems = embalagems;
-    }
-
-    public List<Devolucao> getDevolucaos() {
-        return devolucaos;
-    }
-
-    public void setDevolucaos(List<Devolucao> devolucaos) {
-        this.devolucaos = devolucaos;
     }
 
     public List<Tipo> getTipos() {

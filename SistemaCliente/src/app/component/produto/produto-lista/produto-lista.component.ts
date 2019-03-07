@@ -53,7 +53,7 @@ export class ProdutoListaComponent implements OnInit {
   @Input() status = 'Ativo';
   @Input() altura: number;
   @Input() largura: number;
-
+  
   constructor(
     private produtoService: ProdutoService,
     private corService: CorService,
@@ -205,8 +205,8 @@ onForm() {
       })
     );
   }
-
-  /* Abri o painel para cadastro de Produtos */
+ 
+   /* Abri o painel para cadastro de Produtos */
   openCadastrar(content: any) {
     this.modalService.open(content, {
        windowClass: 'dark-modal',

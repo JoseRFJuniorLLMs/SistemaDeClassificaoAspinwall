@@ -36,10 +36,14 @@ public class ProdutoDTO implements Serializable {
     public Double altura;
     public Double largura;
     public Double tamanho;
+    public Double comprimento;
+    public Double pesovolumetrico;
+    public Double pesoliquido;
+    public String devolucaostatus;
+    public String devolucaodescricao;
     public String formato;
     public String estilo;
     public String qualidade;
-    public Devolucao devolucao;
     public Tipo tipo;
     public Garantia garantia;
     public Embalagem embalagem;
@@ -76,6 +80,15 @@ public class ProdutoDTO implements Serializable {
     @JsonSerialize(using = JsonDateSerializer.class)
     public Date vencimento;
 
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING,
+            pattern = "dd/MM/yyyy HH:mm:ss",
+            locale = "pt-BR",
+            timezone = "Brazil/East")
+    @JsonDeserialize(using = JsonDateDeserializer.class)
+    @JsonSerialize(using = JsonDateSerializer.class)
+    public Date devolucaodata;
+
     public ProdutoDTO() {
     }
 
@@ -99,7 +112,11 @@ public class ProdutoDTO implements Serializable {
         estilo = obj.getEstilo();
         qualidade = obj.getQualidade();
         tamanho = obj.getTamanho();
-        devolucao = obj.getDevolucao();
+        comprimento = obj.getTamanho();
+        pesovolumetrico = obj.getPesovolumetrico();
+        pesoliquido = obj.getPesoliquido();
+        devolucaostatus = obj.getDevolucaostatus();
+        devolucaodescricao = obj.getDevolucaodescricao();
         tipo = obj.getTipo();
         garantia = obj.getGarantia();
         datacadastro = obj.getDatacadastro();
@@ -116,6 +133,54 @@ public class ProdutoDTO implements Serializable {
         double tamanho = largura * altura ;
         return tamanho;
     }
+
+    public double getPesovolumetrico() {
+        double fator = 5000;
+        double largura = getLargura().doubleValue();
+        double altura = getAltura().doubleValue();
+        double comprimento = getComprimento().doubleValue();
+        double peso = getPeso().doubleValue();
+        double pesovolumetrico = (largura * altura * comprimento * peso) / fator;
+        return pesovolumetrico;
+    }
+
+    @Override
+    public String toString() {
+        return "ProdutoDTO{" +
+                "_id='" + _id + '\'' +
+                ", uuid=" + uuid +
+                ", descricao='" + descricao + '\'' +
+                ", preco=" + preco +
+                ", durabilidade='" + durabilidade + '\'' +
+                ", peso=" + peso +
+                ", rotulagem='" + rotulagem + '\'' +
+                ", status='" + status + '\'' +
+                ", altura=" + altura +
+                ", largura=" + largura +
+                ", tamanho=" + tamanho +
+                ", comprimento=" + comprimento +
+                ", pesovolumetrico=" + pesovolumetrico +
+                ", pesoliquido=" + pesoliquido +
+                ", devolucaostatus='" + devolucaostatus + '\'' +
+                ", devolucaodescricao='" + devolucaodescricao + '\'' +
+                ", formato='" + formato + '\'' +
+                ", estilo='" + estilo + '\'' +
+                ", qualidade='" + qualidade + '\'' +
+                ", tipo=" + tipo +
+                ", garantia=" + garantia +
+                ", embalagem=" + embalagem +
+                ", grupo=" + grupo +
+                ", cor=" + cor +
+                ", marca=" + marca +
+                ", imagem=" + imagem +
+                ", unidade=" + unidade +
+                ", datacadastro=" + datacadastro +
+                ", fabricacao=" + fabricacao +
+                ", vencimento=" + vencimento +
+                ", devolucaodata=" + devolucaodata +
+                '}';
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -132,10 +197,14 @@ public class ProdutoDTO implements Serializable {
                 Objects.equals(getAltura(), that.getAltura()) &&
                 Objects.equals(getLargura(), that.getLargura()) &&
                 Objects.equals(getTamanho(), that.getTamanho()) &&
+                Objects.equals(getComprimento(), that.getComprimento()) &&
+                Objects.equals(getPesovolumetrico(), that.getPesovolumetrico()) &&
+                Objects.equals(getPesoliquido(), that.getPesoliquido()) &&
+                Objects.equals(getDevolucaostatus(), that.getDevolucaostatus()) &&
+                Objects.equals(getDevolucaodescricao(), that.getDevolucaodescricao()) &&
                 Objects.equals(getFormato(), that.getFormato()) &&
                 Objects.equals(getEstilo(), that.getEstilo()) &&
                 Objects.equals(getQualidade(), that.getQualidade()) &&
-                Objects.equals(getDevolucao(), that.getDevolucao()) &&
                 Objects.equals(getTipo(), that.getTipo()) &&
                 Objects.equals(getGarantia(), that.getGarantia()) &&
                 Objects.equals(getEmbalagem(), that.getEmbalagem()) &&
@@ -146,12 +215,13 @@ public class ProdutoDTO implements Serializable {
                 Objects.equals(getUnidade(), that.getUnidade()) &&
                 Objects.equals(getDatacadastro(), that.getDatacadastro()) &&
                 Objects.equals(getFabricacao(), that.getFabricacao()) &&
-                Objects.equals(getVencimento(), that.getVencimento());
+                Objects.equals(getVencimento(), that.getVencimento()) &&
+                Objects.equals(getDevolucaodata(), that.getDevolucaodata());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(get_id(), getUuid(), getDescricao(), getPreco(), getDurabilidade(), getPeso(), getRotulagem(), getStatus(), getAltura(), getLargura(), getTamanho(), getFormato(), getEstilo(), getQualidade(), getDevolucao(), getTipo(), getGarantia(), getEmbalagem(), getGrupo(), getCor(), getMarca(), getImagem(), getUnidade(), getDatacadastro(), getFabricacao(), getVencimento());
+        return Objects.hash(get_id(), getUuid(), getDescricao(), getPreco(), getDurabilidade(), getPeso(), getRotulagem(), getStatus(), getAltura(), getLargura(), getTamanho(), getComprimento(), getPesovolumetrico(), getPesoliquido(), getDevolucaostatus(), getDevolucaodescricao(), getFormato(), getEstilo(), getQualidade(), getTipo(), getGarantia(), getEmbalagem(), getGrupo(), getCor(), getMarca(), getImagem(), getUnidade(), getDatacadastro(), getFabricacao(), getVencimento(), getDevolucaodata());
     }
 
     public String get_id() {
@@ -234,12 +304,44 @@ public class ProdutoDTO implements Serializable {
         this.largura = largura;
     }
 
-    /*public Double getTamanho() {
-        return tamanho;
-    }*/
-
     public void setTamanho(Double tamanho) {
         this.tamanho = tamanho;
+    }
+
+    public Double getComprimento() {
+        return comprimento;
+    }
+
+    public void setComprimento(Double comprimento) {
+        this.comprimento = comprimento;
+    }
+
+    public void setPesovolumetrico(Double pesovolumetrico) {
+        this.pesovolumetrico = pesovolumetrico;
+    }
+
+    public Double getPesoliquido() {
+        return pesoliquido;
+    }
+
+    public void setPesoliquido(Double pesoliquido) {
+        this.pesoliquido = pesoliquido;
+    }
+
+    public String getDevolucaostatus() {
+        return devolucaostatus;
+    }
+
+    public void setDevolucaostatus(String devolucaostatus) {
+        this.devolucaostatus = devolucaostatus;
+    }
+
+    public String getDevolucaodescricao() {
+        return devolucaodescricao;
+    }
+
+    public void setDevolucaodescricao(String devolucaodescricao) {
+        this.devolucaodescricao = devolucaodescricao;
     }
 
     public String getFormato() {
@@ -264,14 +366,6 @@ public class ProdutoDTO implements Serializable {
 
     public void setQualidade(String qualidade) {
         this.qualidade = qualidade;
-    }
-
-    public Devolucao getDevolucao() {
-        return devolucao;
-    }
-
-    public void setDevolucao(Devolucao devolucao) {
-        this.devolucao = devolucao;
     }
 
     public Tipo getTipo() {
@@ -362,35 +456,11 @@ public class ProdutoDTO implements Serializable {
         this.vencimento = vencimento;
     }
 
-    @Override
-    public String toString() {
-        return "ProdutoDTO{" +
-                "_id='" + _id + '\'' +
-                ", uuid=" + uuid +
-                ", descricao='" + descricao + '\'' +
-                ", preco=" + preco +
-                ", durabilidade='" + durabilidade + '\'' +
-                ", peso=" + peso +
-                ", rotulagem='" + rotulagem + '\'' +
-                ", status='" + status + '\'' +
-                ", altura=" + altura +
-                ", largura=" + largura +
-                ", formato='" + formato + '\'' +
-                ", estilo='" + estilo + '\'' +
-                ", qualidade='" + qualidade + '\'' +
-                ", tamanho=" + tamanho +
-                ", devolucao=" + devolucao +
-                ", tipo=" + tipo +
-                ", garantia=" + garantia +
-                ", embalagem=" + embalagem +
-                ", grupo=" + grupo +
-                ", cor=" + cor +
-                ", marca=" + marca +
-                ", imagem=" + imagem +
-                ", unidade=" + unidade +
-                ", datacadastro=" + datacadastro +
-                ", fabricacao=" + fabricacao +
-                ", vencimento=" + vencimento +
-                '}';
+    public Date getDevolucaodata() {
+        return devolucaodata;
+    }
+
+    public void setDevolucaodata(Date devolucaodata) {
+        this.devolucaodata = devolucaodata;
     }
 }

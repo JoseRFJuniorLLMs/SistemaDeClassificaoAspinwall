@@ -3,11 +3,10 @@ import { Embalagem } from '../paginas/embalagem/embalagem';
 import { Grupo } from '../paginas/grupo/grupo';
 import { Marca } from '../paginas/marca/marca';
 import { Devolucao } from '../paginas/devolucao/devolucao';
-import { Unidade } from '../paginas/unidade/unidade';
 
 export interface Produto {
      _id: any;
-     uuid?: string;
+     uuid: string;
      descricao: string;
      preco?: number;
      durabilidade?: string;
@@ -23,10 +22,10 @@ export interface Produto {
      estilo?: string;
      fabricacao?: string;
      vencimento?: string;
-     tipo: string;
-     cor: Cor[];
-     embalagem: Embalagem[];
-     grupo: Grupo[];
-     marca: Marca[];
-     devolucao: Devolucao[];
+     tipo?: string;
+     cor?: Cor[];
+     embalagem?: Embalagem[];
+     grupo?: Grupo[];
+     marca?: Marca[];
+     //devolucao?: Devolucao[];
 }
