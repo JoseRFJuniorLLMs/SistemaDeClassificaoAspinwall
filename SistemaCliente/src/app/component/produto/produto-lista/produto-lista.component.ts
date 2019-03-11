@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, ViewEncapsulation, Input, AfterContentInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormGroup, FormBuilder, Validators, NgForm, FormControl, FormGroupDirective, } from '@angular/forms';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Observable, empty, of, Subject } from 'rxjs';
@@ -16,7 +17,6 @@ import { UnidadeService } from '../../paginas/unidade/unidade-service';
 import { TipoService } from '../../paginas/tipo/tipo.service';
 
 import { Produto } from '../produto';
-import { Devolucao } from '../../paginas/devolucao/devolucao';
 import { Marca } from '../../paginas/marca/marca';
 import { Grupo } from '../../paginas/grupo/grupo';
 import { Embalagem } from '../../paginas/embalagem/embalagem';
@@ -32,7 +32,7 @@ import { Unidade } from '../../paginas/unidade/unidade';
   preserveWhitespaces: true
 })
 
-export class ProdutoListaComponent implements OnInit {
+export class ProdutoListaComponent implements OnInit, AfterContentInit {
   produtos$: Observable<Produto[]>;
   cors$: Observable<Cor[]>;
   marcas$: Observable<Marca[]>;
@@ -52,6 +52,7 @@ export class ProdutoListaComponent implements OnInit {
   @Input() altura: number;
   @Input() largura: number;
   @Input() comprimento: number;
+  _id: string;
 
   constructor(
     private produtoService: ProdutoService,
@@ -59,13 +60,16 @@ export class ProdutoListaComponent implements OnInit {
     private marcaService: MarcaService,
     private grupoService: GrupoService,
     private embalagemService: EmbalagemService,
-     private unidadeService: UnidadeService,
+    private unidadeService: UnidadeService,
     private tipoService: TipoService,
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
-    private alertService: AlertModalService
+    private alertService: AlertModalService,
+    private router: Router,
+    private route: ActivatedRoute
     ) { }
-ngOnInit() {
+
+  ngOnInit() {
     this.onIniciaProduto();
     this.datacadastro = moment().format('DD/MM/YYYY HH:mm:ss');
     this.fabricacao = moment().format('DD/MM/YYYY');
@@ -80,7 +84,13 @@ ngOnInit() {
     this.onRefreshEmbalagem();
     this.onRefreshUnidade();
     this.onRefreshTipo();
-}
+  }
+
+onEdit (_id) {
+  this.router.navigate(['/component/produto/produto-editar/produto-editar',_id], {
+    relativeTo: this.route
+   });
+  }
 
 onForm() {
   this.produtoForm = this.formBuilder.group({
@@ -91,7 +101,7 @@ onForm() {
     peso: [],
     rotulagem: [],
     status: this.status,
-    cor: [], // [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+    cor: [],
     grupo: [],
     marca: [],
     embalagem: [],
@@ -106,8 +116,53 @@ onForm() {
     });
 }
 
+/* onFormSubmit(form: NgForm) {
+  this.produtoService.updateProduto(this._id, form)
+    .subscribe(res => {
+        let _id = res['_id'];
+        this.router.navigate(['/product-details', _id]);
+      }, (err) => {
+        console.log(err);
+      }
+    );
+} */
+
+getNavigation(link: any , _id: string) {
+  if (_id === '') {
+      this.router.navigate([link]);
+  } else {
+      this.router.navigate([link + _id]);
+  }
+}
+
+getProdutoID(_id: string) {
+  this.produtoService.getProdutoID(_id).subscribe(data => {
+    this._id = data._id;
+    this.produtoForm.setValue({
+    descricao: data.descricao,
+    preco: data.preco,
+    durabilidade: data.durabilidade,
+    peso: data.preco,
+    rotulagem: data.rotulagem,
+    status: data.status,
+    cor: data.cor,
+    grupo: data.grupo,
+    marca: data.marca,
+    embalagem: data.embalagem,
+    imagem: data.imagem,
+    altura: data.altura,
+    largura: data.largura,
+    comprimento: data.comprimento,
+    formato: data.formato,
+    datacadastro: data.datacadastro,
+    fabricacao: data.fabricacao,
+    vencimento: data.vencimento,
+    });
+  });
+}
+
   onRefreshProduto() {
-    this.produtos$ = this.produtoService.list();
+    this.produtos$ = this.produtoService.getProdutos();
     if (this.produtos$ != null) {
       console.log('LISTA ATUALIZADA');
     } else {
@@ -117,7 +172,7 @@ onForm() {
    }
 
   onIniciaProduto() {
-    this.produtos$ = this.produtoService.list()
+    this.produtos$ = this.produtoService.getProdutos()
       .pipe(
       catchError(error => {
         console.error(error);
@@ -128,7 +183,7 @@ onForm() {
   }
 
   onRefreshCor() {
-    this.cors$ = this.corService.list()
+    this.cors$ = this.corService.getCores()
       .pipe(
       catchError(error => {
         console.error(error);
@@ -139,7 +194,7 @@ onForm() {
   }
 
   onRefreshMarca() {
-    this.marcas$ = this.marcaService.list()
+    this.marcas$ = this.marcaService.getMarca()
     .pipe(
       catchError(error => {
         console.error(error);
@@ -150,7 +205,7 @@ onForm() {
   }
 
   onRefreshGrupo() {
-    this.grupos$ = this.grupoService.list()
+    this.grupos$ = this.grupoService.getGrupo()
     .pipe(
       catchError(error => {
         console.error(error);
@@ -161,7 +216,7 @@ onForm() {
   }
 
   onRefreshEmbalagem() {
-    this.embalagens$ = this.embalagemService.list()
+    this.embalagens$ = this.embalagemService.getEmbalagem()
     .pipe(
       catchError(error => {
         console.error(error);
@@ -172,7 +227,7 @@ onForm() {
   }
 
   onRefreshUnidade() {
-    this.unidades$ = this.unidadeService.list()
+    this.unidades$ = this.unidadeService.getUnidade()
     .pipe(
       catchError(error => {
         console.error(error);
@@ -183,7 +238,7 @@ onForm() {
   }
 
   onRefreshTipo() {
-    this.tipos$ = this.tipoService.list()
+    this.tipos$ = this.tipoService.getTipo()
     .pipe(
       catchError(error => {
         console.error(error);
@@ -192,7 +247,7 @@ onForm() {
       })
     );
   }
- 
+
    /* Abri o painel para cadastro de Produtos */
   openCadastrar(content: any) {
     this.modalService.open(content, {
@@ -203,12 +258,9 @@ onForm() {
        });
    }
 
-    /* Abri o painel para editar os Produtos */
-   openEditar() {
-
-    const soma = this.produtoForm.valueChanges
-    .subscribe(value => console.log(value));
-/* 
+   /* Abri o painel para editar os Produtos */
+   openEditar(content: any) {
+   /*
     this.modalService.open(content, {
        windowClass: 'dark-modal',
        size: 'lg',
@@ -235,7 +287,7 @@ onForm() {
     this.submitted = true;
     console.log(this.produtoForm.value);
     if (this.produtoForm.valid) {
-        this.produtoService.create(this.produtoForm.value).subscribe(
+        this.produtoService.createProduto(this.produtoForm.value).subscribe(
         success => {
           console.log('SALVO COM SUCESSO');
           this.onRefreshProduto();
@@ -243,9 +295,9 @@ onForm() {
           this.CadastroSucesso();
         },
          error =>
-         this.handleError(),
+          this.handleError(),
         () =>
-        console.log('request completo')
+          console.log('request completo')
       );
     }
   }
@@ -260,7 +312,7 @@ onForm() {
   } */
 
   searchProdutos(descricao: string) {
-     this.produtos$ =  this.produtoService.searchProdutos(descricao);
+    this.produtos$ =  this.produtoService.searchProdutosDescricao(descricao);
        if (this.descricao != null ) {
         console.log('SUCESSO: ' + this.produtos$);
        } else {
@@ -288,7 +340,7 @@ onForm() {
     this.alertService.showAlertSuccess('Aguarde CONECTANDO ao servidor....');
    }
 
-   CadastroSucesso() {
+  CadastroSucesso() {
     this.alertService.showAlertSuccess('Aguarde estou enviando o cadastro.......');
    }
 

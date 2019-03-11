@@ -5,7 +5,7 @@ import { Marca } from '../paginas/marca/marca';
 import { Devolucao } from '../paginas/devolucao/devolucao';
 
 export interface Produto {
-     _id: any;
+     _id: string;
      uuid: string;
      descricao: string;
      preco?: number;

@@ -3,288 +3,6 @@
 </div> 
 <!-- INICIO DO MODAL -->
 
-<ng-template #content2 let-c="close" let-d="dismiss">
-    <div class="modal-header">
-      <h4 class="modal-title text-white">Cadastrar Novo Produto</h4>
-      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-   
-<!-- Formulario do Produto -->
-<div class="modal-body" [formGroup]="produtoForm" style="padding-top: 50px">
-  <div class="form-group">
-    <div class="form-row">
-          <div class="col-sm-8">
-              <ng-template #popContentNome>Nome do Produto de forma clara e resumida</ng-template>
-                <label for="descricao">Nome do Produto</label>
-                <input
-                  [ngbPopover]="popContentNome" 
-                  popoverTitle="Campo Nome"
-                  type="text"
-                  class="form-control"
-                  id="descricao"
-                  placeholder="Nome do Produto"
-                  formControlName="descricao"
-                  [ngClass]="{ 'is-invalid': submitted && hasError('descricao')}"
-                />
-                <div class="invalid-feedback" *ngIf="hasError('descricao') && hasError('descricao')['required']" >
-                    Por favor informe um nome para o produto.
-                  </div>
-                  <div class="invalid-feedback" *ngIf="hasError('descricao') && hasError('descricao')['minlength']" >
-                    Nome precisa ter no mínimo {{ hasError('descricao')['minlength'].requiredLength }} caracteres.
-                  </div>
-                  <div class="invalid-feedback" *ngIf="hasError('descricao') && hasError('descricao')['maxlength']" >
-                    Nome precisa ter no máximo {{ hasError('descricao')['maxlength'].requiredLength }} caracteres.
-                  </div>
-            </div>
-            
-            <div class="col-sm-4">
-                <label for="preco">Fabricação</label>
-                  <input 
-                  type="text" 
-                  class="form-control col-md-12"
-                  id="fabricacao"
-                  placeholder="Data Fabricação"
-                  formControlName="fabricacao" />
-            </div>
-         
-            <div class="col-sm-4">
-                <label for="preco">Vencimento</label>
-                    <input 
-                    type="text"
-                    class="form-control col-md-12"
-                    id="vencimento"
-                    placeholder="Data Vencimento"
-                    formControlName="vencimento" />
-            </div>
-
-            <div class="col-sm-2">
-                <ng-template #popContentValor>Valor do Produto em R$ 0.0</ng-template>
-                <label for="preco">Valor</label>
-                <input
-                  [ngbPopover]="popContentValor" 
-                  popoverTitle="Campo Valor"
-                  type="text"
-                  class="form-control col-md-12"
-                  id="preco"
-                  placeholder="Valor do Produto R$"
-                  formControlName="preco"
-                />
-            </div>
-
-            <div class="col-sm-2">
-                <ng-template #popContentAltura>Altura</ng-template>
-                <label for="altura">Altura</label>
-                <input
-                  [ngbPopover]="popContentAltura" 
-                  popoverTitle="Campo Altura"
-                  type="number"
-                  class="form-control"
-                  id="altura"
-                  placeholder="Altura"
-                  formControlName="altura"
-                  [ngClass]="{ 'is-invalid': submitted && hasError('altura')}"
-                />
-                <div class="invalid-feedback" *ngIf="hasError('altura') && hasError('altura')['required']" >
-                  Por favor informe uma altura para o produto.
-                </div>
-            </div>
-
-            <div class="col-sm-2">
-                <ng-template #popContentLargura>Largura</ng-template>
-                <label for="largura">Largura</label>
-                <input
-                  [ngbPopover]="popContentLargura" 
-                  popoverTitle="Campo Largura"
-                  type="number"
-                  class="form-control"
-                  id="largura"
-                  placeholder="Largura"
-                  formControlName="largura"
-                  [ngClass]="{ 'is-invalid': submitted && hasError('largura')}"
-                  />
-                  <div class="invalid-feedback" *ngIf="hasError('largura') && hasError('largura')['required']" >
-                    Por favor informe uma largura para o produto.
-                  </div>
-            </div>
-
-            <div class="col-sm-2">
-              <ng-template #popContentComprimento>Comprimento</ng-template>
-              <label for="comprimento">Comprimento</label>
-              <input
-                [ngbPopover]="popContentComprimento" 
-                popoverTitle="Campo Comprimento"
-                type="number"
-                class="form-control"
-                id="comprimento"
-                placeholder="Comprimento"
-                formControlName="comprimento"
-                [ngClass]="{ 'is-invalid': submitted && hasError('comprimento')}"
-                />
-                <div class="invalid-feedback" *ngIf="hasError('comprimento') && hasError('comprimento')['required']" >
-                  Por favor informe um comprimento para o produto.
-                </div>
-          </div>
-
-        <!--     <div class="col-sm-2">
-              <ng-template #popContentTamanho>Tamanho</ng-template>
-              <label for="tamanho">Tamanho {{tamanho}}</label>
-              <input
-                
-                [ngbPopover]="popContentTamanho" 
-                popoverTitle="Campo tamanho"
-                type="number"
-                class="form-control"
-                id="tamanho"
-                placeholder="Tamanho"
-                formControlName="tamanho"
-               />
-          </div>  -->
-
-            <div class="col-sm-2">
-                <ng-template #popContentFormato>Formato</ng-template>
-                <label for="formato">Formato</label>
-                <input
-                  [ngbPopover]="popContentFormato" 
-                  popoverTitle="Campo Formato"
-                  type="text"
-                  class="form-control"
-                  id="formato"
-                  placeholder="Formato"
-                  formControlName="formato"
-                 />
-            </div>
-
-            <div class="col-sm-2">
-                <ng-template #popContentDurabilidade>Durabilidade do Produto em dias ou meses</ng-template>
-                <label for="durabilidade">Dur.</label>
-                <input 
-                  [ngbPopover]="popContentDurabilidade" 
-                  popoverTitle="Campo Durabilidade"
-                  type="text"
-                  class="form-control"
-                  id="durabilidade"
-                  placeholder="Durabilidade"
-                  formControlName="durabilidade"
-                 />
-            </div>
-
-            <div class="col-sm-2">
-                <ng-template #popContentPeso>Peso do Produto em Kg ou Gramas</ng-template>
-                <label for="peso">Peso</label>
-                <input
-                [ngbPopover]="popContentPeso" 
-                popoverTitle="Campo Peso"
-                  type="text"
-                  class="form-control"
-                  id="peso"
-                  placeholder="Peso do Produto Kg"
-                  formControlName="peso"
-                />
-            </div>
-
-   <div class="col-sm-4">
-     <div class="form-row">
-          <div class="form-group" 
-          *ngIf="cors$ | async as cors; else loading">
-            <label for="cor">Cor</label>
-            <select 
-            name="cor" 
-            id="cor" 
-            formControlName="cor" 
-            class="form-control">
-                 <option *ngFor="let cor of cors" [ngValue]="cor">{{ cor.nome }}</option>
-            </select>
-          </div>
-          <ng-template #loading>
-            <span>Aguarde..</span>
-            <div class="spinner-border text-primary" role="status">
-                <span class="sr-only">Aguarde..</span>
-              </div>
-          </ng-template>
-      </div>
-  </div> 
-
-  <div class="col-sm-4">
-     <div class="form-row">
-        <div class="form-group col-md-12" *ngIf="grupos$ | async as grupos; else loading">
-          <label for="grupo">Grupo</label>
-          <select name="grupo" id="grupo" formControlName="grupo" class="form-control">
-            <option *ngFor="let grupo of grupos" [ngValue]="grupo">{{ grupo.descricao }}</option>
-          </select>
-        </div>
-        <ng-template #loading>
-          <span>Aguarde..</span>
-          <div class="spinner-border text-primary" role="status">
-              <span class="sr-only">Aguarde..</span>
-            </div>
-        </ng-template>
-      </div>
-</div> 
-
-<div class="col-sm-4">
-     <div class="form-row">
-        <div class="form-group col-md-12" *ngIf="embalagens$ | async as embalagens; else loading">
-          <label for="embalagem">Embalagem</label>
-          <select name="embalagem" id="embalagem" formControlName="embalagem" class="form-control">
-            <option *ngFor="let embalagem of embalagens" [ngValue]="embalagem">{{ embalagem.descricao }}</option>
-          </select>
-        </div>
-        <ng-template #loading>
-          <span>Aguarde..</span>
-          <div class="spinner-border text-primary" role="status">
-              <span class="sr-only">Aguarde..</span>
-            </div>
-        </ng-template>
-      </div>
-    </div> 
-
-<div class="col-sm-4">
-    <div class="form-row">
-            <div class="form-group col-md-12" *ngIf="marcas$ | async as marcas; else loading">
-              <label for="marca">Marca</label>
-              <select name="marca" id="marca" formControlName="marca" class="form-control">
-                <option *ngFor="let marca of marcas" [ngValue]="marca">{{ marca.descricao }}</option>
-              </select>
-            </div>
-            <ng-template #loading>
-              <span>Aguarde..</span>
-              <div class="spinner-border text-primary" role="status">
-                  <span class="sr-only">Aguarde..</span>
-                </div>
-            </ng-template>
-          </div>
-        </div>  
-
- <!--       <div class="col-sm-4">
-          <div class="form-row">
-             <div class="form-group col-md-12" *ngIf="devolucaos$ | async as devolucaos; else loading">
-               <label for="devolucao">Devolucao</label>
-               <select disabled name="devolucao" id="devolucao" formControlName="devolucao" class="form-control">
-                 <option *ngFor="let devolucao of devolucaos" [ngValue]="devolucao">{{ devolucao.descricao }}</option>
-               </select>
-             </div>
-             <ng-template #loading>
-               <span>Aguarde..</span>
-               <div class="spinner-border text-primary" role="status">
-                   <span class="sr-only">Aguarde..</span>
-                 </div>
-             </ng-template>
-           </div>
-         </div> -->  
-    </div>
-  </div>
-</div>
-
-  <!-- foot-->
-
-    <div class="modal-footer">
-       <button type="sumit" class="btn btn-primary" (click)="onSubmit()">Salvar</button>
-       <button type="button" id="buttonFoot" class="btn btn-inverse" (click)="c('Close click')">Fechar</button>
-    </div>
-  </ng-template>
-
 <!-- fim do Produto -->
 
   <div class="col-md-12">
@@ -349,9 +67,7 @@
           {{produto.descricao}} :
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
            </strong>
-          <h4><a  class="badge badge-Dark">UUID :  {{produto.uuid}}</a>
-            {{ produto.altura }} + {{ produto.largura }}
-          </h4>
+          <h4><a  class="badge badge-Dark">UUID :  {{produto.uuid}}</a></h4>
           </h1>
 
         <a href="#" 
@@ -442,11 +158,23 @@
           <td>
             <span class="float-right">
               <button class="btn btn-outline-warning mb-1 btn-sm" 
-             
-              [routerLink]="['/component/produto/produto-editar/produto-editar', produto._id]"
-             >
-                Atualizar 
+              (click)="getNavigation('/component/produto/produto-editar/produto-editar', produto._id)"
+               >
+               Atualizar 
               </button>
+
+              <button class="btn btn-outline-warning mb-1 btn-sm" 
+              [routerLink]="['/component/produto/produto-editar/produto-editar', produto._id]"
+               >
+               Atualizar 2
+              </button>
+
+              <button class="btn btn-outline-warning mb-1 btn-sm" 
+              (click)="onEdit(produto._id)"
+               >
+               Atualizar 3
+              </button>
+                         
               <button class="btn btn-outline-danger mb-1 btn-sm">
                 Desativar
               </button>

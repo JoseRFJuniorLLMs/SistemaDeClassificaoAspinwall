@@ -28,7 +28,7 @@ export class CorListaComponent implements OnInit {
 
   onRefreshCor() {
     this.handleSucesso()
-    this.cors$ = this.corService.list()
+    this.cors$ = this.corService.getCores()
     .pipe(
       catchError(error => {
         console.error(error);

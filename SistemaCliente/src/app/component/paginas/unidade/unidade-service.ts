@@ -14,7 +14,7 @@ export class UnidadeService {
 
   constructor(private http: HttpClient) { }
 
-  list() {
+  getUnidade() {
     return this.http.get<Unidade[]>(this.API13)
       .pipe(
         delay(1000),
@@ -22,7 +22,7 @@ export class UnidadeService {
       );
   }
 
-  create(tipo) {
-    return this.http.post(this.API14, tipo).pipe(take(1));
+  createUnidade(unidade: string) {
+    return this.http.post(this.API14, unidade).pipe(take(1));
   }
 }

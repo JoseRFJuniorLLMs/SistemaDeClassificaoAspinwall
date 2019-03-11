@@ -14,7 +14,7 @@ export class DevolucaoService {
 
   constructor(private http: HttpClient) { }
 
-  list() {
+  getDevolucao() {
     return this.http.get<Devolucao[]>(this.API11)
       .pipe(
         delay(1000),
@@ -22,7 +22,7 @@ export class DevolucaoService {
       );
   }
 
-  create(devolucao) {
+  createDevolucao(devolucao: string) {
     return this.http.post(this.API12, devolucao).pipe(take(1));
   }
 }

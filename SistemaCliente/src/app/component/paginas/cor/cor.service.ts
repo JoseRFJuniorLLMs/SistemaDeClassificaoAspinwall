@@ -14,7 +14,7 @@ export class CorService {
 
   constructor(private http: HttpClient) { }
 
-  list() {
+  getCores() {
     return this.http.get<Cor[]>(this.API3)
       .pipe(
         delay(1000),
@@ -22,7 +22,7 @@ export class CorService {
       );
   }
 
-  create(cor) {
+  createCores(cor: string) {
     return this.http.post(this.API4, cor).pipe(take(1));
   }
 }

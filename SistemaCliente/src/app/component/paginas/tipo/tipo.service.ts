@@ -14,7 +14,7 @@ export class TipoService {
 
   constructor(private http: HttpClient) { }
 
-  list() {
+  getTipo() {
     return this.http.get<Tipo[]>(this.API13)
       .pipe(
         delay(1000),
@@ -22,7 +22,7 @@ export class TipoService {
       );
   }
 
-  create(tipo) {
+  createTipo(tipo: string) {
     return this.http.post(this.API14, tipo).pipe(take(1));
   }
 }

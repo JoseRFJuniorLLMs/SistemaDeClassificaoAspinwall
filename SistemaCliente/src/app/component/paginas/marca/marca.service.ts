@@ -14,7 +14,7 @@ export class MarcaService {
 
   constructor(private http: HttpClient) { }
 
-  list() {
+  getMarca() {
     return this.http.get<Marca[]>(this.API9)
       .pipe(
         delay(1000),

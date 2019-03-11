@@ -229,7 +229,7 @@ export const ComponentsRoutes: Routes = [
         }
       },
       {
-        path: 'produto/produto-editar/produto-editar:_id',
+        path: 'produto/produto-editar/produto-editar/:produto._id',
         component: ProdutoEditarComponent,
         data: {
           title: 'Editar',

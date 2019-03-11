@@ -14,7 +14,7 @@ export class GrupoService {
 
   constructor(private http: HttpClient) { }
 
-  list() {
+  getGrupo() {
     return this.http.get<Grupo[]>(this.API5)
       .pipe(
         delay(1000),

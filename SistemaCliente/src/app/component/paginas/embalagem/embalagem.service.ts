@@ -4,8 +4,6 @@ import { Embalagem } from './embalagem';
 import { tap, delay, take } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
 
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -16,7 +14,7 @@ export class EmbalagemService {
 
   constructor(private http: HttpClient) { }
 
-  list() {
+  getEmbalagem() {
     return this.http.get<Embalagem[]>(this.API7)
       .pipe(
         delay(1000),

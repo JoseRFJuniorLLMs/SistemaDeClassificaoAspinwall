@@ -16,7 +16,6 @@ import { UnidadeService } from '../../paginas/unidade/unidade-service';
 import { TipoService } from '../../paginas/tipo/tipo.service';
 
 import { Produto } from '../produto';
-import { Devolucao } from '../../paginas/devolucao/devolucao';
 import { Marca } from '../../paginas/marca/marca';
 import { Grupo } from '../../paginas/grupo/grupo';
 import { Embalagem } from '../../paginas/embalagem/embalagem';
@@ -59,7 +58,7 @@ export class ProdutoFormComponent implements OnInit {
     private marcaService: MarcaService,
     private grupoService: GrupoService,
     private embalagemService: EmbalagemService,
-     private unidadeService: UnidadeService,
+    private unidadeService: UnidadeService,
     private tipoService: TipoService,
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
@@ -107,7 +106,7 @@ onForm() {
 }
 
   onRefreshProduto() {
-    this.produtos$ = this.produtoService.list();
+    this.produtos$ = this.produtoService.getProdutos();
     if (this.produtos$ != null) {
       console.log('LISTA ATUALIZADA');
     } else {
@@ -117,7 +116,7 @@ onForm() {
    }
 
   onIniciaProduto() {
-    this.produtos$ = this.produtoService.list()
+    this.produtos$ = this.produtoService.getProdutos()
       .pipe(
       catchError(error => {
         console.error(error);
@@ -128,7 +127,7 @@ onForm() {
   }
 
   onRefreshCor() {
-    this.cors$ = this.corService.list()
+    this.cors$ = this.corService.getCores()
       .pipe(
       catchError(error => {
         console.error(error);
@@ -139,7 +138,7 @@ onForm() {
   }
 
   onRefreshMarca() {
-    this.marcas$ = this.marcaService.list()
+    this.marcas$ = this.marcaService.getMarca()
     .pipe(
       catchError(error => {
         console.error(error);
@@ -150,7 +149,7 @@ onForm() {
   }
 
   onRefreshGrupo() {
-    this.grupos$ = this.grupoService.list()
+    this.grupos$ = this.grupoService.getGrupo()
     .pipe(
       catchError(error => {
         console.error(error);
@@ -161,7 +160,7 @@ onForm() {
   }
 
   onRefreshEmbalagem() {
-    this.embalagens$ = this.embalagemService.list()
+    this.embalagens$ = this.embalagemService.getEmbalagem()
     .pipe(
       catchError(error => {
         console.error(error);
@@ -172,7 +171,7 @@ onForm() {
   }
 
   onRefreshUnidade() {
-    this.unidades$ = this.unidadeService.list()
+    this.unidades$ = this.unidadeService.getUnidade()
     .pipe(
       catchError(error => {
         console.error(error);
@@ -183,7 +182,7 @@ onForm() {
   }
 
   onRefreshTipo() {
-    this.tipos$ = this.tipoService.list()
+    this.tipos$ = this.tipoService.getTipo()
     .pipe(
       catchError(error => {
         console.error(error);
@@ -235,7 +234,7 @@ onForm() {
     this.submitted = true;
     console.log(this.produtoForm.value);
     if (this.produtoForm.valid) {
-        this.produtoService.create(this.produtoForm.value).subscribe(
+        this.produtoService.createProduto(this.produtoForm.value).subscribe(
         success => {
           console.log('SALVO COM SUCESSO');
           this.onRefreshProduto();
@@ -260,7 +259,7 @@ onForm() {
   } */
 
   searchProdutos(descricao: string) {
-     this.produtos$ =  this.produtoService.searchProdutos(descricao);
+     this.produtos$ =  this.produtoService.searchProdutosDescricao(descricao);
        if (this.descricao != null ) {
         console.log('SUCESSO: ' + this.produtos$);
        } else {
@@ -288,11 +287,11 @@ onForm() {
     this.alertService.showAlertSuccess('Aguarde CONECTANDO ao servidor......OK');
    }
 
-   CadastroSucesso() {
+  CadastroSucesso() {
     this.alertService.showAlertSuccess('Aguarde Salvando.......OK');
    }
 
-   ListaSucesso() {
+  ListaSucesso() {
     this.alertService.showAlertSuccess('Atualizando a Lista....');
    }
 
