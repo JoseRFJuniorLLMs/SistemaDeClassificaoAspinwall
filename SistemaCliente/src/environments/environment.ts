@@ -1,29 +1,29 @@
 export const environment = {
   production: false,
-  API: 'http://localhost:8080/api/v1/produtos/flux',
-  API2: 'http://localhost:8080/api/v1/produtos/',
-  APINOME: 'http://localhost:8080/api/v1/produtos/nome/',
-  APIFLUX6: 'http://localhost:8080/api/v1/produtos/flux6',
+  API: 'http://ec2-54-209-127-107.compute-1.amazonaws.com:8080/api/v1/produtos/flux',
+  API2: 'http://ec2-54-209-127-107.compute-1.amazonaws.com:8080/api/v1/produtos/',
+  APINOME: 'http://ec2-54-209-127-107.compute-1.amazonaws.com:8080/api/v1/produtos/nome/',
+  APIFLUX6: 'http://ec2-54-209-127-107.compute-1.amazonaws.com:8080/api/v1/produtos/flux6',
 
-  API3: 'http://localhost:8080/cores/v1/cor/flux',
-  API4: 'http://localhost:8080/cores/v1/cor/',
+  API3: 'http://ec2-54-209-127-107.compute-1.amazonaws.com:8080/cores/v1/cor/flux',
+  API4: 'http://ec2-54-209-127-107.compute-1.amazonaws.com:8080/cores/v1/cor/',
 
-  API5: 'http://localhost:8080/grupos/v1/grupo/flux',
-  API6: 'http://localhost:8080/grupos/v1/grupo/',
+  API5: 'http://ec2-54-209-127-107.compute-1.amazonaws.com:8080/grupos/v1/grupo/flux',
+  API6: 'http://ec2-54-209-127-107.compute-1.amazonaws.com:8080/grupos/v1/grupo/',
 
-  API7: 'http://localhost:8080/embalagens/v1/embalagem/flux',
-  API8: 'http://localhost:8080/embalagens/v1/embalagem/',
+  API7: 'http://ec2-54-209-127-107.compute-1.amazonaws.com:8080/embalagens/v1/embalagem/flux',
+  API8: 'http://ec2-54-209-127-107.compute-1.amazonaws.com:8080/embalagens/v1/embalagem/',
 
-  API9: 'http://localhost:8080/marcas/v1/marca/flux',
-  API10: 'http://localhost:8080/marcas/v1/marca/',
+  API9: 'http://ec2-54-209-127-107.compute-1.amazonaws.com:8080/marcas/v1/marca/flux',
+  API10: 'http://ec2-54-209-127-107.compute-1.amazonaws.com:8080/marcas/v1/marca/',
 
-  API11: 'http://localhost:8080/devolucaos/v1/devolucao/flux',
-  API12: 'http://localhost:8080/devolucaos/v1/devolucao/',
+  API11: 'http://ec2-54-209-127-107.compute-1.amazonaws.com:8080/devolucaos/v1/devolucao/flux',
+  API12: 'http://ec2-54-209-127-107.compute-1.amazonaws.com:8080/devolucaos/v1/devolucao/',
 
-  API13: 'http://localhost:8080/tipos/v1/tipo/flux',
-  API14: 'http://localhost:8080/tipos/v1/tipo/',
+  API13: 'http://ec2-54-209-127-107.compute-1.amazonaws.com:8080/tipos/v1/tipo/flux',
+  API14: 'http://ec2-54-209-127-107.compute-1.amazonaws.com:8080/tipos/v1/tipo/',
 
-  API15: 'http://localhost:8080/unidades/v1/unidade/flux',
-  API16: 'http://localhost:8080/unidades/v1/unidade/'
+  API15: 'http://ec2-54-209-127-107.compute-1.amazonaws.com:8080/unidades/v1/unidade/flux',
+  API16: 'http://ec2-54-209-127-107.compute-1.amazonaws.com:8080/unidades/v1/unidade/'
 };
 

@@ -1,19 +1,13 @@
 package com.booksgames.loja.controllers;
 
 import com.booksgames.loja.documents.Grupo;
-import com.booksgames.loja.dto.GrupoDTO;
-import com.booksgames.loja.repository.GrupoRepository;
-import com.booksgames.loja.repository.reactive.GrupoReactiveRepository;
 import com.booksgames.loja.services.impl.GrupoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
-
-import javax.validation.Valid;
-import java.net.URI;
-import java.util.List;
 
 /**
  * @author Jose R F Junior

@@ -6,20 +6,16 @@ import com.booksgames.loja.repository.MarcaRepository;
 import com.booksgames.loja.repository.reactive.MarcaReactiveRespository;
 import com.booksgames.loja.services.impl.MarcaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.net.URI;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.validation.Valid;
-
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import javax.validation.Valid;
+import java.net.URI;
+import java.util.List;
 
 /**
  * @author Jose R F Junior

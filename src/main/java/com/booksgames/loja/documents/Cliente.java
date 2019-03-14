@@ -1,8 +1,8 @@
 package com.booksgames.loja.documents;
 
+import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.hibernate.validator.constraints.br.CPF;
 
 /**
  * @author Jose R F Junior

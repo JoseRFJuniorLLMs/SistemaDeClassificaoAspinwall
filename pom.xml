@@ -96,11 +96,11 @@
 			<artifactId>reactor-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
+	<!--	<dependency>
 			<groupId>org.tensorflow</groupId>
 			<artifactId>tensorflow</artifactId>
 			<version>RELEASE</version>
-		</dependency>
+		</dependency>-->
 	</dependencies>
 
 	<build>

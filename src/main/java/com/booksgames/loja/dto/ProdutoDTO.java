@@ -3,15 +3,17 @@ package com.booksgames.loja.dto;
 import com.booksgames.loja.documents.*;
 import com.booksgames.loja.util.JsonDateDeserializer;
 import com.booksgames.loja.util.JsonDateSerializer;
+import com.booksgames.loja.util.JsonDateTimeDeserializer;
+import com.booksgames.loja.util.JsonDateTimeSerializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.mongodb.gridfs.GridFS;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
@@ -45,6 +47,10 @@ public class ProdutoDTO implements Serializable {
     public String formato;
     public String estilo;
     public String qualidade;
+    public String imagemfrente;
+    public String imagemlateral;
+    public String imagemtras;
+    public String imagemcima;
     public Tipo tipo;
     public Garantia garantia;
     public Embalagem embalagem;
@@ -54,40 +60,44 @@ public class ProdutoDTO implements Serializable {
     public GridFS imagem;
     public Unidade unidade;
 
-    @Temporal(TemporalType.DATE)
+   /* @Temporal(TemporalType.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING,
-            pattern = "dd/MM/yyyy HH:mm:ss",
+            pattern = "dd/MM/yyyy",
             locale = "pt-BR",
             timezone = "Brazil/East")
     @JsonDeserialize(using = JsonDateDeserializer.class)
     @JsonSerialize(using = JsonDateSerializer.class)
+   @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")*/
     public Date datacadastro;
 
-    @Temporal(TemporalType.DATE)
+    /*@Temporal(TemporalType.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING,
             pattern = "dd/MM/yyyy",
             locale = "pt-BR",
             timezone = "Brazil/East")
     @JsonDeserialize(using = JsonDateDeserializer.class)
     @JsonSerialize(using = JsonDateSerializer.class)
+    @JsonFormat(pattern="dd/MM/yyyy")*/
     public Date fabricacao;
 
-    @Temporal(TemporalType.DATE)
+   /* @Temporal(TemporalType.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING,
             pattern = "dd/MM/yyyy",
             locale = "pt-BR",
             timezone = "Brazil/East")
     @JsonDeserialize(using = JsonDateDeserializer.class)
     @JsonSerialize(using = JsonDateSerializer.class)
+   @JsonFormat(pattern="dd/MM/yyyy")*/
     public Date vencimento;
 
-    @Temporal(TemporalType.DATE)
+   /* @Temporal(TemporalType.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING,
             pattern = "dd/MM/yyyy HH:mm:ss",
             locale = "pt-BR",
             timezone = "Brazil/East")
     @JsonDeserialize(using = JsonDateDeserializer.class)
     @JsonSerialize(using = JsonDateSerializer.class)
+   @JsonFormat(pattern="dd/MM/yyyy")*/
     public Date devolucaodata;
 
     public ProdutoDTO() {
@@ -119,12 +129,17 @@ public class ProdutoDTO implements Serializable {
         pesoliquido = obj.getPesoliquido();
         devolucaostatus = obj.getDevolucaostatus();
         devolucaodescricao = obj.getDevolucaodescricao();
+        devolucaodata = obj.getDevolucaodata();
         tipo = obj.getTipo();
         garantia = obj.getGarantia();
         datacadastro = obj.getDatacadastro();
         fabricacao = obj.getFabricacao();
         vencimento = obj.getVencimento();
         unidade = obj.getUnidade();
+        imagemfrente = obj.getImagemfrente();
+        imagemlateral = obj.getImagemlateral();
+        imagemtras = obj.getImagemtras();
+        imagemcima = obj.getImagemcima();
     }
     public double getTamanho() {
     /*List<Double> listLargura = Arrays.asList(getLargura().doubleValue());
@@ -228,6 +243,38 @@ public class ProdutoDTO implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(get_id(), getUuid(), getDescricao(), getPreco(), getDurabilidade(), getPeso(), getRotulagem(), getStatus(), getAltura(), getLargura(), getTamanho(), getComprimento(), getPesovolumetrico(), getPesoliquido(), getDevolucaostatus(), getDevolucaodescricao(), getFormato(), getEstilo(), getQualidade(), getTipo(), getGarantia(), getEmbalagem(), getGrupo(), getCor(), getMarca(), getImagem(), getUnidade(), getDatacadastro(), getFabricacao(), getVencimento(), getDevolucaodata());
+    }
+
+    public String getImagemfrente() {
+        return imagemfrente;
+    }
+
+    public void setImagemfrente(String imagemfrente) {
+        this.imagemfrente = imagemfrente;
+    }
+
+    public String getImagemlateral() {
+        return imagemlateral;
+    }
+
+    public void setImagemlateral(String imagemlateral) {
+        this.imagemlateral = imagemlateral;
+    }
+
+    public String getImagemtras() {
+        return imagemtras;
+    }
+
+    public void setImagemtras(String imagemtras) {
+        this.imagemtras = imagemtras;
+    }
+
+    public String getImagemcima() {
+        return imagemcima;
+    }
+
+    public void setImagemcima(String imagemcima) {
+        this.imagemcima = imagemcima;
     }
 
     public String get_id() {

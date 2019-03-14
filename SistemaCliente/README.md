@@ -99,3 +99,10 @@ Análise financeira/comercial
 Desenvolvimento do produto
 Teste de mercado
 Comercialização
+
+
+http://www.transparencia.gov.br/api-de-dados/servidores/remuneracao?cpf=64525430249&mesAno=201705&pagina=1
+
+http://www.transparencia.gov.br/api-de-dados/servidores?tipoServidor=1&cpf=64525430249&pagina=1
+
+http://www.transparencia.gov.br/api-de-dados/servidores/22015814

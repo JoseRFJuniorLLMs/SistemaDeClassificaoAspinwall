@@ -1,25 +1,24 @@
 package com.booksgames.loja.services.impl;
 
-import java.util.List;
-import java.util.Optional;
-
+import com.booksgames.loja.documents.Tipo;
 import com.booksgames.loja.dto.TipoDTO;
+import com.booksgames.loja.repository.TipoRepository;
 import com.booksgames.loja.repository.reactive.TipoReactiveRespository;
 import com.booksgames.loja.services.TipoService;
+import com.booksgames.loja.services.exceptions.DataIntegrityException;
+import com.booksgames.loja.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
-
-import com.booksgames.loja.documents.Tipo;
-import com.booksgames.loja.repository.TipoRepository;
-import com.booksgames.loja.services.exceptions.DataIntegrityException;
-import com.booksgames.loja.services.exceptions.ObjectNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Jose R F Junior

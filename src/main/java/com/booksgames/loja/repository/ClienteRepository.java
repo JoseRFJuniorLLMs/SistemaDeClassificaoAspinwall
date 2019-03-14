@@ -1,7 +1,7 @@
 package com.booksgames.loja.repository;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
 import com.booksgames.loja.documents.Cliente;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 /**
  * @author Jose R F Junior

@@ -17,6 +17,7 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
+
 export class ProdutoService {
 
   private readonly APIFLUX6 = `${environment.APIFLUX6}`;
@@ -26,7 +27,6 @@ export class ProdutoService {
   constructor(
     private http: HttpClient
     ) { }
-
     headers: HttpHeaders = new HttpHeaders({
     'Content-Type': 'application/json',
     'Accept': 'application/json'
@@ -41,10 +41,7 @@ export class ProdutoService {
       );
     }
 
-
-
-    
-  loadByID(_id) {
+  loadByID(_id: string) {
       return this.http.get<Produto>(`${this.API2}/${_id}`).pipe(take(1));
     }
 
@@ -57,17 +54,14 @@ export class ProdutoService {
   private update(produto) {
       return this.http.put(`${this.API2}/${produto._id}`, produto).pipe(take(1));
     }
-  updateProduto(data: any) {
+  updateProduto(data) {
       return this.http.post(`${this.APIFLUX6}`, data);
    }
   private create(produto) {
     return this.http.post(this.APIFLUX6, produto).pipe(take(1));
   }
 
- 
-  
-
-  getProdutoID(_id: any): Observable<Produto> {
+  getProdutoID(_id: string): Observable<Produto> {
       const url = `${this.API2}/${_id}`;
       return this.http.get<Produto>(url)
       .pipe(
@@ -108,9 +102,6 @@ export class ProdutoService {
       catchError(this.handleError)
     );
   } */
-
-
-
 
   protected handleError(error: any): Observable<any> {
     console.log('ERRO NA REQUISIÇÃO => ', error);

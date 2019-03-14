@@ -71,7 +71,7 @@ export class ProdutoListaComponent implements OnInit, AfterContentInit {
 
   ngOnInit() {
     this.onIniciaProduto();
-    this.datacadastro = moment().format('DD/MM/YYYY HH:mm:ss');
+    this.datacadastro = moment().format('DD/MM/YYYY');
     this.fabricacao = moment().format('DD/MM/YYYY');
     this.vencimento = moment().format('DD/MM/YYYY');
   }
@@ -86,10 +86,9 @@ export class ProdutoListaComponent implements OnInit, AfterContentInit {
     this.onRefreshTipo();
   }
 
-onEdit (_id) {
-  this.router.navigate(['/component/produto/produto-editar/produto-editar',_id], {
-    relativeTo: this.route
-   });
+onEdit (_id: string) {
+   this.router.navigate(['/component/produto/produto-editar/produto-editar', _id], {
+      relativeTo: this.route});
   }
 
 onForm() {

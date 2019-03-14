@@ -3,9 +3,7 @@ package com.booksgames.loja.documents;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
 import java.io.Serializable;
-import java.lang.annotation.Documented;
 import java.util.Objects;
 
 @Document(collection = "estadocivil")

@@ -3,11 +3,11 @@ package com.booksgames.loja.dto;
 import com.booksgames.loja.documents.Cor;
 import com.booksgames.loja.documents.Grupo;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.Date;
-import javax.validation.constraints.NotEmpty;
-import org.hibernate.validator.constraints.Length;
 
 /**
  * @author Jose R F Junior

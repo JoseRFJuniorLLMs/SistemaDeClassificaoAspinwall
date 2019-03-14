@@ -1,10 +1,10 @@
 package com.booksgames.loja.documents;
 
-import java.util.Date;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.booksgames.loja.documents.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.Date;
 
 /**
  * @author Jose R F Junior

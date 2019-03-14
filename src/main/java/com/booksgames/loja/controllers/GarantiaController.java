@@ -3,7 +3,10 @@ package com.booksgames.loja.controllers;
 import com.booksgames.loja.documents.Garantia;
 import com.booksgames.loja.services.impl.GarantiaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 
 /**

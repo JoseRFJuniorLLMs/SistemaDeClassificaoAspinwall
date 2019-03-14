@@ -2,7 +2,6 @@ import { Cor } from '../paginas/cor/cor';
 import { Embalagem } from '../paginas/embalagem/embalagem';
 import { Grupo } from '../paginas/grupo/grupo';
 import { Marca } from '../paginas/marca/marca';
-import { Devolucao } from '../paginas/devolucao/devolucao';
 
 export interface Produto {
      _id: string;
@@ -23,7 +22,7 @@ export interface Produto {
      fabricacao?: string;
      vencimento?: string;
      tipo?: string;
- 
+
      comprimento?: number;
      pesovolumetrico?: number;
      pesoliquido?: number;

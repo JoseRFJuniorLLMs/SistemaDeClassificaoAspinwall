@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input, AfterContentInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 import { Observable, empty, of, Subject } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import * as moment from 'moment';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -32,7 +32,7 @@ import { Unidade } from '../../paginas/unidade/unidade';
   preserveWhitespaces: true
 })
 
-export class ProdutoEditarComponent implements OnInit {
+export class ProdutoEditarComponent implements OnInit, AfterContentInit {
   produtos$: Observable<Produto[]>;
   cors$: Observable<Cor[]>;
   marcas$: Observable<Marca[]>;
@@ -52,6 +52,7 @@ export class ProdutoEditarComponent implements OnInit {
   @Input() status = 'Ativo';
   @Input() altura: number;
   @Input() largura: number;
+
   @Input() comprimento: number;
 
   produtoID: string;
@@ -71,7 +72,26 @@ export class ProdutoEditarComponent implements OnInit {
     private router: Router,
     private actRoute: ActivatedRoute
   ) {
+  }
+  ngOnInit() {
+
+  const produto = this.actRoute.snapshot.data['produto'];
+
+  this.actRoute.params
+    .pipe(
+      map((params: any) => params['_id']),
+      switchMap(p_id => this.produtoService.loadByID(p_id)),
+      // switchMap(produtos => obterFornecedor)
+    );
+    //.subscribe(produto => this.produtoForm(produto));
+
+    this.onIniciaProduto();
+    this.datacadastro = moment().format('DD/MM/YYYY HH:mm:ss');
+    this.fabricacao = moment().format('DD/MM/YYYY');
+    this.vencimento = moment().format('DD/MM/YYYY');
+
     this.produtoForm = this.formBuilder.group({
+      _id: [produto._id],
       descricao: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
       preco: [],
       durabilidade: [],
@@ -90,47 +110,12 @@ export class ProdutoEditarComponent implements OnInit {
       datacadastro: this.datacadastro,
       fabricacao: [],
       vencimento: [],
-    });
-  }
-  ngOnInit() {
-    this.produtoID = this.actRoute.snapshot.params['_id'];
-    console.log(this.actRoute.snapshot.params['_id']);
 
-    this.getProdutoID(this.actRoute.snapshot.params['_id']);
-    console.log(this.actRoute.snapshot.params['_id']);
-
-    const produto = this.actRoute.snapshot.data['produto'];
-
-      this.produtoForm = this.formBuilder.group({
-        _id: [produto._id],
-        descricao: [produto.descricao]
-      });
-
-    let produtoID = this.actRoute.snapshot.paramMap.get('_id');
-    console.log(this.produtoID);
-
-    this.loadProdutosDetalhes(this.produtoID);
-
-
-    this.onForm();
-    this.onIniciaProduto();
-    this.datacadastro = moment().format('DD/MM/YYYY HH:mm:ss');
-    this.fabricacao = moment().format('DD/MM/YYYY');
-    this.vencimento = moment().format('DD/MM/YYYY');
-  }
-
-  getProdutoID(id: string) {
-    this.produtoService.getProdutoID(id).subscribe(data => {
-      this.produtoID = data._id;
-      this.produtoForm.setValue({
-        descricao: data.descricao,
-        preco: data.preco,
-      });
     });
   }
 
   ngAfterContentInit(): void {
-    this.onForm();
+    //this.onForm();
     this.onRefreshCor();
     this.onRefreshMarca();
     this.onRefreshGrupo();
@@ -139,7 +124,7 @@ export class ProdutoEditarComponent implements OnInit {
     this.onRefreshTipo();
   }
 
-  loadProdutosDetalhes(produtoID: any) {
+/*   loadProdutosDetalhes(produtoID: string) {
     this.produtoService.getProdutoID(produtoID)
     .subscribe(produto => {
       this.produtoData = produto;
@@ -215,7 +200,7 @@ export class ProdutoEditarComponent implements OnInit {
     });
   }
 
-  onRefreshProduto() {
+ */  onRefreshProduto() {
     this.produtos$ = this.produtoService.getProdutos();
     if (this.produtos$ != null) {
       console.log('LISTA ATUALIZADA');
@@ -359,37 +344,13 @@ export class ProdutoEditarComponent implements OnInit {
     }
   }
 
-  /* chamadada Async */
-  /*   private searchPrdoutos(descricao: string) {
-      this.produtoService.searchPrdoutos(descricao)
-        .subscribe(
-          dados => this.produtos$ = dados
-          );
-          console.log('PRODUTOX: ' + this.produtos$);
-    } */
-
-  searchProdutos(descricao: string) {
-    this.produtos$ = this.produtoService.searchProdutosDescricao(descricao);
-    if (this.descricao != null) {
-      console.log('SUCESSO: ' + this.produtos$);
-    } else {
-      console.log('ERRO: ' + this.produtos$);
-      this.handleError();
-    }
-  }
-
-  uPpercase(event: any) {
+ uPpercase(event: any) {
     event.target.value = event.target.value.toUpperCase();
   }
 
   onReset() {
     this.submitted = false;
     this.produtoForm.reset();
-    this.handleSucesso();
-  }
-
-  onSubmitShearch() {
-    this.searchProdutos(this.descricao);
     this.handleSucesso();
   }
 

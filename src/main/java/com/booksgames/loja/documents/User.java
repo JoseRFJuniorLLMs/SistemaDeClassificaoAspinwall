@@ -2,7 +2,7 @@ package com.booksgames.loja.documents;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
+import javax.persistence.Id;
 import java.io.Serializable;
 @Document(collection = "user")
 public class User implements Serializable {

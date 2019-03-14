@@ -1,12 +1,10 @@
 package com.booksgames.loja.documents;
 
-import java.io.Serializable;
-import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
-import java.util.*;
-
 import com.booksgames.loja.util.JsonDateDeserializer;
 import com.booksgames.loja.util.JsonDateSerializer;
+import com.booksgames.loja.util.JsonDateTimeDeserializer;
+import com.booksgames.loja.util.JsonDateTimeSerializer;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.mongodb.gridfs.GridFS;
@@ -14,15 +12,16 @@ import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import java.util.function.IntFunction;
-import java.util.function.Predicate;
+import java.io.Serializable;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * @author Jose R F Junior
@@ -69,42 +68,52 @@ public class Produto implements Serializable {
   public Cor cor;
   public Marca marca;
   public GridFS imagem;
+
+  public String imagemfrente;
+  public String imagemlateral;
+  public String imagemtras;
+  public String imagemcima;
+
   public Unidade unidade;
 
-  @Temporal(TemporalType.DATE)
-  @JsonFormat(shape = JsonFormat.Shape.STRING,
-          pattern = "dd/MM/yyyy HH:mm:ss",
-          locale = "pt-BR",
-          timezone = "Brazil/East")
-  @JsonDeserialize(using = JsonDateDeserializer.class)
-  @JsonSerialize(using = JsonDateSerializer.class)
-  public Date datacadastro;
+    /*@Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING,
+            pattern = "dd/MM/yyyy",
+            locale = "pt-BR",
+            timezone = "Brazil/East")
+    @JsonDeserialize(using = JsonDateDeserializer.class)
+    @JsonSerialize(using = JsonDateSerializer.class)
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")*/
+    public Date datacadastro;
 
-  @Temporal(TemporalType.DATE)
+    /*@Temporal(TemporalType.DATE)
   @JsonFormat(shape = JsonFormat.Shape.STRING,
           pattern = "dd/MM/yyyy",
           locale = "pt-BR",
           timezone = "Brazil/East")
   @JsonDeserialize(using = JsonDateDeserializer.class)
   @JsonSerialize(using = JsonDateSerializer.class)
+@JsonFormat(pattern="dd/MM/yyyy")*/
   public Date fabricacao;
 
-  @Temporal(TemporalType.DATE)
+ /*@Temporal(TemporalType.DATE)
   @JsonFormat(shape = JsonFormat.Shape.STRING,
           pattern = "dd/MM/yyyy",
           locale = "pt-BR",
           timezone = "Brazil/East")
   @JsonDeserialize(using = JsonDateDeserializer.class)
   @JsonSerialize(using = JsonDateSerializer.class)
+  @JsonFormat(pattern="dd/MM/yyyy")*/
   public Date vencimento;
 
-  @Temporal(TemporalType.DATE)
+  /*@Temporal(TemporalType.DATE)
   @JsonFormat(shape = JsonFormat.Shape.STRING,
             pattern = "dd/MM/yyyy HH:mm:ss",
             locale = "pt-BR",
             timezone = "Brazil/East")
   @JsonDeserialize(using = JsonDateDeserializer.class)
   @JsonSerialize(using = JsonDateSerializer.class)
+  @JsonFormat(pattern="dd/MM/yyyy")*/
   public Date devolucaodata;
 
   @DBRef(lazy = true)
@@ -128,8 +137,8 @@ public class Produto implements Serializable {
   @DBRef(lazy = true)
   private List<Unidade> unidades = new ArrayList<>();
 
-  public Produto() {
-  }
+  public Produto() {}
+
   // Constructors
   public Produto(
                  String _id,
@@ -157,6 +166,11 @@ public class Produto implements Serializable {
                  Double pesovolumetrico,
                  Double pesoliquido,
                  String devolucaostatus,
+
+                 String imagemfrente,
+                 String imagemlateral,
+                 String imagemtras,
+                 String imagemcima,
 
                  Tipo tipo,
                  Garantia garantia,
@@ -198,6 +212,10 @@ public class Produto implements Serializable {
     this.cor = cor;
     this.marca = marca;
     this.imagem = imagem;
+    this.imagemfrente = imagemfrente;
+    this.imagemlateral = imagemlateral;
+    this.imagemtras = imagemtras;
+    this.imagemcima = imagemcima;
     this.datacadastro = datacadastro;
     this.fabricacao = fabricacao;
     this.vencimento = vencimento;
@@ -237,6 +255,12 @@ public class Produto implements Serializable {
           Double pesovolumetrico,
           Double pesoliquido,
           String devolucaostatus,
+
+          String imagemfrente,
+          String imagemlateral,
+          String imagemtras,
+          String imagemcima,
+
           Tipo tipo,
           Garantia garantia,
           Embalagem embalagem,
@@ -273,6 +297,12 @@ public class Produto implements Serializable {
     this.tipo = tipo;
     this.garantia = garantia;
     this.embalagem = embalagem;
+
+    this.imagemfrente = imagemfrente;
+    this.imagemlateral = imagemlateral;
+    this.imagemtras = imagemtras;
+    this.imagemcima = imagemcima;
+
     this.grupo = grupo;
     this.cor = cor;
     this.marca = marca;
@@ -282,6 +312,7 @@ public class Produto implements Serializable {
     this.vencimento = vencimento;
     this.unidade = unidade;
   }
+
 
   /*public double getValorTotal() {
     double soma = 0.0;
@@ -319,6 +350,38 @@ public class Produto implements Serializable {
     return  x;
 }
 
+    public String getImagemfrente() {
+        return imagemfrente;
+    }
+
+    public void setImagemfrente(String imagemfrente) {
+        this.imagemfrente = imagemfrente;
+    }
+
+    public String getImagemlateral() {
+        return imagemlateral;
+    }
+
+    public void setImagemlateral(String imagemlateral) {
+        this.imagemlateral = imagemlateral;
+    }
+
+    public String getImagemtras() {
+        return imagemtras;
+    }
+
+    public void setImagemtras(String imagemtras) {
+        this.imagemtras = imagemtras;
+    }
+
+    public String getImagemcima() {
+        return imagemcima;
+    }
+
+    public void setImagemcima(String imagemcima) {
+        this.imagemcima = imagemcima;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -343,6 +406,7 @@ public class Produto implements Serializable {
                 Objects.equals(getEstilo(), produto.getEstilo()) &&
                 Objects.equals(getQualidade(), produto.getQualidade()) &&
                 Objects.equals(getDevolucaodescricao(), produto.getDevolucaodescricao()) &&
+                Objects.equals(getRecorrencia(), produto.getRecorrencia()) &&
                 Objects.equals(getTipo(), produto.getTipo()) &&
                 Objects.equals(getGarantia(), produto.getGarantia()) &&
                 Objects.equals(getEmbalagem(), produto.getEmbalagem()) &&
@@ -350,6 +414,10 @@ public class Produto implements Serializable {
                 Objects.equals(getCor(), produto.getCor()) &&
                 Objects.equals(getMarca(), produto.getMarca()) &&
                 Objects.equals(getImagem(), produto.getImagem()) &&
+                Objects.equals(getImagemfrente(), produto.getImagemfrente()) &&
+                Objects.equals(getImagemlateral(), produto.getImagemlateral()) &&
+                Objects.equals(getImagemtras(), produto.getImagemtras()) &&
+                Objects.equals(getImagemcima(), produto.getImagemcima()) &&
                 Objects.equals(getUnidade(), produto.getUnidade()) &&
                 Objects.equals(getDatacadastro(), produto.getDatacadastro()) &&
                 Objects.equals(getFabricacao(), produto.getFabricacao()) &&
@@ -366,7 +434,7 @@ public class Produto implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(get_id(), getUuid(), getDescricao(), getPreco(), getDurabilidade(), getPeso(), getRotulagem(), getStatus(), getAltura(), getLargura(), getTamanho(), getComprimento(), getPesovolumetrico(), getPesoliquido(), getDevolucaostatus(), getFormato(), getEstilo(), getQualidade(), getDevolucaodescricao(), getTipo(), getGarantia(), getEmbalagem(), getGrupo(), getCor(), getMarca(), getImagem(), getUnidade(), getDatacadastro(), getFabricacao(), getVencimento(), getDevolucaodata(), getGrupos(), getCors(), getMarcas(), getEmbalagems(), getTipos(), getGarantias(), getUnidades());
+        return Objects.hash(get_id(), getUuid(), getDescricao(), getPreco(), getDurabilidade(), getPeso(), getRotulagem(), getStatus(), getAltura(), getLargura(), getTamanho(), getComprimento(), getPesovolumetrico(), getPesoliquido(), getDevolucaostatus(), getFormato(), getEstilo(), getQualidade(), getDevolucaodescricao(), getRecorrencia(), getTipo(), getGarantia(), getEmbalagem(), getGrupo(), getCor(), getMarca(), getImagem(), getImagemfrente(), getImagemlateral(), getImagemtras(), getImagemcima(), getUnidade(), getDatacadastro(), getFabricacao(), getVencimento(), getDevolucaodata(), getGrupos(), getCors(), getMarcas(), getEmbalagems(), getTipos(), getGarantias(), getUnidades());
     }
 
     public String get_id() {
@@ -672,8 +740,8 @@ public class Produto implements Serializable {
 
     @Override
   public String toString() {
-    NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+    /*NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");*/
     StringBuilder builder = new StringBuilder();
     builder.append(", Codigo: ");
     builder.append(get_id());
@@ -682,7 +750,7 @@ public class Produto implements Serializable {
     builder.append(", Descricao: ");
     builder.append(getDescricao());
     builder.append(", Preco: ");
-    builder.append(nf.format(getPreco()));
+   // builder.append(nf.format(getPreco()));
     builder.append(", Grupo: ");
     builder.append(getGrupo());
     builder.append(", Cor: ");
@@ -690,7 +758,7 @@ public class Produto implements Serializable {
     builder.append(", Marca: ");
     builder.append(getMarca());
     builder.append(", Data: ");
-    builder.append(sdf.format(getDatacadastro()));
+    //builder.append(sdf.format(getDatacadastro()));
     return builder.toString();
   }
 }

@@ -1,10 +1,11 @@
 package com.booksgames.loja.config;
 
 import com.LojaApplication;
-import com.booksgames.loja.documents.*;
+import com.booksgames.loja.documents.Cor;
+import com.booksgames.loja.documents.Embalagem;
+import com.booksgames.loja.documents.Grupo;
+import com.booksgames.loja.documents.Marca;
 import com.booksgames.loja.repository.*;
-import com.mongodb.gridfs.GridFS;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,6 @@ import org.springframework.context.annotation.Configuration;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.TimeZone;
-import java.util.UUID;
 
 @Configuration
 public class Instantiation  implements CommandLineRunner {

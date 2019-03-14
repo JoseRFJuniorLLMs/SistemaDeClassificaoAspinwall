@@ -6,10 +6,9 @@ import com.booksgames.loja.documents.enums.FlagUtilizacao;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
+import javax.persistence.Column;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Objects;
 
 @Document(collection = "meiopgto")
 public class Meiopgto implements Serializable {

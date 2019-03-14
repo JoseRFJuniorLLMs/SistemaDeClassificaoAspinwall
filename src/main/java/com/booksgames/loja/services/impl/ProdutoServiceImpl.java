@@ -1,23 +1,22 @@
 package com.booksgames.loja.services.impl;
 
-import java.util.Optional;
-
+import com.booksgames.loja.documents.Produto;
+import com.booksgames.loja.repository.ProdutoRepository;
 import com.booksgames.loja.repository.reactive.ProdutoReactiveRespository;
 import com.booksgames.loja.services.ProdutoService;
+import com.booksgames.loja.services.exceptions.DataIntegrityException;
+import com.booksgames.loja.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
-
-import com.booksgames.loja.documents.Produto;
-import com.booksgames.loja.repository.ProdutoRepository;
-import com.booksgames.loja.services.exceptions.DataIntegrityException;
-import com.booksgames.loja.services.exceptions.ObjectNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.Optional;
 
 /**
  * @author Jose R F Junior
@@ -119,6 +118,10 @@ public class ProdutoServiceImpl implements ProdutoService {
                 objDto.getPesovolumetrico(),
                 objDto.getPesoliquido(),
                 objDto.getDevolucaostatus(),
+                objDto.getImagemcima(),
+                objDto.getImagemfrente(),
+                objDto.getImagemlateral(),
+                objDto.getImagemtras(),
                 objDto.getTipo(),
                 objDto.getGarantia(),
                 objDto.getEmbalagem(),

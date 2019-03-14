@@ -1,16 +1,14 @@
 package com.booksgames.loja.controllers;
 
-import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.http.ResponseEntity;
-
-import java.util.List;
-
 import com.booksgames.loja.documents.Pets;
 import com.booksgames.loja.repository.PetsRepository;
-import com.booksgames.loja.services.PetsService;
 import com.booksgames.loja.responses.Response;
+import com.booksgames.loja.services.PetsService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author Jose R F Junior

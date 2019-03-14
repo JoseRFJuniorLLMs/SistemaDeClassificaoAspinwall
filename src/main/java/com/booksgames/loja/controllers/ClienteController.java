@@ -1,15 +1,14 @@
 package com.booksgames.loja.controllers;
 
-import java.util.List;
-
+import com.booksgames.loja.documents.Cliente;
+import com.booksgames.loja.repository.ClienteRepository;
+import com.booksgames.loja.responses.Response;
+import com.booksgames.loja.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.booksgames.loja.repository.ClienteRepository;
-import com.booksgames.loja.documents.Cliente;
-import com.booksgames.loja.responses.Response;
-import com.booksgames.loja.services.ClienteService;
+import java.util.List;
 
 /**
  * @author Jose R F Junior

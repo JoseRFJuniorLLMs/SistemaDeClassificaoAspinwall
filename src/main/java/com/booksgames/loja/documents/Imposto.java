@@ -1,6 +1,7 @@
 package com.booksgames.loja.documents;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;

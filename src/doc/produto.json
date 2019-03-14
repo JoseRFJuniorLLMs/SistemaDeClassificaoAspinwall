@@ -1,0 +1,58 @@
+{
+  "_id" : ObjectId("5c889ebfd2443b19bf29376d"),
+  "descricao" : "NOTEBOOK DELL",
+  "preco" : 3000.0,
+  "durabilidade" : "5 ANOS",
+  "peso" : 2.0,
+  "status" : "Ativo",
+  "altura" : 30.0,
+  "largura" : 25.0,
+  "tamanho" : 750.0,
+  "comprimento" : 750.0,
+  "pesovolumetrico" : 1.625,
+  "formato" : "RETANGULAR",
+  "recorrencia" : 1.0,
+  "embalagem" : {
+    "_id" : ObjectId("5c758c062c6cc2509ff3ef49"),
+    "descricao" : "Embalagens tipo sleeves"
+  },
+  "grupo" : {
+    "_id" : ObjectId("5c6eb4955aad534cea58bde9"),
+    "descricao" : "DESCRICAO GRUPO"
+  },
+  "cor" : {
+    "_id" : ObjectId("5c6fc22ae67e3a638f28643a"),
+    "nome" : "Água",
+    "hex" : "#00FFFF"
+  },
+  "marca" : {
+    "_id" : ObjectId("5c75926f2c6cc25c73c6b1d6"),
+    "descricao" : "HP"
+  },
+  "datacadastro" : ISODate("2019-03-13T00:00:00.000+0000"),
+  "fabricacao" : ISODate("2019-03-02T00:00:00.000+0000"),
+  "vencimento" : ISODate("2019-03-02T00:00:00.000+0000"),
+  "devolucaodata" : ISODate("2019-03-02T00:00:00.000+0000"),
+  "grupos" : [
+
+  ],
+  "cors" : [
+
+  ],
+  "marcas" : [
+
+  ],
+  "embalagems" : [
+
+  ],
+  "tipos" : [
+
+  ],
+  "garantias" : [
+
+  ],
+  "unidades" : [
+
+  ],
+  "_class" : "com.booksgames.loja.documents.Produto"
+}

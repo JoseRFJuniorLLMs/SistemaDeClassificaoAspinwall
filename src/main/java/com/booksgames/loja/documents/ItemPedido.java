@@ -1,11 +1,11 @@
 package com.booksgames.loja.documents;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.io.Serializable;
 import java.text.NumberFormat;
 import java.util.Locale;
-
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * @author Jose R F Junior

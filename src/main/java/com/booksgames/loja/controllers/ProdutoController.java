@@ -13,38 +13,38 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import reactor.core.publisher.Flux;
 
-import java.util.Comparator;
-import java.util.stream.Collectors;
-import java.util.List;
-
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.stream.IntStream;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Jose R F Junior
  * web2ajax@gmail.com
  * Santiago Chile 15 02 2019
  */
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/v1/produtos")
 public class ProdutoController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ProdutoController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ProdutoController.class);
 
-    @Autowired
+  @Autowired
   private ProdutoRepository produtoRepository;
 
   @Autowired
   private ProdutoServiceImpl produtoServiceImpl;
 
+  @CrossOrigin(origins = "https://erp-aspinwall.firebaseapp.com/")
   @GetMapping(value="/flux")
   public Flux<Produto> getProduto() {
       LOG.info("INICIANDO.../flux...findAll()");
     return produtoServiceImpl.findAll();
   }
 
+  @CrossOrigin(origins = "https://erp-aspinwall.firebaseapp.com/")
   @RequestMapping(value="/flux6", method=RequestMethod.GET)
   public ResponseEntity<List<ProdutoDTO>> findAll() {
       LOG.info("INICIANDO.../flux6...");
@@ -58,6 +58,7 @@ public class ProdutoController {
     return ResponseEntity.ok().body(listDto);
   }
 
+  @CrossOrigin(origins = "https://erp-aspinwall.firebaseapp.com/")
   @RequestMapping(value="/nome/{descricao}", method=RequestMethod.GET)
   public Flux<Produto> getCorNome(@PathVariable String descricao){
       LOG.info("INICIANDO.../nome/{descricao}..." + descricao);
@@ -70,17 +71,20 @@ public class ProdutoController {
       }
   }
 
+  @CrossOrigin(origins = "https://erp-aspinwall.firebaseapp.com/")
   @RequestMapping(value = "/{_id}", method = RequestMethod.GET)
   public Produto getPetById(@PathVariable("_id") String _id) {
     return produtoRepository.findBy_id(_id);
   }
-  
+
+  @CrossOrigin(origins = "https://erp-aspinwall.firebaseapp.com/")
   @RequestMapping(value = "/{_id}", method = RequestMethod.PUT)
   public void modifyPetById(@PathVariable("_id") String _id, @Valid @RequestBody Produto produto) {
     produto.set_id(_id);
     produtoRepository.save(produto);
   }
 
+  @CrossOrigin(origins = "https://erp-aspinwall.firebaseapp.com/")
   @PostMapping(value = "/")
   public ResponseEntity<Void> createProduto(@Valid @RequestBody Produto objDto) {
       LOG.info("INICIANDO.../POST..." + objDto);
@@ -92,12 +96,14 @@ public class ProdutoController {
             .toUri();
     return ResponseEntity.created(uri).build();
   }
-  
+
+  @CrossOrigin(origins = "https://erp-aspinwall.firebaseapp.com/")
   @RequestMapping(value = "/{_id}", method = RequestMethod.DELETE)
   public void deletePet(@PathVariable String _id) {
     produtoRepository.delete(produtoRepository.findBy_id(_id));
   }
 
+  @CrossOrigin(origins = "https://erp-aspinwall.firebaseapp.com/")
   @RequestMapping(value="/page", method=RequestMethod.GET)
   public ResponseEntity<Page<ProdutoDTO>> findPage(
           @RequestParam(value="page", defaultValue="0") Integer page,

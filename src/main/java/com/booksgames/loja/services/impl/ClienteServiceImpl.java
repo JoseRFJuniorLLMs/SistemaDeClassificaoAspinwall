@@ -1,13 +1,12 @@
 package com.booksgames.loja.services.impl;
 
-import java.util.List;
-
+import com.booksgames.loja.documents.Cliente;
+import com.booksgames.loja.repository.ClienteRepository;
+import com.booksgames.loja.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.booksgames.loja.documents.Cliente;
-import com.booksgames.loja.services.ClienteService;
-import com.booksgames.loja.repository.ClienteRepository;
+import java.util.List;
 
 /**
  * @author Jose R F Junior

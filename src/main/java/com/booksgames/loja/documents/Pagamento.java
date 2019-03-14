@@ -1,9 +1,10 @@
 package com.booksgames.loja.documents;
 
-import java.io.Serializable;
-import org.springframework.data.annotation.Id;
 import com.booksgames.loja.documents.enums.EstadoPagamento;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.io.Serializable;
 
 /**
  * @author Jose R F Junior

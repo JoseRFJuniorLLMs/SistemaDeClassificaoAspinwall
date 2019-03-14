@@ -1,8 +1,5 @@
 package com.booksgames.loja.documents;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
