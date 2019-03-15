@@ -30,7 +30,7 @@ import java.util.Optional;
 public class CaixaServiceImpl implements CaixaService {
 
     @Autowired
-    private CaixaRepository corRepository;
+    private CaixaRepository caixaRepository;
 
     @Autowired
     private CaixaReactiveRespository caixaReactiveRespository;
@@ -41,28 +41,28 @@ public class CaixaServiceImpl implements CaixaService {
     }
 
     public Caixa findId(String _id) {
-        Optional<Caixa> obj = corRepository.findById(_id);
+        Optional<Caixa> obj = caixaRepository.findById(_id);
         return obj.orElseThrow(CaixaServiceImpl::get);
     }
 
     @Transactional
     public Caixa insert(Caixa obj) {
         obj.set_id(null);
-        return corRepository.save(obj);
+        return caixaRepository.save(obj);
     }
 
     @Transactional
     public Caixa update(String _id) {
         Caixa newObj = findId(_id);
         updateData(newObj, newObj);
-        return corRepository.save(newObj);
+        return caixaRepository.save(newObj);
     }
 
     @Transactional
     public void delete(String _id) {
         findId(_id);
         try {
-            corRepository.deleteById(_id);
+            caixaRepository.deleteById(_id);
         }
         catch (DataIntegrityViolationException e) {
             throw new DataIntegrityException("Não é possível excluir uma cor que possui produtos");
@@ -88,7 +88,7 @@ public class CaixaServiceImpl implements CaixaService {
 
     public Page<Caixa> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-        return corRepository.findAll(pageRequest);
+        return caixaRepository.findAll(pageRequest);
     }
 
     public Caixa fromDTO(CaixaDTO objDto) {
@@ -115,7 +115,6 @@ public class CaixaServiceImpl implements CaixaService {
     }
 
     private void updateData(Caixa newObj, Caixa obj) {
-
         newObj.setDescricao(obj.getDescricao());
     }
 }

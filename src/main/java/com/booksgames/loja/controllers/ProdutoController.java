@@ -37,14 +37,12 @@ public class ProdutoController {
   @Autowired
   private ProdutoServiceImpl produtoServiceImpl;
 
-  @CrossOrigin(origins = "https://erp-aspinwall.firebaseapp.com/")
   @GetMapping(value="/flux")
   public Flux<Produto> getProduto() {
       LOG.info("INICIANDO.../flux...findAll()");
     return produtoServiceImpl.findAll();
   }
 
-  @CrossOrigin(origins = "https://erp-aspinwall.firebaseapp.com/")
   @RequestMapping(value="/flux6", method=RequestMethod.GET)
   public ResponseEntity<List<ProdutoDTO>> findAll() {
       LOG.info("INICIANDO.../flux6...");

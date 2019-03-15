@@ -9,3 +9,7 @@
 5c7829ab0155c13ae0f0e2b1,bens de emergência - bens necessários imediatamente
 5c7829b80155c13ae0f0e2b2,"bens de compra comparada - alguma comparação com outros "
 5c7829cb0155c13ae0f0e2b3,bens de especialidade - comparação extensiva com outros bens e uma longa busca por informações
+
+ec2-18-231-178-7.sa-east-1.compute.amazonaws.com
+ubuntu@ec2-54-209-127-107.compute-1.amazonaws.com
+ssh -i "site.pem" ubuntu@ec2-18-231-178-7.sa-east-1.compute.amazonaws.com

@@ -1,0 +1,174 @@
+<div class="alert alert-{{ type }} no-margin" role="alert">
+  {{ message }}
+</div> 
+<!-- INICIO DO MODAL -->
+
+<!-- fim do Sensor -->
+
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+
+        <ng-template #popContentPes>
+         Digite em CAIXA ALTA O NOME DO PRODUTO !
+        </ng-template>
+
+    <form  (ngSubmit)="onSubmitShearch()">
+        <label for="lastname">Nome</label>
+        <input 
+        [ngbPopover]="popContentPes" 
+        popoverTitle="Pesquisar Sensors"
+        id="descricao" 
+        [(ngModel)]="descricao" 
+        name="descricao"
+        class="form-control" 
+        type="search" 
+        placeholder="Digite o nome do sensor" 
+        aria-label="Pesquisar">
+
+        <button class="btn btn-outline-success" 
+        type="submit">Pesquisar</button>
+
+        <button type="button" 
+        class="btn btn-outline-warning" 
+        [routerLink]="['/component/sensor/sensor-form/sensor-form']"
+        >Novo Sensor</button>
+
+      <!--   (click)="openCadastrar(content2)" -->
+
+        <button type="button" 
+        class="btn btn-outline-info" 
+        (click)="onRefreshSensor()">Atualizar Lista</button> 
+
+        <button type="button" 
+        class="btn btn-outline-info" 
+        (click)="onRefreshSensor()">Ativos</button> 
+
+        <button type="button" 
+        class="btn btn-outline-info" 
+        (click)="onRefreshSensor()">Temperatura no Vermelho</button> 
+
+        <button type="button" 
+        class="btn btn-outline-info" 
+        (click)="onRefreshSensor()">Bateria Baixa</button> 
+      </form>
+
+      </div>
+    </div>
+  </div> 
+
+  <div class="card-body">
+    <table class="table table-hover" *ngIf="sensors$ | async as sensors; else loading">
+      <thead>
+    
+      </thead>
+      <tbody>
+
+        <tr *ngFor="let sensor of sensors">
+          <ng-template #popContentProd>
+            Cod:{{sensor._id}}
+            Nome:{{sensor.descricao}}
+           </ng-template>
+          <h1> <strong 
+          class="badge badge-Dark"
+          [ngbPopover]="popContentProd" 
+          popoverTitle="Informações do sensor">
+          {{sensor.descricao}}</strong>
+           </h1>
+                 <div class="card mb-3" style="max-width: 800px;">
+                    <div class="row no-gutters">
+                      <div class="col-md-4">
+                          <li *ngIf="sensor.temperatura ==='5 C'"
+                          class="text-success">
+                          <img src="../assets/images/t1.png" class="card-img" alt="...">
+                           </li>
+                           <li *ngIf="sensor.temperatura !='5 C'"
+                           class="text-success">
+                           <img src="../assets/images/t2.png" class="card-img" alt="...">
+                            </li>
+                            <h1>
+                               <strong 
+                              class="badge badge-Dark"
+                              [ngbPopover]="popContentProd" 
+                              popoverTitle="Informações do sensor">
+                              <h1> {{ sensor.temperatura }} </h1>
+                            </strong>
+                               </h1>
+                      
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body">
+                          <h5 class="card-title">{{ sensor.destino }}</h5>
+                          <p class="card-text">
+                            <a href="#" class="badge badge-primary">Cod:</a>
+                            <a href="#" class="badge badge-info" data-toggle="tooltip" data-placement="top"
+                                title="Codigo do Sensor">{{ sensor._id }}</a>
+                        
+                                <a href="#" class="badge badge-primary">Descr.:</a>
+                            <a href="#" class="badge badge-success" data-toggle="tooltip" data-placement="top"
+                                  title="Codigo do Sensor">{{ sensor.descricao }}</a>
+                    
+                                  <a href="#" class="badge badge-primary">Destino:</a>
+                            <a href="#" class="badge badge-success" data-toggle="tooltip" data-placement="top"
+                                  title="Codigo do Sensor">{{ sensor.destino }}</a>
+                                
+                                  <a href="#" class="badge badge-primary">Logitude:</a>
+                                  <a href="#" class="badge badge-success" data-toggle="tooltip" data-placement="top"
+                                        title="Codigo do Sensor">{{ sensor.logitude }}</a>
+
+                                        <a href="#" class="badge badge-primary">Latitude:</a>
+                                  <a href="#" class="badge badge-success" data-toggle="tooltip" data-placement="top"
+                                        title="Codigo do Sensor">{{ sensor.latitude }}</a>
+
+                                        <a href="#" class="badge badge-primary">Caixa:</a>
+                                  <a href="#" class="badge badge-success" data-toggle="tooltip" data-placement="top"
+                                        title="Codigo do Sensor">{{ sensor.arduino }}</a>
+
+                                        <a href="#" class="badge badge-primary">Temperatura Externa:</a>
+                                        <a href="#" class="badge badge-success" data-toggle="tooltip" data-placement="top"
+                                              title="Codigo do Sensor">{{ sensor.sensorexterno }}</a>  
+
+                                              <a href="#" class="badge badge-primary">Destino:</a>
+                                        <a href="#" class="badge badge-success" data-toggle="tooltip" data-placement="top"
+                                              title="Codigo do Sensor">{{ sensor.destino }}</a>  
+
+                                </p>
+                                <li *ngIf="sensor.status ==='ENTREGUE'"
+                                class="text-success">
+                                <p class="card-text">
+                                    <a href="#" class="badge badge-primary">Destino:</a>
+                                    <a href="#" class="badge badge-success" data-toggle="tooltip" data-placement="top"
+                                          title="Codigo do Sensor">{{ sensor.status }}</a> 
+                                </p>
+                                </li>
+                                <li *ngIf="sensor.status !='ENTREGUE'"
+                                class="text-success">
+                                <p class="card-text">
+                                  
+                                  <a href="#" class="badge badge-primary">Destino:</a>
+                                    <a href="#" class="badge badge-danger" data-toggle="tooltip" data-placement="top"
+                                          title="Codigo do Sensor">{{ sensor.status }}</a> 
+
+                                  </p>
+                                </li>
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+               <td>
+           </td>
+
+        </tr>
+
+
+      </tbody>
+ </table>
+    <ng-template #loading>
+      <span>Carregando Sensors...</span>
+      <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </ng-template>
+  </div>
+ 

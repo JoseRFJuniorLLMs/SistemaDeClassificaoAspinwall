@@ -1,5 +1,5 @@
 export const environment = {
-  production: false,
+  production: true,
   API: 'http://ec2-54-209-127-107.compute-1.amazonaws.com:8080/api/v1/produtos/flux',
   API2: 'http://ec2-54-209-127-107.compute-1.amazonaws.com:8080/api/v1/produtos/',
   APINOME: 'http://ec2-54-209-127-107.compute-1.amazonaws.com:8080/api/v1/produtos/nome/',
@@ -24,6 +24,10 @@ export const environment = {
   API14: 'http://ec2-54-209-127-107.compute-1.amazonaws.com:8080/tipos/v1/tipo/',
 
   API15: 'http://ec2-54-209-127-107.compute-1.amazonaws.com:8080/unidades/v1/unidade/flux',
-  API16: 'http://ec2-54-209-127-107.compute-1.amazonaws.com:8080/unidades/v1/unidade/'
+  API16: 'http://ec2-54-209-127-107.compute-1.amazonaws.com:8080/unidades/v1/unidade/',
+
+  API17: 'http://ec2-54-209-127-107.compute-1.amazonaws.com:8080/caixas/v1/caixa/flux10',
+  API18: 'http://ec2-54-209-127-107.compute-1.amazonaws.com:8080/caixas/v1/caixa/',
+  APID_ESCRICAO_SENSOR: 'http://ec2-54-209-127-107.compute-1.amazonaws.com:8080/caixas/v1/caixa/descricao/',
 };
 

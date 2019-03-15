@@ -11,6 +11,17 @@ export const ROUTES: RouteInfo[] = [
     extralink: true,
     submenu: []
   }, */
+  ,
+  {
+    path: '/starter',
+    title: 'Inicio',
+    icon: 'mdi mdi-gauge',
+    class: '',
+    label: '',
+    labelClass: '',
+    extralink: false,
+    submenu: []
+  },
   {
     path: '/component/produto/produto-lista/produto-lista',
     title: 'Produto',
@@ -22,15 +33,15 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/starter',
-    title: 'Starter Page',
-    icon: 'mdi mdi-gauge',
+    path: '/component/sensor/sensor.component',
+    title: 'Sensor',
+    icon: 'mdi mdi-blur-radial',
     class: '',
     label: '',
     labelClass: '',
     extralink: false,
     submenu: []
-  },
+  }/*,
   {
     path: '',
     title: 'UI Components',
@@ -170,5 +181,5 @@ export const ROUTES: RouteInfo[] = [
     labelClass: '',
     extralink: false,
     submenu: []
-  } 
+  } */
 ];

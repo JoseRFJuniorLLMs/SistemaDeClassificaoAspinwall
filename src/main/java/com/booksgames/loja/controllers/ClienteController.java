@@ -15,7 +15,7 @@ import java.util.List;
  * web2ajax@gmail.com
  * Santiago Chile 15 02 2019
  */
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(path = "clientes")
 public class ClienteController {

@@ -27,6 +27,7 @@ import { ProdutoComponent } from './produto/produto.component';
 import { ProdutoListaComponent } from './produto/produto-lista/produto-lista.component';
 import { ProdutoFormComponent } from './produto/produto-form/produto-form.component';
 import { ProdutoEditarComponent } from './produto/produto-editar/produto-editar.component';
+import { SensorComponent } from './sensor/sensor.component';
 
 @NgModule({
   imports: [
@@ -56,7 +57,8 @@ import { ProdutoEditarComponent } from './produto/produto-editar/produto-editar.
     ProdutoComponent,
     ProdutoListaComponent,
     ProdutoFormComponent,
-    ProdutoEditarComponent
+    ProdutoEditarComponent,
+    SensorComponent
     
   ]
 })

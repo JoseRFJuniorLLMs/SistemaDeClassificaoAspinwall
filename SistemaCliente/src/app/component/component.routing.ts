@@ -20,6 +20,8 @@ import { ProdutoListaComponent } from './produto/produto-lista/produto-lista.com
 import { ProdutoFormComponent } from './produto/produto-form/produto-form.component';
 import { ProdutoEditarComponent } from './produto/produto-editar/produto-editar.component';
 
+import { SensorComponent } from './sensor/sensor.component';
+
 export const ComponentsRoutes: Routes = [
   {
     path: '',
@@ -213,6 +215,19 @@ export const ComponentsRoutes: Routes = [
             { title: 'Dashboard', url: '/dashboard' },
             { title: 'Produto' },
             { title: 'Produto' }
+          ]
+        }
+      }
+      ,
+      {
+        path: 'sensor/sensor.component',
+        component: SensorComponent,
+        data: {
+          title: 'Sensor',
+          urls: [
+            { title: 'Dashboard', url: '/dashboard' },
+            { title: 'Sensor' },
+            { title: 'Sensor' }
           ]
         }
       },

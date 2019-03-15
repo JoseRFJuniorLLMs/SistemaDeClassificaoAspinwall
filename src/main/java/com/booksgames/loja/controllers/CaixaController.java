@@ -15,6 +15,7 @@ import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,22 +38,31 @@ public class CaixaController {
     @Autowired
     private CaixaServiceImpl caixaServiceImpl;
 
-    @CrossOrigin(origins = "https://erp-aspinwall.firebaseapp.com/", maxAge = 3600)
     @GetMapping(value="/flux")
     public Flux<Caixa> getCaixa(){
         return caixaServiceImpl.findAll();
     }
 
+    @RequestMapping(value="/flux10", method=RequestMethod.GET)
+    public ResponseEntity<List<CaixaDTO>> findAll() {
+        Flux<Caixa> listFlux = caixaServiceImpl.findAll();
+        List<CaixaDTO> listDto = listFlux.toStream()
+                //.map(obj -> new ProdutoDTO(obj))
+                .sorted(Comparator.comparing(Caixa::get_id).reversed())
+                .map( CaixaDTO::new)
+                .limit(10)
+                .collect( Collectors.toList());
+        return ResponseEntity.ok().body(listDto);
+    }
     @GetMapping(value="/caixa/{id}")
     public Mono<Caixa> getCaixaId(@PathVariable String id){
         return caixaServiceImpl.findById(id);
     }
 
-    @GetMapping(value="/caixa/descricao/{descricao}")
+    @GetMapping(value="/descricao/{descricao}")
     public Flux<Caixa> getCaixaNome(@PathVariable String descricao){
         return caixaServiceImpl.findByDescricao(descricao);
     }
-
 
     @PostMapping(value="/caixa")
     public Mono<Caixa> save(@RequestBody Caixa caixa){
