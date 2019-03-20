@@ -12,7 +12,8 @@ export class SensorService {
 
   private readonly API17 = `${environment.API17}`;
   private readonly API18 = `${environment.API18}`;
-  private readonly APID_ESCRICAO_SENSOR = `${environment.APID_ESCRICAO_SENSOR}`;
+  private readonly API_DESCRICAO_SENSOR = `${environment.API_DESCRICAO_SENSOR}`;
+  private readonly API_STATUS_SENSOR = `${environment.API_STATUS_SENSOR}`;
 
   constructor(private http: HttpClient) { }
 
@@ -25,7 +26,16 @@ export class SensorService {
   }
 
   searchSensorsDescricao(descricao: string) {
-    return this.http.get<Caixa[]>(this.APID_ESCRICAO_SENSOR + descricao)
+    return this.http.get<Caixa[]>(this.API_DESCRICAO_SENSOR + descricao)
+      .pipe(
+        delay(1000),
+        tap(console.log),
+        catchError(this.handleError)
+      );
+    }
+
+  searchSensorsStatus(status: string) {
+    return this.http.get<Caixa[]>(this.API_STATUS_SENSOR + status)
       .pipe(
         delay(1000),
         tap(console.log),

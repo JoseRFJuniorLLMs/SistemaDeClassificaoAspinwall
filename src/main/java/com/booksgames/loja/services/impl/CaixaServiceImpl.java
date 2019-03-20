@@ -74,6 +74,11 @@ public class CaixaServiceImpl implements CaixaService {
         return caixaReactiveRespository.findAll();
     }
 
+    public Flux<Caixa> findAllAtivo(String status) {
+        Flux<Caixa> obj = caixaReactiveRespository.findByStatus(status);
+        return caixaReactiveRespository.findByStatus(status);
+    }
+
     public Mono<Caixa> findById(String id) {
         return caixaReactiveRespository.findById( id );
     }

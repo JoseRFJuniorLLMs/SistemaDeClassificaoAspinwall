@@ -13,4 +13,5 @@ import reactor.core.publisher.Flux;
 public interface CaixaReactiveRespository extends ReactiveMongoRepository<Caixa, String>{
 
     Flux<Caixa> findByDescricao(String descricao);
+    Flux<Caixa> findByStatus(String status);
 }

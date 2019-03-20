@@ -54,6 +54,19 @@ public class CaixaController {
                 .collect( Collectors.toList());
         return ResponseEntity.ok().body(listDto);
     }
+
+    @GetMapping(value="/fluxativo/{status}")
+    public ResponseEntity<List<CaixaDTO>> getCaixaStatus(@PathVariable String status){
+        Flux<Caixa> listFlux = caixaServiceImpl.findAllAtivo(status);
+        List<CaixaDTO> listDto = listFlux.toStream()
+                //.map(obj -> new ProdutoDTO(obj))
+                .sorted(Comparator.comparing(Caixa::get_id).reversed())
+                .map( CaixaDTO::new)
+                .limit(50)
+                .collect( Collectors.toList());
+        return ResponseEntity.ok().body(listDto);
+    }
+
     @GetMapping(value="/caixa/{id}")
     public Mono<Caixa> getCaixaId(@PathVariable String id){
         return caixaServiceImpl.findById(id);

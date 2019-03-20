@@ -16,6 +16,8 @@ export class SensorComponent implements OnInit {
   sensors$: Observable<Caixa[]>;
   error$ = new Subject<boolean>();
   descricao: string;
+  statusAtrasada$ = 'ATRASADA';
+  statusNoTempo$ = 'ENTREGUE';
 
   constructor(
     private alertService: AlertModalService,
@@ -26,7 +28,6 @@ export class SensorComponent implements OnInit {
     this.onRefreshSensor();
   }
 
-
   searchSensor(descricao: string) {
     this.sensors$ =  this.sensorService.searchSensorsDescricao(descricao);
        if (this.descricao != null ) {
@@ -36,8 +37,41 @@ export class SensorComponent implements OnInit {
         this.handleError();
        }
   }
+
+  searchSensorStatusAtrasada(statusAtrasada$) {
+
+    this.sensors$ =  this.sensorService.searchSensorsStatus(statusAtrasada$);
+       if (this.statusAtrasada$ != null ) {
+        console.log('SUCESSO: ' + this.sensors$);
+       } else {
+        console.log('ERRO: ' + this.sensors$);
+        this.handleError();
+       }
+  }
+
+  searchSensorStatusNoTempo(statusNoTempo$: string) {
+
+    this.sensors$ =  this.sensorService.searchSensorsStatus(statusNoTempo$);
+    if (this.statusNoTempo$ != null ) {
+      console.log('SUCESSO: ' + this.sensors$);
+     } else {
+      console.log('ERRO: ' + this.sensors$);
+      this.handleError();
+     }
+  }
+
   onSubmitShearch() {
     this.searchSensor(this.descricao);
+    this.handleSucesso();
+   }
+
+  onSubmitShearchStatusAtrasada() {
+    this.searchSensorStatusAtrasada(this.statusAtrasada$);
+    this.handleSucesso();
+   }
+
+  onSubmitShearchStatusNoTempo() {
+    this.searchSensorStatusAtrasada(this.statusNoTempo$);
     this.handleSucesso();
    }
 

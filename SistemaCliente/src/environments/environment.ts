@@ -28,6 +28,7 @@ export const environment = {
 
   API17: 'http://ec2-54-209-127-107.compute-1.amazonaws.com:8080/caixas/v1/caixa/flux10',
   API18: 'http://ec2-54-209-127-107.compute-1.amazonaws.com:8080/caixas/v1/caixa/',
-  APID_ESCRICAO_SENSOR: 'http://ec2-54-209-127-107.compute-1.amazonaws.com:8080/caixas/v1/caixa/descricao/',
+  API_DESCRICAO_SENSOR: 'http://ec2-54-209-127-107.compute-1.amazonaws.com:8080/caixas/v1/caixa/descricao/',
+  API_STATUS_SENSOR: 'http://ec2-54-209-127-107.compute-1.amazonaws.com:8080/caixas/v1/caixa/fluxativo/',
 };
 
